@@ -67,14 +67,14 @@
 <summary>  <strong> Week 2 </strong> </summary>
 <br>
   
-- MyCalendar Tab
-- Create/Join Groups Feature
-- View Synced Calendar for Each Group
-- Schedule Event Feature
-- Harmoni Algorithm
-- Interactive Poll
-- Do Not Disturb Type Feature (shows others you're currently unavailable)
-- Harmoni automatically adds events to all group members’ calendars once time is confirmed.
+- Frontend:
+  - Finish Figma Design and Prototype by the end of week
+  - Learn React Native
+- Backend:
+Start looking into the API’s
+Set up User Authentication
+Set up Database
+
   
 </details>
 
