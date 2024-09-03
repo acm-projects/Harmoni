@@ -35,7 +35,43 @@
 
 ## Milestones 
 <details open>
-<summary>  <strong> Week 1: Setup </strong> </summary>
+<summary>  <strong> Week 1 </strong> </summary>
+<br>
+Well, you asked for it!
+</details>
+
+<details open>
+<summary>  <strong> Week 2 </strong> </summary>
+<br>
+Well, you asked for it!
+</details>
+
+<details open>
+<summary>  <strong> Week 3/4 </strong> </summary>
+<br>
+Well, you asked for it!
+</details>
+
+<details open>
+<summary>  <strong> Week 5/6 </strong> </summary>
+<br>
+Well, you asked for it!
+</details>
+
+<details open>
+<summary>  <strong> Week 7 </strong> </summary>
+<br>
+Well, you asked for it!
+</details>
+
+<details open>
+<summary>  <strong> Week 8 </strong> </summary>
+<br>
+Well, you asked for it!
+</details>
+
+<details open>
+<summary>  <strong> Week 9/10 </strong> </summary>
 <br>
 Well, you asked for it!
 </details>
