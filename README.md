@@ -35,7 +35,7 @@
 
 ## Milestones 
 <details open>
-<summary> **Week 1** </summary>
+<summary> <strong>Week 1</strong> </summary>
 <br>
 Well, you asked for it!
 </details>
