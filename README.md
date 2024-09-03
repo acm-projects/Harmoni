@@ -29,7 +29,13 @@
 - Chatbot where you can ask about hangout ideas
 - Expand to other Calendars like Outlook, etc.
 - Make calendars searchable with Amazon Kendra.
-- Place for shared documents or plan creation 
+- Place for shared documents or plan creation
+
+<details open>
+<summary>Want to ruin the surprise?</summary>
+<br>
+Well, you asked for it!
+</details>
 
 
 ## Milestones 
