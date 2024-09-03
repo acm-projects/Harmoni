@@ -37,7 +37,13 @@
 <details closed>
 <summary>  <strong> Week 1 </strong> </summary>
 <br>
-Well, you asked for it!
+- Decide frontend/backend teams
+- Finalize tech stack
+- Research/Learn Tech Stack
+- Environment Setup
+- Learn Git/Github
+- Begin App Design with Figma
+
 </details>
 
 <details open>
