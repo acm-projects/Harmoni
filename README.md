@@ -37,6 +37,7 @@
 <details closed>
 <summary>  <strong> Week 1 </strong> </summary>
 <br>
+  
 - MyCalendar Tab
 - Create/Join Groups Feature
 - View Synced Calendar for Each Group
@@ -45,6 +46,23 @@
 - Interactive Poll
 - Do Not Disturb Type Feature (shows others you're currently unavailable)
 - Harmoni automatically adds events to all group members’ calendars once time is confirmed.
+
+</details>
+
+<details closed>
+<summary><strong>Week 1</strong></summary>
+<br>
+
+<ul>
+  <li>MyCalendar Tab</li>
+  <li>Create/Join Groups Feature</li>
+  <li>View Synced Calendar for Each Group</li>
+  <li>Schedule Event Feature</li>
+  <li>Harmoni Algorithm</li>
+  <li>Interactive Poll</li>
+  <li>Do Not Disturb Type Feature (shows others you're currently unavailable)</li>
+  <li>Harmoni automatically adds events to all group members’ calendars once time is confirmed.</li>
+</ul>
 
 </details>
 
