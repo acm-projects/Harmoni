@@ -103,11 +103,8 @@ General Use
 
 ## Developers‼️‼️ 
 Mathew Biji
-
 Kartik Joshi
-
 Muhd Haque
-
 Leo dos Remedios
 
 Kanchan Javalkar - *Project Manager*  
