@@ -54,14 +54,12 @@
 <br>
 
 <ul>
-  <li>MyCalendar Tab</li>
-  <li>Create/Join Groups Feature</li>
-  <li>View Synced Calendar for Each Group</li>
-  <li>Schedule Event Feature</li>
-  <li>Harmoni Algorithm</li>
-  <li>Interactive Poll</li>
-  <li>Do Not Disturb Type Feature (shows others you're currently unavailable)</li>
-  <li>Harmoni automatically adds events to all group members’ calendars once time is confirmed.</li>
+  <li>Decide frontend/backend teams</li>
+  <li>Finalize tech stack</li>
+  <li>Research/Learn Tech Stack</li>
+  <li>Environment Setup</li>
+  <li>Learn Git/Github</li>
+  <li>Begin App Design with Figma</li>
 </ul>
 
 </details>
