@@ -71,9 +71,9 @@
   - Finish Figma Design and Prototype by the end of week
   - Learn React Native
 - Backend:
-Start looking into the API’s
-Set up User Authentication
-Set up Database
+  - Start looking into the API’s
+  - Set up User Authentication
+  - Set up Database
 
   
 </details>
@@ -81,13 +81,43 @@ Set up Database
 <details open>
 <summary>  <strong> Week 3/4 </strong> </summary>
 <br>
-Well, you asked for it!
+  
+- Frontend:
+  - Login/Sign Up Pages
+  - Home Page
+  - MyCalendar/Connect Calendar Page
+  - Shows schedule for current week
+  - Groups page
+- Backend:
+  - Integrate Google Calendar API to display schedule in app
+  - Develop Group Feature 
+  - Create groups, Join groups
+  - Start looking into how to find free time slots/developing algorithm idea
+
 </details>
 
 <details open>
 <summary>  <strong> Week 5/6 </strong> </summary>
 <br>
-Well, you asked for it!
+  
+- Start Integrating finished backend features with finished frontend pages (Groups, User Auth) 
+- Frontend
+  - Groups Page
+    - Display all groups the user is in, including individual people the user has synced calendars with
+  - Individual Groups Page
+    - Shows synced calendar + each member and their calendar
+    - Would hide specific events, just show blocks of when time is occupied
+    - Shows Poll if applicable
+  - Schedule Meetup Page
+    - Can either pick a date range or find next best time
+    - If picking date range, will find all free slots and generate a poll
+  - Poll Page
+    - Shows all free time slots, anonymously vote
+- Backend
+  - Sync events on calendar based on free time slots
+  - Research how to incorporate academic deadlines into syncing and implement
+  - Poll feature
+
 </details>
 
 <details open>
