@@ -10,19 +10,26 @@
 
 
 ## MVP
-- User Account
-- Record speech
-- Analyze tone using sentiment analysis
-- Analyze pace using WPM algorithm
-- Count filler words
-- AI generated interview questions based on job description
+- MyCalendar Tab
+- Create/Join Groups Feature
+- View Synced Calendar for Each Group
+- Schedule Event Feature
+- Harmoni Algorithm
+- Interactive Poll
+- Do Not Disturb Type Feature (shows others you're currently unavailable)
+- Harmoni automatically adds events to all group members’ calendars once time is confirmed.
 
 ## Stretch Goals 
-- Daily challenges to reinforce speaking skills
-- Social Aspect (sharing stats such as number of filler words)
-- Analyze additional aspects of speech or interview responses (clarity, emotion, etc.)
-- Display statistics related to speech improvement (how the amount of filler words changes, etc.)
-- Give tips on how to improve speech based on analysis 
+- Notifications
+- QR Code to efficiently connect calendars with someone.
+- Chat feature for each group
+- Feature that shows which group members/friends are currently available
+- Voice Activated Scheduling with Amazon Lex
+- Schedule Tasks through app that will automatically add to group members’ calendars
+- Chatbot where you can ask about hangout ideas
+- Expand to other Calendars like Outlook, etc.
+- Make calendars searchable with Amazon Kendra.
+- Place for shared documents or plan creation 
 
 
 ## Milestones 
