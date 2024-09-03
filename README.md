@@ -31,23 +31,15 @@
 - Make calendars searchable with Amazon Kendra.
 - Place for shared documents or plan creation
 
+
+
+## Milestones 
 <details open>
-<summary>Want to ruin the surprise?</summary>
+<summary> Week 1 </summary>
 <br>
 Well, you asked for it!
 </details>
 
-
-## Milestones 
-|Week| Deliverables/Tasks |
-|--|--|
-| 1 | Meet team, assign frontend/backend, setup development environment, decide on app design |
-| 2 | Finalize vision for the app, learn basics of Flutter/Dart, *Front end:* plan pages and create wireframes & code initial screens, *Back end:* Set up Google Firebase, begin coding user auth |
-| 3 & 4 | *Front end:* 50% of pages, *Back end:* finish user authentication, implement speech-to-text API, begin sentiment analysis feature |
-| 5 & 6 | *Front end:* 75% of pages, *Back-end:* finish sentiment analysis, create algorithm to find WPM, feature to count filler words|
-| 7 & 8 | *Front end:* finish all pages, *Back end:* finish speech analysis features, work on AI generated Interview questions| 
-| 9 & 10 | Finish integrating all features, prepare slides and presentation, get app presentation ready |
-| 11 | Presentation Night ‼️‼️|
 
 ## Tech Stack 
 Wireframing: [Figma](https://www.figma.com/)  
