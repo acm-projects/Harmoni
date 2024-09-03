@@ -67,7 +67,16 @@
 <details open>
 <summary>  <strong> Week 2 </strong> </summary>
 <br>
-Well, you asked for it!
+  
+- MyCalendar Tab
+- Create/Join Groups Feature
+- View Synced Calendar for Each Group
+- Schedule Event Feature
+- Harmoni Algorithm
+- Interactive Poll
+- Do Not Disturb Type Feature (shows others you're currently unavailable)
+- Harmoni automatically adds events to all group members’ calendars once time is confirmed.
+  
 </details>
 
 <details open>
