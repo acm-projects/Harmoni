@@ -38,14 +38,13 @@
 <summary>  <strong> Week 1 </strong> </summary>
 <br>
   
-- MyCalendar Tab
-- Create/Join Groups Feature
-- View Synced Calendar for Each Group
-- Schedule Event Feature
-- Harmoni Algorithm
-- Interactive Poll
-- Do Not Disturb Type Feature (shows others you're currently unavailable)
-- Harmoni automatically adds events to all group members’ calendars once time is confirmed.
+- Decide frontend/backend teams
+- Finalize tech stack
+- Research/Learn Tech Stack
+- Environment Setup
+- Learn Git/Github
+- Begin App Design with Figma
+
 
 </details>
 
