@@ -35,7 +35,7 @@
 
 ## Milestones 
 <details open>
-<summary> <strong> Week 1: Setup </strong> </summary>
+<summary>  <strong> Week 1: Setup </strong> </summary>
 <br>
 Well, you asked for it!
 </details>
