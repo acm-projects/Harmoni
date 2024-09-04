@@ -256,10 +256,7 @@ General Use
 | git pull origin "branch" | Pull updates from a specific branch |
 
 ## Developers‼️‼️ 
-Mathew Biji
-Kartik Joshi
-Muhd Haque
-Leo dos Remedios
+Mathew Biji                                                                  Kartik Joshi                                                                   Muhd Haque                                                                      Leo dos Remedios
 
 Kanchan Javalkar - *Project Manager*  
 Nirranjan Akilan - *Industry Mentor*
