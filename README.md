@@ -143,15 +143,15 @@
 
 ## Tech Stack 💻
 
-IDE: VSCode                                                                        
-Emulator: XCode or Android Studio                                                  
-Wireframe: Figma
+<strong> IDE: </strong> VSCode                                                                        
+<strong> Emulator: </strong> XCode or Android Studio                                                  
+<strong> Wireframe: </strong> Figma
 
-1st Choice Stack: MERN
+<strong> 1st Choice Stack: MERN </strong> 
 - Frontend: React Native
 - Backend: MongoDB + Express + Node.js
 
-Backup: Flutter
+<strong> Backup: Flutter </strong>  
 - Frontend: Flutter
 - Backend: Firebase + Dart
 
