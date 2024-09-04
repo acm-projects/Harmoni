@@ -63,7 +63,7 @@
 
 </details>
 
-<details open>
+<details closed>
 <summary>  <strong> Week 2 </strong> </summary>
 <br>
   
@@ -78,7 +78,7 @@
   
 </details>
 
-<details open>
+<details closed>
 <summary>  <strong> Week 3/4 </strong> </summary>
 <br>
   
@@ -96,7 +96,7 @@
 
 </details>
 
-<details open>
+<details closed>
 <summary>  <strong> Week 5/6 </strong> </summary>
 <br>
   
@@ -120,9 +120,10 @@
 
 </details>
 
-<details open>
+<details closed>
 <summary>  <strong> Week 7 </strong> </summary>
 <br>
+  
 - Integrate finished backend features with finished frontend pages
 - Finish all features
 - Work on stretch goals if possible
@@ -134,7 +135,7 @@
 
 </details>
 
-<details open>
+<details closed>
 <summary>  <strong> Week 8 </strong> </summary>
 <br>
   
@@ -145,9 +146,10 @@
 
 </details>
 
-<details open>
+<details closed>
 <summary>  <strong> Week 9/10 </strong> </summary>
 <br>
+  
 - Prep for Presentation Night
 - Finish Slides + Script + Demo
 
