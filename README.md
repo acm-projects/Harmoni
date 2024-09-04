@@ -4,6 +4,8 @@
   <img src="https://github.com/acm-projects/SpeakWise/assets/112922432/463d7323-d94d-4dad-ad6b-39a99ba1cde9" alt="animated" />
 </p>
 
+<iframe src="https://giphy.com/embed/l0ErH72HBgjl3WhtS" width="480" height="362" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/gilmoregirls-netflix-gilmore-girls-l0ErH72HBgjl3WhtS">via GIPHY</a></p>
+
 <h1 align="center"> Harmoni 📆 </h1>
 
 <div align="center"> Struggling to coordinate group projects or social plans with busy friends/family, especially when exams and deadlines seem to always get in the way? Meet Harmoni, your ultimate scheduling companion designed just for college students. Harmoni takes the hassle out of planning by syncing all your group members’ calendars into one unified view. It smartly identifies free time slots that work for everyone, while carefully avoiding clashes with exams and critical deadlines on your academic calendar. The app then creates a poll with these optimal time slots. Once the group votes on the best time, Harmoni automatically confirms the meeting and adds it to everyone’s calendars, complete with a notification. With Harmoni, group scheduling becomes effortless and efficient. </div>
