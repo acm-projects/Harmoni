@@ -158,7 +158,7 @@ Backup: Flutter
  
 ## Helpful Resources/Tutorials 
 
-React Native
+## React Native
 - [React Native Basics](https://reactnative.dev/docs/tutorial?language=javascript)
 - [Environment Setup](https://reactnative.dev/docs/environment-setup)
 - [Environment Setup with Expo](https://docs.expo.dev/router/installation/)
@@ -166,6 +166,14 @@ React Native
     - [Build Full Stack App in React Native](https://www.youtube.com/watch?v=eYByUtXQbEo)
     - [React Native Course](https://www.youtube.com/watch?v=ZBCUegTZF7M&t=1396s)
     - [React Native Tutorial](https://www.youtube.com/watch?v=6ZnfsJ6mM5c)
+ 
+## Flutter
+- [Documentation](https://docs.flutter.dev/)
+- [Install Flutter on Mac](https://www.youtube.com/watch?v=KdO9B_CZmzo)
+- [Install Flutter on Windows](https://www.youtube.com/watch?v=DvZuJeTHWaw)
+- [Intro to Flutter/Dart](https://www.youtube.com/watch?v=CzRQ9mnmh44)
+- [Flutter + Firebase](https://www.youtube.com/watch?v=0RWLaJxW7Oc)
+
 
 
 
