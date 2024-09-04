@@ -189,25 +189,33 @@ Backup: Flutter
 - [Login Register Authentication in React Native with Node JS, Express JS and Mongo DB](https://www.youtube.com/watch?v=p-YhMj1XHzs)
 
 
+<strong> APIs: </strong>
+- [Fetching Data from an API in React Native](https://www.youtube.com/watch?v=KJhg761xb3c)
+- [React Native Tutorial - POST Request](https://www.youtube.com/watch?v=BecN2PxyR_0)
+- [React Native tutorial - API Call](https://www.youtube.com/watch?v=NuKQk7nbk0k) 
+- [Google Calendar API with Node.js](https://www.youtube.com/watch?v=2byT7fYT8UE)
+- [Postman Tutorial](https://www.youtube.com/watch?v=MFxk5BZulVU)
+- [RapidAPI](https://rapidapi.com/search/restaurants)
+- [Google Cloud Natural Language API](https://cloud.google.com/natural-language)
 
-Installation & Set Up:  
-[Flutter Installation for Mac OS](https://www.youtube.com/watch?v=fzAg7lOWqVE)  
-[Flutter Installation for Windows](https://www.youtube.com/watch?v=fDnqXmLSqtg)  
-[Firebase w/ Flutter Set Up](https://www.youtube.com/watch?v=EXp0gq9kGxI&t=15s)  
-[Install VSCode](https://code.visualstudio.com/) 
+<strong> Other Technologies for Finding Free Time Slots: </strong>
+- [GraphQL Course for Beginners](https://www.youtube.com/watch?v=5199E50O7SI)
+- [GraphQL With React Tutorial - Apollo Client](https://www.youtube.com/watch?v=YyUWW04HwKY)
+- [date-fns](https://www.youtube.com/watch?v=9YZIQAmgD0o)
+- [AWS Lambda](https://www.youtube.com/watch?v=UsaiOEFdfs0)
+- [Associating a Lambda function to your Amazon Lex v2 bot](https://www.youtube.com/watch?v=57ZqpzHtQX4) 
+- [Amazon Lex: Validate Slot data with Lambda](https://www.youtube.com/watch?v=1xRl8Ipa018)
 
-Tutorials:  
-[Flutter/Dart Intro (helpful for frontend)](https://www.youtube.com/playlist?list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ)       
-[Flutter/Dart Intro (helpful for backend)](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC)                                                                                                                                             
+<strong> Optional/Stretch Goals: </strong>
+- [Amazon Kendra: Search Calendars](https://www.youtube.com/watch?v=Yo9YQCGG5zM)
+- [Amazon Lex: Voice Activated Scheduling](https://www.youtube.com/watch?v=3AZ1n2oHtEI)
 
-[Flutter Documentation](https://docs.flutter.dev/)                                             
-[Adding Firebase to Flutter App](https://firebase.google.com/docs/flutter/setup?platform=ios)  
-[Firebase Documentation](https://firebase.google.com/docs)                                     
-[Figma Tutorial](https://www.youtube.com/watch?v=FTFaQWZBqQ8)  
-[Dart Tutorial](https://www.youtube.com/watch?v=veMhOYRib9o&t=812s)  
+
+
+
+Git Cheat Sheets:      
 [Git Tutorial](https://www.youtube.com/watch?v=USjZcfj8yxE)  
 
-Git Cheat Sheets:                                                                                                                                                                                                               
 [Git Cheat Sheet 1](https://education.github.com/git-cheat-sheet-education.pdf)                                                                                                                                                 
 [Git Cheat Sheet 2](https://drive.google.com/file/d/1OddwoSvNJ3dQuEBw3RERieMXmOicif9_/view)  
 
