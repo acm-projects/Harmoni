@@ -142,11 +142,33 @@
 
 
 ## Tech Stack 
-Wireframing: [Figma](https://www.figma.com/)  
-Front-end: [Flutter](https://docs.flutter.dev/get-started/install)   
-Back-end: Dart & [Firebase](https://firebase.google.com/)   
+
+IDE: VSCode
+Emulator: XCode or Android Studio
+Wireframe: [Figma](https://www.figma.com/) 
+
+1st Choice Stack: MERN
+- Frontend: React Native
+- Backend: MongoDB + Express + Node.js
+
+Backup: Flutter
+- Frontend: Flutter
+- Backend: Firebase + Dart
+
  
 ## Helpful Resources/Tutorials 
+
+React Native
+[React Native Basics](https://reactnative.dev/docs/tutorial?language=javascript)
+[Environment Setup](https://reactnative.dev/docs/environment-setup)
+[Environment Setup with Expo](https://docs.expo.dev/router/installation/)
+https://www.youtube.com/watch?v=eYByUtXQbEo
+https://www.youtube.com/watch?v=ZBCUegTZF7M&t=1396s
+https://www.youtube.com/watch?v=6ZnfsJ6mM5c
+
+
+
+
 Installation & Set Up:  
 [Flutter Installation for Mac OS](https://www.youtube.com/watch?v=fzAg7lOWqVE)  
 [Flutter Installation for Windows](https://www.youtube.com/watch?v=fDnqXmLSqtg)  
