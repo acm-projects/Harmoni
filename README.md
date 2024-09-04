@@ -35,7 +35,7 @@
 
 ## Milestones 
 <details closed>
-<summary>  <strong> Week 1 </strong> </summary>
+<summary>  <strong> Week 1: Setup </strong> </summary>
 <br>
   
 - Decide frontend/backend teams
@@ -49,7 +49,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 2 </strong> </summary>
+<summary>  <strong> Week 2: More Preparation </strong> </summary>
 <br>
   
 - Frontend:
@@ -64,7 +64,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 3/4 </strong> </summary>
+<summary>  <strong> Week 3/4: Coding </strong> </summary>
 <br>
   
 - Frontend:
@@ -82,7 +82,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 5/6 </strong> </summary>
+<summary>  <strong> Week 5/6: Middle Stretch </strong> </summary>
 <br>
   
 - Start Integrating finished backend features with finished frontend pages (Groups, User Auth) 
@@ -106,7 +106,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 7 </strong> </summary>
+<summary>  <strong> Week 7: Almost There </strong> </summary>
 <br>
   
 - Integrate finished backend features with finished frontend pages
@@ -121,7 +121,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 8 </strong> </summary>
+<summary>  <strong> Week 8: Wrapping Up </strong> </summary>
 <br>
   
 - Finish backend/frontend integration
@@ -132,7 +132,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 9/10 </strong> </summary>
+<summary>  <strong> Week 9/10: Presentation Prep </strong> </summary>
 <br>
   
 - Prep for Presentation Night
