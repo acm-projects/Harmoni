@@ -143,9 +143,9 @@
 
 ## Tech Stack 
 
-IDE: VSCode
-Emulator: XCode or Android Studio
-Wireframe: [Figma](https://www.figma.com/) 
+IDE: VSCode                                                                        
+Emulator: XCode or Android Studio                                                  
+Wireframe: Figma
 
 1st Choice Stack: MERN
 - Frontend: React Native
