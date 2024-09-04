@@ -1,8 +1,9 @@
 
 
 <p align="center">
-  <img src="https://github.com/acm-projects/SpeakWise/assets/112922432/463d7323-d94d-4dad-ad6b-39a99ba1cde9" alt="animated" />
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3dsdGVncGdmenR0a3JydG5wY2IwdzN4eDFhczY0bWthcWFmMTh3NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0ErH72HBgjl3WhtS/giphy.webp" alt="animated" />
 </p>
+
 
 <iframe src="https://giphy.com/embed/l0ErH72HBgjl3WhtS" width="480" height="362" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/gilmoregirls-netflix-gilmore-girls-l0ErH72HBgjl3WhtS">via GIPHY</a></p>
 
