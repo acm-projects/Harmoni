@@ -162,10 +162,9 @@ Backup: Flutter
 - [React Native Basics](https://reactnative.dev/docs/tutorial?language=javascript)
 - [Environment Setup](https://reactnative.dev/docs/environment-setup)
 - [Environment Setup with Expo](https://docs.expo.dev/router/installation/)
-- Youtube Tutorials
-    - [Build Full Stack App in React Native](https://www.youtube.com/watch?v=eYByUtXQbEo)
-    - [React Native Course](https://www.youtube.com/watch?v=ZBCUegTZF7M&t=1396s)
-    - [React Native Tutorial](https://www.youtube.com/watch?v=6ZnfsJ6mM5c)
+- [Build Full Stack App in React Native](https://www.youtube.com/watch?v=eYByUtXQbEo)
+- [React Native Course](https://www.youtube.com/watch?v=ZBCUegTZF7M&t=1396s)
+- [React Native Tutorial](https://www.youtube.com/watch?v=6ZnfsJ6mM5c)
  
 <strong> Flutter: </strong>
 - [Documentation](https://docs.flutter.dev/)
@@ -175,9 +174,19 @@ Backup: Flutter
 - [Flutter + Firebase](https://www.youtube.com/watch?v=0RWLaJxW7Oc)
 
 
+<strong> XCode: </strong>
+- [Install IOS Simulator](https://www.youtube.com/watch?v=Ws-wnDywtMI)
+  
+<strong> Android Studio: </strong>
+- [Install on Mac](https://www.youtube.com/watch?v=8ILww0tUSxw)
+- [Install on Windows](https://www.youtube.com/watch?v=fxSKQPG37IA)
 
-
-
+<strong> MERN Stack Backend: </strong>
+- [Node + Express](https://www.youtube.com/watch?v=P5QbE9aRCLQ&list=PLaAoUJDWH9WrPXMOkqHHsPHxbhvRDqryM)
+- [MongoDB tutorial for beginners](https://www.youtube.com/watch?v=6DoLxeMlVTI) 
+- [What is MongoDB?](https://www.youtube.com/watch?v=ExcRbA7fy_A&list=PL4cUxeGkcC9h77dJ-QJlwGlZlTd4ecZOA)
+- [Mastering Authentication in React Native](https://www.youtube.com/watch?v=tsvZFNgoXy0)
+- [Login Register Authentication in React Native with Node JS, Express JS and Mongo DB](https://www.youtube.com/watch?v=p-YhMj1XHzs)
 
 
 
