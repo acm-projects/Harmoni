@@ -159,12 +159,16 @@ Backup: Flutter
 ## Helpful Resources/Tutorials 
 
 React Native
-[React Native Basics](https://reactnative.dev/docs/tutorial?language=javascript)
-[Environment Setup](https://reactnative.dev/docs/environment-setup)
-[Environment Setup with Expo](https://docs.expo.dev/router/installation/)
-https://www.youtube.com/watch?v=eYByUtXQbEo
-https://www.youtube.com/watch?v=ZBCUegTZF7M&t=1396s
-https://www.youtube.com/watch?v=6ZnfsJ6mM5c
+- [React Native Basics](https://reactnative.dev/docs/tutorial?language=javascript)
+- [Environment Setup](https://reactnative.dev/docs/environment-setup)
+- [Environment Setup with Expo](https://docs.expo.dev/router/installation/)
+- Youtube Tutorials
+    - [Build Full Stack App in React Native](https://www.youtube.com/watch?v=eYByUtXQbEo)
+    - [React Native Course](https://www.youtube.com/watch?v=ZBCUegTZF7M&t=1396s)
+    - [React Native Tutorial](https://www.youtube.com/watch?v=6ZnfsJ6mM5c)
+
+
+
 
 
 
