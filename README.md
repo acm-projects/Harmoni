@@ -9,7 +9,7 @@
 <div align="center"> Struggling to coordinate group projects or social plans with busy friends/family, especially when exams and deadlines seem to always get in the way? Meet Harmoni, your ultimate scheduling companion designed just for college students. Harmoni takes the hassle out of planning by syncing all your group members’ calendars into one unified view. It smartly identifies free time slots that work for everyone, while carefully avoiding clashes with exams and critical deadlines on your academic calendar. The app then creates a poll with these optimal time slots. Once the group votes on the best time, Harmoni automatically confirms the meeting and adds it to everyone’s calendars, complete with a notification. With Harmoni, group scheduling becomes effortless and efficient. </div>
 
 
-## MVP
+## MVP 🏆
 - MyCalendar Tab
 - Create/Join Groups Feature
 - View Synced Calendar for Each Group
@@ -19,7 +19,7 @@
 - Do Not Disturb Type Feature (shows others you're currently unavailable)
 - Harmoni automatically adds events to all group members’ calendars once time is confirmed.
 
-## Stretch Goals 
+## Stretch Goals 🌟
 - Notifications
 - QR Code to efficiently connect calendars with someone.
 - Chat feature for each group
@@ -33,7 +33,7 @@
 
 
 
-## Milestones 
+## Milestones ☀️
 <details closed>
 <summary>  <strong> Week 1: Setup 🌅 </strong> </summary>
 <br>
@@ -141,7 +141,7 @@
 </details>
 
 
-## Tech Stack 
+## Tech Stack 💻
 
 IDE: VSCode                                                                        
 Emulator: XCode or Android Studio                                                  
@@ -156,7 +156,7 @@ Backup: Flutter
 - Backend: Firebase + Dart
 
  
-## Helpful Resources/Tutorials 
+## Helpful Resources/Tutorials 🔎
 
  <strong> React Native: </strong>
 - [React Native Basics](https://reactnative.dev/docs/tutorial?language=javascript)
