@@ -35,7 +35,7 @@
 
 ## Milestones 
 <details closed>
-<summary>  <strong> Week 1: Setup </strong> </summary>
+<summary>  <strong> Week 1: Setup 🌅 </strong> </summary>
 <br>
   
 - Decide frontend/backend teams
@@ -49,7 +49,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 2: More Preparation </strong> </summary>
+<summary>  <strong> Week 2: More Preparation 💡 </strong> </summary>
 <br>
   
 - Frontend:
@@ -64,7 +64,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 3/4: Coding </strong> </summary>
+<summary>  <strong> Week 3/4: Coding ⚙️ </strong> </summary>
 <br>
   
 - Frontend:
@@ -82,7 +82,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 5/6: Middle Stretch </strong> </summary>
+<summary>  <strong> Week 5/6: Middle Stretch 💫 </strong> </summary>
 <br>
   
 - Start Integrating finished backend features with finished frontend pages (Groups, User Auth) 
@@ -106,7 +106,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 7: Almost There </strong> </summary>
+<summary>  <strong> Week 7: Almost There ⏳ </strong> </summary>
 <br>
   
 - Integrate finished backend features with finished frontend pages
@@ -121,7 +121,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 8: Wrapping Up </strong> </summary>
+<summary>  <strong> Week 8: Wrapping Up 🌙 </strong> </summary>
 <br>
   
 - Finish backend/frontend integration
@@ -132,7 +132,7 @@
 </details>
 
 <details closed>
-<summary>  <strong> Week 9/10: Presentation Prep </strong> </summary>
+<summary>  <strong> Week 9/10: Presentation Prep 🎬 </strong> </summary>
 <br>
   
 - Prep for Presentation Night
@@ -221,23 +221,22 @@ Backup: Flutter
 
 
 Git Cheat Sheets:      
-[Git Cheat Sheet 1](https://education.github.com/git-cheat-sheet-education.pdf)                                                                                                                                                
-[Git Cheat Sheet 2](https://drive.google.com/file/d/1OddwoSvNJ3dQuEBw3RERieMXmOicif9_/view)  
+- [Git Cheat Sheet 1](https://education.github.com/git-cheat-sheet-education.pdf)                                                                                                                                                
+- [Git Cheat Sheet 2](https://drive.google.com/file/d/1OddwoSvNJ3dQuEBw3RERieMXmOicif9_/view)  
 
 Resources for Design:    
-[Best App Design](https://dribbble.com/tags/best-app-design) - copy and paste link if it takes you to forbidden                                                                                                                 
-[Dribble](https://dribbble.com/)  - copy and paste link if it takes you to forbidden                                                                                                                                            
-[Color Palettes](https://www.canva.com/colors/color-palettes/)                                                                                                                                                                  
-[More Color Palettes](https://colorhunt.co/)                                                                                                                                                                                    
-[Do's and Don'ts of Mobile App Design](https://realmonkey.co/mobile-app-design/the-dos-and-donts-of-mobile-app-design/)
+- [Best App Design](https://dribbble.com/tags/best-app-design) - copy and paste link if it takes you to forbidden                                                                                                                 
+- [Dribble](https://dribbble.com/)  - copy and paste link if it takes you to forbidden                                                                                                                                            
+- [Color Palettes](https://www.canva.com/colors/color-palettes/)                                                                                                                                                                  
+- [More Color Palettes](https://colorhunt.co/)                                                                                                                                                                                    
+- [Do's and Don'ts of Mobile App Design](https://realmonkey.co/mobile-app-design/the-dos-and-donts-of-mobile-app-design/)
 
 
 
 Other Resources:           
-[Git Tutorial](https://www.youtube.com/watch?v=USjZcfj8yxE)  
-[Figma](https://www.figma.com/files/project/81846282/Team-project?fuid=1155168864304822849)                                                                                                                                     
-[Helpful Vids Playlist](https://youtube.com/playlist?list=PLKjOhYfrGFCatnsBMIHOX0JVfcVbSZWSW&si=2M_sZDABO2NeyfB)
-[How to be Successful in Projects](https://docs.google.com/document/d/18Zi3DrKG5e6g5Bojr8iqxIu6VIGl86YBSFlsnJnlM88/edit)
+- [Git Tutorial](https://www.youtube.com/watch?v=USjZcfj8yxE)  
+- [Figma](https://www.figma.com/files/project/81846282/Team-project?fuid=1155168864304822849)                                                                                              
+- [How to be Successful in Projects](https://docs.google.com/document/d/18Zi3DrKG5e6g5Bojr8iqxIu6VIGl86YBSFlsnJnlM88/edit)
 
 ## GitHub Cheat Sheet ⚡️
 
