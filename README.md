@@ -49,21 +49,6 @@
 </details>
 
 <details closed>
-<summary><strong>Week 1</strong></summary>
-<br>
-
-<ul>
-  <li>Decide frontend/backend teams</li>
-  <li>Finalize tech stack</li>
-  <li>Research/Learn Tech Stack</li>
-  <li>Environment Setup</li>
-  <li>Learn Git/Github</li>
-  <li>Begin App Design with Figma</li>
-</ul>
-
-</details>
-
-<details closed>
 <summary>  <strong> Week 2 </strong> </summary>
 <br>
   
