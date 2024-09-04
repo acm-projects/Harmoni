@@ -123,19 +123,34 @@
 <details open>
 <summary>  <strong> Week 7 </strong> </summary>
 <br>
-Well, you asked for it!
+- Integrate finished backend features with finished frontend pages
+- Finish all features
+- Work on stretch goals if possible
+- Frontend
+  - Finish all pages
+- Backend
+  - Feature to add scheduled events to all group members’ calendars
+  - Poll feature
+
 </details>
 
 <details open>
 <summary>  <strong> Week 8 </strong> </summary>
 <br>
-Well, you asked for it!
+  
+- Finish backend/frontend integration
+- Add finishing touches
+- Finish stretch goals if possible
+- Begin work on presentation 
+
 </details>
 
 <details open>
 <summary>  <strong> Week 9/10 </strong> </summary>
 <br>
-Well, you asked for it!
+- Prep for Presentation Night
+- Finish Slides + Script + Demo
+
 </details>
 
 
