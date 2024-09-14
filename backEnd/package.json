@@ -4,7 +4,7 @@
   "description": "calendar scheduling app",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/acm-projects/Harmoni#readme",
   "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "nodemon": "^3.1.4"
   }
 }
