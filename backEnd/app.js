@@ -35,15 +35,45 @@ app.post('/signUp', async (req,res) => {
     });
     console.log(req.body)
     console.log(firstNameinp);
+    // const mail = "muhd.ayman.haaque@gmail.com"
+    // const checkMail = await User.findOne({email: mail});
+    // if(!checkMail) {
+    //     console.log("Email does not exist bruh");
+    // }
     
     await user.save();
     res.json(user)
     }
     catch(error) {
-        if(error)
-            console.log( error + "Email already exists");
+        if(error){
+            console.log( "Duplicate Email error");
+            res.status(500).json({ message: 'Email already exists' });
+        }
     }
 })
+
+app.post('/login', async (req,res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    try {
+        // const {email, password} = req.body;
+        const emailLogin = await User.findOne({email: email});
+        console.log(emailLogin);
+        if (!emailLogin) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+          }
+        
+        const passwordLogin = await User.findOne({password: password});
+        if (!passwordLogin) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+          }
+        res.json({ message: 'Login successful' });
+    }
+    catch{
+        console.error("Error during login: " + error);
+        res.status(500).json({ message: 'Internal server error' });
+    }})
+
 
 app.get('/', (req,res) => {
     res.send("Hello World!"); 
