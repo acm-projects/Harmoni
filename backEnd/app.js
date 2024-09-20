@@ -14,14 +14,35 @@ const User = require('./models/user');
 
 
 app.post('/signUp', async (req,res) => {
+    try {
+    // const user = await User({
+    //     firstName: "John",
+    //     lastName: "Doe",
+    //     email: "John@Doeil.com",
+    //     password: "JohnDoePassword",
+    // })
+    // const {firstNameinp, lastNameinp, emailinp, passwordinp} = req.body;
+    const firstNameinp = req.body.firstName;
+    const lastNameinp = req.body.lastName;
+    const emailinp = req.body.email;
+    const passwordinp = req.body.password;
+
     const user = await User({
-        firstName: "John",
-        lastName: "Doe",
-        email: "John@Doemail.com",
-        password: "JohnDoePassword",
-    })
+        firstName: firstNameinp,
+        lastName: lastNameinp,
+        email: emailinp,
+        password: passwordinp
+    });
+    console.log(req.body)
+    console.log(firstNameinp);
+    
     await user.save();
-    res.json(user);
+    res.json(user)
+    }
+    catch(error) {
+        if(error)
+            console.log( error + "Email already exists");
+    }
 })
 
 app.get('/', (req,res) => {
