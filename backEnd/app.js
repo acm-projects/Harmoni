@@ -15,13 +15,7 @@ const User = require('./models/user');
 
 app.post('/signUp', async (req,res) => {
     try {
-    // const user = await User({
-    //     firstName: "John",
-    //     lastName: "Doe",
-    //     email: "John@Doeil.com",
-    //     password: "JohnDoePassword",
-    // })
-    // const {firstNameinp, lastNameinp, emailinp, passwordinp} = req.body;
+
     const firstNameinp = req.body.firstName;
     const lastNameinp = req.body.lastName;
     const emailinp = req.body.email;
@@ -35,14 +29,16 @@ app.post('/signUp', async (req,res) => {
     });
     console.log(req.body)
     console.log(firstNameinp);
-    // const mail = "muhd.ayman.haaque@gmail.com"
-    // const checkMail = await User.findOne({email: mail});
-    // if(!checkMail) {
-    //     console.log("Email does not exist bruh");
-    // }
+
     
+    if(User.findOne({email: emailinp})){
+        throw new Error("Email already exists");
+        console.log("THROW ERROR BRO")
+    }
+
     await user.save();
     res.json(user)
+
     }
     catch(error) {
         if(error){
@@ -56,7 +52,6 @@ app.post('/login', async (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
     try {
-        // const {email, password} = req.body;
         const emailLogin = await User.findOne({email: email});
         console.log(emailLogin);
         if (!emailLogin) {
