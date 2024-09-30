@@ -6,7 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 8000;
-const User = require('./models/user');
+const passport = require('passport');
 
 
 //These two lines are middleware
@@ -24,11 +24,15 @@ app.use('/', authRouter);
 
 
 
-
 //Test route to check if server is running
 app.get('/', (req,res) => {
-    res.send("Hello World!"); 
+    res.send("<a href = http://localhost:8000/auth/google>click here<a/>"); 
 })
+
+
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['email','profile'] })
+)
 
 
 
@@ -47,4 +51,3 @@ app.listen(port, () => {//http://localhost:8000
 
 
 //mongoPassword: JIOglWWCF4QRT3y4
-
