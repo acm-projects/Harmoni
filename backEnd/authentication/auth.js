@@ -10,7 +10,11 @@ dotenv.config();
 authRouter.post('/signUp', async (req,res) => {
     try {
 
-    const {firstNameinp, lastNameinp, emailinp, passwordinp} = req.body;
+    // const {firstNameinp, lastNameinp, emailinp, passwordinp} = req.body;
+    const firstNameinp = req.body.firstName;
+    const lastNameinp = req.body.lastName;
+    const emailinp = req.body.email;
+    const passwordinp = req.body.password;
 
     const user = await User({
         firstName: firstNameinp,
@@ -18,11 +22,10 @@ authRouter.post('/signUp', async (req,res) => {
         email: emailinp,
         password: passwordinp
     });
-    console.log(req.body)
-    console.log(firstNameinp);
-
-    
-    if(User.findOne({email: emailinp})){
+    console.log(req.body.email)
+    console.log("email.inp " + emailinp);
+    // await User.findOne({email: emailinp})
+    if(await User.findOne({email: emailinp})){
         console.log("Duplicate Email")
         res.status(500).json({ message: "Email already exists" });
         return;
@@ -43,17 +46,17 @@ authRouter.post('/signUp', async (req,res) => {
 authRouter.post('/login', async (req,res) => {
 
     const {email, password} = req.body;
-    console.log(req.body.email)
+    console.log("req.body.email " + email)
     try {
         const emailLogin = await User.findOne({email: email});
         console.log(emailLogin);
         if (!emailLogin) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid email' });
           }
         
         const passwordLogin = await User.findOne({password: password});
         if (!passwordLogin) {
-            return res.status(400).json({ message: 'Invalid email or password' });
+            return res.status(400).json({ message: 'Invalid password' });
           }
         res.json({ message: 'Login successful' });
     }
@@ -70,54 +73,30 @@ authRouter.post('/login', async (req,res) => {
 
 
 
-const passport = require('passport');   
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+// const passport = require('passport');   
+// const GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
 
-passport.use(new GoogleStrategy({
-    clientID:     process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:5173/TestHome",
-    passReqToCallback   : true
-},
-(request, accessToken, refreshToken, profile, done) => {
-    // try {
-    //     console.log("IS THIS WORKING??????")
-    //     // Check if user already exists in the database
-    //     let user = await User.findOne({ googleId: profile.id });
-        
-    //     if (user) {
-    //       // User already exists, pass the user to done
-    //       return done(null, user);
-    //     } else {
-    //       // If the user doesn't exist, create a new user
-    //       user = new User({
-    //         googleId: profile.id,
-    //         displayName: profile.displayName,
-    //         firstName: profile.name.givenName,
-    //         lastName: profile.name.familyName,
-    //         email: profile.emails[0].value,
-    //         image: profile.photos[0].value
-    //       });
-          
-    //       // Save the user to the database
-    //       await user.save();
-          
-    //       return done(null, user);
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     return done(error, null);
-    //   }
-    console.log("IS THIS WORKING??????")
-    }));
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     callbackURL: "http://localhost:8000/auth/google/callback",
+//     passReqToCallback: true,
+//   },
+//   function(request, accessToken, refreshToken, profile, done) {
+//     return done(null, profile);
+//   }));
 
-passport.serializeUser(function(user, done) {
-    done(null, user);
-  });
+// passport.serializeUser(function(user, done) {
+//     done(null, user);
+//   });
   
-  passport.deserializeUser(function(obj, done) {
-    done(null, obj);
-  });
+//   passport.deserializeUser(function(obj, done) {
+//     done(null, obj);
+//   });
+
+
+
+
 
 
 module.exports = authRouter;
