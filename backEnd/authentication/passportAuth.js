@@ -20,7 +20,7 @@ passport.use(new GoogleStrategy({
     });
     // console.log(req.body)
     // console.log(firstNameinp);
-    const emailCheck = User.findOne({email: emailinp})
+    const emailCheck = await User.findOne({email: emailinp})
     console.log(emailCheck);
     if((!(await User.findOne({email: emailinp})))){
         try{
