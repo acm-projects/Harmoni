@@ -1,6 +1,7 @@
 require('./models/dataBase')
 
 const authRouter = require('./authentication/auth');
+const groupRouter = require('./groups/createGroup');
 require('./authentication/passportAuth');
 const express = require('express');
 // const axios = require('axios');
@@ -9,6 +10,7 @@ const app = express();
 const port = 8000;
 const passport = require('passport');
 const session = require('express-session');
+const group = require('./models/group');
 
 
 
@@ -30,6 +32,8 @@ app.use(passport.session());
 
 //authRouter is a express.Router() object that contains all the routes for authentication and is connected to from app.js by the app.use() method
 app.use('/', authRouter);
+
+app.use('/', groupRouter);
 
 
 

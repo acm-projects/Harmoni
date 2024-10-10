@@ -72,32 +72,5 @@ authRouter.post('/login', async (req,res) => {
 
 
 
-
-// const passport = require('passport');   
-// const GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
-
-// passport.use(new GoogleStrategy({
-//     clientID: process.env.CLIENT_ID,
-//     clientSecret: process.env.CLIENT_SECRET,
-//     callbackURL: "http://localhost:8000/auth/google/callback",
-//     passReqToCallback: true,
-//   },
-//   function(request, accessToken, refreshToken, profile, done) {
-//     return done(null, profile);
-//   }));
-
-// passport.serializeUser(function(user, done) {
-//     done(null, user);
-//   });
-  
-//   passport.deserializeUser(function(obj, done) {
-//     done(null, obj);
-//   });
-
-
-
-
-
-
 module.exports = authRouter;
 

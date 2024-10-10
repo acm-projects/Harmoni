@@ -5,13 +5,14 @@ dotenv.config();
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-module.exports = mongoose.connect(process.env.USER_URI)
-    .then(() => {
+(async () => {
+    try {
+        await mongoose.connect(process.env.USER_URI);
         console.log('Connected to database :)');
-    })
-    .catch((error) => {
+    } catch (error) {
         console.error('Failed to connect to MongoDB:', error);
-    });
+    }
+})();
 
 
 
