@@ -1,9 +1,9 @@
-const express = require('express'); //Ayman's Changes
-const { MongoClient } = require('mongodb'); //Ayman's Changes
+const express = require('express');
+const mongoose = require('mongoose');
+const { google } = require('googleapis');
 const cors = require('cors'); // Add this line
 const dotenv = require("dotenv") //Ayman's Changes
 dotenv.config(); //Ayman's Changes
-const { google } = require('googleapis'); // Add this line
 
 const app = express()
 
@@ -13,12 +13,27 @@ app.use(express.json()); //Ayman's Changes
 // Load environment variables from a .env file
 require('dotenv').config();
 
-// Set up Google OAuth2 client with credentials from environment variables
+// Google OAuth2 setup
 const oauth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
   process.env.SECRET_ID,
   process.env.REDIRECT
 );
+
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/Event')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Define a schema and model for the calendar events
+const eventSchema = new mongoose.Schema({
+  summary: String,
+  start: Date,
+  end: Date,
+  description: String
+});
+
+const Event = mongoose.model('Event', eventSchema, 'events');
 
 // Route to initiate Google OAuth2 flow
 app.get('/', (req, res) => {
@@ -35,73 +50,55 @@ app.get('/', (req, res) => {
 app.get('/redirect', (req, res) => {
   // Extract the code from the query parameter
   const code = req.query.code;
+  console.log('Authorization code received:', code);
+
   // Exchange the code for tokens
-  oauth2Client.getToken(code, (err, tokens) => {
+  oauth2Client.getToken(code, async (err, tokens) => {
     if (err) {
       // Handle error if token exchange fails
       console.error('Couldn\'t get token', err);
       res.send('Error');
       return;
     }
+    console.log('Tokens received:', tokens);
+
     // Set the credentials for the Google API client
     oauth2Client.setCredentials(tokens);
-    // Notify the user of a successful login
-    res.send('Successfully logged in');
-  });
-});
 
-// Route to list all calendars
-app.get('/calendars', (req, res) => {
-  // Create a Google Calendar API client
-  const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-  // List all calendars
-  calendar.calendarList.list({}, (err, response) => {
-    if (err) {
-      // Handle error if the API request fails
-      console.error('Error fetching calendars', err);
-      res.end('Error!');
-      return;
+    // Fetch events from Google Calendar
+    const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+    try {
+      const events = await calendar.events.list({
+        calendarId: 'primary',
+        timeMin: (new Date()).toISOString(),
+        maxResults: 10,
+        singleEvents: true,
+        orderBy: 'startTime'
+      });
+
+      console.log('Fetched events:', events.data.items); // Log fetched events
+
+      // Store events in MongoDB
+      events.data.items.forEach(async (event) => {
+        const newEvent = await Event({
+          summary: event.summary,
+          start: event.start.dateTime || event.start.date,
+          end: event.end.dateTime || event.end.date,
+          description: event.description
+        });
+        await newEvent.save();
+        console.log('Event saved:', newEvent); // Log saved event
+      });
+
+      // Notify the user of a successful login and data storage
+      res.send('Successfully logged in and events stored in MongoDB');
+    } catch (error) {
+      console.error('Error fetching events', error);
+      res.send('Error fetching events');
     }
-    // Send the list of calendars as JSON
-    const calendars = response.data.items;
-    res.json(calendars);
   });
 });
-
-// Route to list events from a specified calendar
-app.get('/events', (req, res) => {
-  // Get the calendar ID from the query string, default to 'primary'
-  const calendarId = req.query.calendar ?? 'primary';
-  // Create a Google Calendar API client
-  const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-  // List events from the specified calendar
-  calendar.events.list({
-    calendarId,
-    timeMin: (new Date()).toISOString(),
-    maxResults: 50,
-    singleEvents: true,
-    orderBy: 'startTime'
-  }, (err, response) => {
-    if (err) {
-      // Handle error if the API request fails
-      console.error('Can\'t fetch events');
-      res.send('Error');
-      return;
-    }
-    // Send the list of events as JSON
-    const events = response.data.items;
-    res.json(events);
-  });
-});
-
-// Start the Express server
-app.listen(3000, () => console.log('Server running at 8000'));
-
-app.get('/', (req,res) => {
-    res.send('Hello World')
-})
 
 app.listen(8000, () => {
-    console.log('yuh port is listening');
-})
-
+  console.log('Server is running on port 8000');
+});
