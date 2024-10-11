@@ -21,7 +21,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/Event')
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -80,7 +80,7 @@ app.get('/redirect', (req, res) => {
 
       // Store events in MongoDB
       events.data.items.forEach(async (event) => {
-        const newEvent = await Event({
+        const newEvent = new Event({
           summary: event.summary,
           start: event.start.dateTime || event.start.date,
           end: event.end.dateTime || event.end.date,
