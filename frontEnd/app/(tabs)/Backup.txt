@@ -1,0 +1,62 @@
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Text, ScrollView } from 'react-native';
+
+const GroupForm = () => {
+  const [groupName, setGroupName] = useState('');
+  const [names, setNames] = useState(['']);
+
+  const addNameInput = () => {
+    setNames([...names, '']);
+  };
+
+  const handleNameChange = (text: string, index: number) => {
+    const newNames = [...names];
+    newNames[index] = text;
+    setNames(newNames);
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.label}>Group Name:</Text>
+      <TextInput
+        style={styles.input}
+        value={groupName}
+        onChangeText={setGroupName}
+        placeholder="Enter group name"
+      />
+      <Text style={styles.label}>Names:</Text>
+      {names.map((name, index) => (
+        <TextInput
+          key={index}
+          style={styles.input}
+          value={name}
+          onChangeText={(text) => handleNameChange(text, index)}
+          placeholder={`Enter name ${index + 1}`}
+        />
+      ))}
+      <Button title="Add Name" onPress={addNameInput} />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#f0f0f0',
+    padding: 20,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
+  },
+});
+
+export default GroupForm;
