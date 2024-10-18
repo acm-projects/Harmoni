@@ -6,7 +6,7 @@ import Calendar from './img/calendar.png';
 import Messages from './img/messages.png';
 import Server from './img/server.png'; 
 
-const CommunityScreen = ({ navigation }) => {
+const CommunityScreen = ({ navigation }) => { // Add navigation prop here
   const [tasks, setTasks] = useState([
     { id: 1, name: 'Study Buddies', color: '#ff9a62' },
     { id: 2, name: 'Fam Bam', color: '#b6f36a' },
@@ -47,7 +47,15 @@ const CommunityScreen = ({ navigation }) => {
       {/* Category Grid */}
       <View style={styles.gridContainer}>
         {tasks.map(task => (
-          <View key={task.id} style={[styles.categoryItem, { backgroundColor: task.color }]}>
+          <TouchableOpacity
+            key={task.id}
+            style={[styles.categoryItem, { backgroundColor: task.color }]}
+            onPress={() => {
+              if (task.name === 'Study Buddies') {
+                navigation.navigate('StudyBuddies'); // Navigate to Study Buddies Screen
+              }
+            }}
+          >
             <Text style={styles.categoryText}>{task.name}</Text>
             <TouchableOpacity
               style={styles.deleteButton}
@@ -55,7 +63,7 @@ const CommunityScreen = ({ navigation }) => {
             >
               <Ionicons name="close" size={16} color="white" />
             </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         ))}
 
         {/* Add Button */}

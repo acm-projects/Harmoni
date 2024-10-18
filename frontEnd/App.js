@@ -1,13 +1,14 @@
-// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './HomeScreen'; // Import your HomeScreen
-import RegisterPage from './RegisterPage';
-import WelcomeBackScreen from './WelcomeBackScreen'; // Import your WelcomeBackScreen
+import HomeScreen from './LoginPages/HomeScreen'; // Import your HomeScreen
+import RegisterPage from './LoginPages/RegisterPage';
+import WelcomeBackScreen from './LoginPages/WelcomeBackScreen'; // Import your WelcomeBackScreen
 import MainHomeScreen from './MainHomeScreen';
 import CalendarScreen from './CalendarScreen'; // Your calendar screen
 import Community from './Community';
+import StudyBuddies from './StudyBuddiesScreen';
+import ACMMeetingScreen from './ACMMeetingScreen'; // Import the new screen
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,8 @@ export default function App() {
         <Stack.Screen name="MainHomeScreen" component={MainHomeScreen} options={{ headerShown: false }} /> 
         <Stack.Screen name="CalendarScreen" component={CalendarScreen} options={{headerShown: false}} />
         <Stack.Screen name="Community" component={Community} options={{headerShown: false}} />
+        <Stack.Screen name="StudyBuddies" component={StudyBuddies} options={{headerShown: false}} />
+        <Stack.Screen name="ACMMeeting" component={ACMMeetingScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
