@@ -57,17 +57,6 @@ export default function MainHomeScreen({navigation}) {
         <Text style={styles.discoverDescription}>Explore new activities</Text>
       </View>
 
-      {/* Bottom Navigation Bar */}
-      <View style={styles.bottomNavBar}>
-        <Image source={Home} style={styles.iconStyle} />
-        <TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
-          <Image source={Calendar} style={styles.iconStyle} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Community')}>
-          <Image source={Messages} style={styles.iconStyle} />
-        </TouchableOpacity>
-        <Image source={Server} style={styles.iconStyle} />
-      </View>
     </View>
   );
 }

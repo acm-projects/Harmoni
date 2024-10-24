@@ -30,7 +30,7 @@ export default function WelcomeBackScreen({ navigation }) {
       </View>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('MainHomeScreen')}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('MainScreens')}>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>
       
