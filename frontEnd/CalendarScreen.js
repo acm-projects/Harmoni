@@ -1,124 +1,250 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Calendar} from 'react-native-calendars';
-import React from 'react';
-import Home from './img/home.png'; 
-import Calendar2 from './img/calendar.png'; 
-import Messages from './img/messages.png';
-import Server from './img/server.png'; 
+import { Calendar } from 'react-native-calendars';
+import Icon from 'react-native-vector-icons/Feather';
 
-const CalendarScreen = ({navigation}) => {
+const CalendarScreen = ({ navigation }) => {
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTasks, setSelectedTasks] = useState(null); // State to track tasks for the selected day
+  const today = new Date().toISOString().split('T')[0];
+
+  // Function to generate marked dates
+  const generateMarkedDates = () => {
+    const marked = {};
+    for (let i = 1; i <= 31; i++) {
+      const date = `2024-10-${i < 10 ? '0' : ''}${i}`;
+      marked[date] = {
+        textColor: date < today ? '#d9d9d9' : '#333',
+        color: date === today ? '#FFA07A' : undefined, // Highlight today
+        selected: date === today,
+        selectedColor: '#FFA07A',
+      };
+    }
+    return marked;
+  };
+
+  const markedDates = generateMarkedDates();
+
+  const tags = [
+    { id: 1, label: 'Shot Dribbble', color: '#FFD700' },
+    { id: 2, label: 'Meeting', color: '#90EE90' },
+    { id: 3, label: 'Fitness', color: '#FFB6C1' },
+    { id: 4, label: 'Mabar', color: '#87CEFA' },
+    { id: 5, label: 'Course', color: '#FFD700' }
+  ];
+
+  const activityData = [
+    { day: 'Mon', tasks: 3 },
+    { day: 'Tue', tasks: 4 },
+    { day: 'Wed', tasks: 2 },
+    { day: 'Thu', tasks: 5 },
+    { day: 'Fri', tasks: 3 },
+    { day: 'Sat', tasks: 6 },
+    { day: 'Sun', tasks: 7 }
+  ];
+
   return (
-    <View style={styles.container}>
-        <View style = {styles.containEventsStyle}>
-            <Calendar
-            style={styles.calendarStyle}
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Kartik</Text>
+          <View style={styles.headerButtons}>
+            <TouchableOpacity>
+              <Icon name="chevron-left" size={24} color="#000" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Icon name="chevron-right" size={24} color="#000" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Calendar */}
+        <View style={styles.calendarContainer}>
+          <Calendar
+            style={styles.calendar}
             theme={{
-                calendarBackground: '#FFFFFF',
-                textMonthFontWeight: 'bold',
-                arrowColor: '#FEDE69',
-                todayTextColor: '#FEDE69',
-                dotColor: '#FEDE69'
+              backgroundColor: '#fff3e0',
+              calendarBackground: '#fff3e0',
+              textSectionTitleColor: '#666',
+              selectedDayBackgroundColor: '#FFA07A',
+              selectedDayTextColor: '#ffffff',
+              todayTextColor: '#FFA07A',
+              dayTextColor: '#333',
+              textDisabledColor: '#d9d9d9',
+              dotColor: '#000',
+              selectedDotColor: '#ffffff',
+              arrowColor: 'transparent',
+              monthTextColor: '#000',
+              textDayFontSize: 16,
+              textMonthFontSize: 20,
+              textDayHeaderFontSize: 14
             }}
-            onDayPress={day=>{
-                <>
-                </>
-            }}/>
-            <View style = {styles.ClassStyle}>
-                <Text>Class: 8:30 - 12:00</Text>
-            </View>
-            <View style = {styles.MeetingStyle}>
-                <Text>Meeting: 4:00 - 5:30</Text>
-            </View>
-            <View style = {styles.PersonalStyle}>
-                <Text>Date Night: 8:00 - 10:30</Text>
-            </View>
-      </View>
-      <View style={styles.bottomNavBar}>
+            markedDates={markedDates}
+            onDayPress={day => setSelectedDate(day.dateString)}
+            hideArrows={true}
+          />
+        </View>
+
+        {/* Tags */}
+        <View style={styles.tagsContainer}>
+          {tags.map(tag => (
+            <TouchableOpacity
+              key={tag.id}
+              style={[styles.tag, { backgroundColor: tag.color }]}
+            >
+              <Text style={styles.tagText}>{tag.label}</Text>
+              <Icon name="x" size={16} color="#666" />
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* Activity Graph */}
+        <View style={styles.graphContainer}>
+          <View style={styles.graphHeader}>
+          </View>
+          <View style={styles.graph}>
+            {activityData.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.barContainer}
+                onPress={() => setSelectedTasks(item.tasks)} // Update selected tasks
+              >
+                <View style={[styles.bar, { height: (item.tasks / 7) * 120 }]} />
+                <Text style={styles.barLabel}>{item.day}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          {selectedTasks !== null && (
+            <Text style={styles.selectedTasksText}>
+              {`Tasks for the selected day: ${selectedTasks}`}
+            </Text>
+          )}
+        </View>
+      </ScrollView>
+
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
         <TouchableOpacity onPress={() => navigation.navigate('MainHomeScreen')}>
-          <Image source={Home} style={styles.iconStyle} />
+          <Icon name="home" size={24} color="#835e45" />
         </TouchableOpacity>
-          <Image source={Calendar2} style={styles.iconStyle} />
-        <Image source={Messages} style={styles.iconStyle} />
-        <Image source={Server} style={styles.iconStyle} />
+        <TouchableOpacity>
+          <Icon name="calendar" size={24} color="#835e45" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="message-square" size={24} color="#835e45" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name="server" size={24} color="#835e45" />
+        </TouchableOpacity>
       </View>
-    </View>
-  )
-}
-export default CalendarScreen
+    </SafeAreaView>
+  );
+};
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 30,
-        backgroundColor: '#FFF3E6'
-    },
-    containEventsStyle: { 
-        height: 800,
-        padding: 20,
-        borderRadius: 16,
-        backgroundColor: 'white',
-        marginTop: 50
-    },
-    calendarStyle: {
-        padding: 20,
-        borderRadius: 16,
-        height: 400
-    },
-    ClassStyle: {
-        margin: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#FEDE69',
-        color: '#FFFFFF',
-        borderRadius: 20,
-        height: 80,
-    },
-    MeetingStyle: {
-        margin: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#CA82C8',
-        borderRadius: 20,
-        height: 80,
-    },
-    PersonalStyle: {
-        margin: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        backgroundColor: 'lightgreen',
-        borderRadius: 20,
-        height: 80,
-    },
-    bottomNavBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around', // Space the icons evenly
-        backgroundColor: '#fff', // Background for the nav bar
-        paddingVertical: 10, // Padding for the nav bar
-        borderTopWidth: 1,
-        borderTopColor: '#ddd', // Light border at the top of the nav bar
-      },
-      iconStyle: {
-        width: 25,
-        height: 25,
-      },
-})
+  container: {
+    flex: 1,
+    backgroundColor: '#fff3e0',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  headerTitle: {
+    fontSize: 30,
+    fontWeight: '600',
+    color: '#000',
+  },
+  headerButtons: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  calendarContainer: {
+    paddingHorizontal: 20,
+  },
+  calendar: {
+    borderRadius: 16,
+  },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    padding: 20,
+  },
+  tag: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 8,
+  },
+  tagText: {
+    fontSize: 14,
+    color: '#333',
+  },
+  graphContainer: {
+    padding: 20,
+    backgroundColor: '#fff3e0',
+    borderRadius: 24,
+    margin: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  graphHeader: {
+    marginBottom: 16,
+  },
+  graphTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000',
+  },
+  graph: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    height: 150,
+    paddingVertical: 16,
+  },
+  barContainer: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  bar: {
+    width: 20,
+    backgroundColor: '#FFA07A',
+    borderRadius: 10,
+    marginBottom: 8,
+  },
+  barLabel: {
+    fontSize: 12,
+    color: '#666',
+    fontFamily: 'Inter',
+  },
+  selectedTasksText: {
+    fontSize: 16,
+    color: '#000',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingVertical: 16,
+    backgroundColor: '#fff3e0',
+    borderTopWidth: 1,
+    borderTopColor: '#fff3e0',
+    marginBottom: -20,
+  },
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default CalendarScreen;

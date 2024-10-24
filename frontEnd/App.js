@@ -9,6 +9,7 @@ import CalendarScreen from './CalendarScreen'; // Your calendar screen
 import Community from './Community';
 import StudyBuddies from './StudyBuddiesScreen';
 import ACMMeetingScreen from './ACMMeetingScreen'; // Import the new screen
+import ProfilePage from './ProfilePage';
 
 const Stack = createStackNavigator();
 
@@ -21,9 +22,10 @@ export default function App() {
         <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false}} />
         <Stack.Screen name="MainHomeScreen" component={MainHomeScreen} options={{ headerShown: false }} /> 
         <Stack.Screen name="CalendarScreen" component={CalendarScreen} options={{headerShown: false}} />
-        <Stack.Screen name="Community" component={Community} options={{headerShown: false}} />
+        <Stack.Screen name="CommunityScreen" component={Community} options={{headerShown: false}} />
         <Stack.Screen name="StudyBuddies" component={StudyBuddies} options={{headerShown: false}} />
         <Stack.Screen name="ACMMeeting" component={ACMMeetingScreen} options={{headerShown: false}} />
+        <Stack.Screen name="ProfilePage" component={ProfilePage} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
