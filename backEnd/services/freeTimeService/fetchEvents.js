@@ -31,7 +31,10 @@ const fetchEventsForMultipleUsers = async (users, days) => {
       });
 
       allEvents = allEvents.concat(events.data.items.map(event => ({
-        ...event,
+        summary: event.summary,
+        start: new Date(event.start.dateTime || event.start.date), // Store in UTC
+        end: new Date(event.end.dateTime || event.end.date), // Store in UTC
+        description: event.description,
         user: email,
         assignmentBuffer,
         examBuffer
@@ -40,7 +43,7 @@ const fetchEventsForMultipleUsers = async (users, days) => {
   }
 
   // Sort events by start time
-  allEvents.sort((a, b) => new Date(a.start.dateTime || a.start.date) - new Date(b.start.dateTime || b.start.date));
+  allEvents.sort((a, b) => new Date(a.start) - new Date(b.start));
 
   return allEvents;
 };
