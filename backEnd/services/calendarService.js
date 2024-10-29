@@ -147,6 +147,9 @@ const fetchEvents = async (email) => {
         console.log('Event saved:', newEvent);
       }
     });
+
+    // Sort events by start date
+    userCalendar.events.sort((a, b) => new Date(a.start) - new Date(b.start));
   }
 
   await user.save();
