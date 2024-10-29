@@ -83,7 +83,7 @@ const CommunityScreen = ({ navigation }) => {
     <TouchableOpacity
       onPress={() => {
         if (item.name === 'Study Buddies') {
-          navigation.navigate('StudyBuddies');
+          navigation.navigate('Poll');
         }
       }}
     >
@@ -208,22 +208,6 @@ const CommunityScreen = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('MainHomeScreen')}>
-          <Icon name="home" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="calendar" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="message-square" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="server" size={24} color="#835e45" />
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };

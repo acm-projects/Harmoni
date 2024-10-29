@@ -3,12 +3,15 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen'; // Import your HomeScreen
-import RegisterPage from './RegisterPage';
-import WelcomeBackScreen from './WelcomeBackScreen'; // Import your WelcomeBackScreen
+import HomeScreen from './LoginPages/HomeScreen'; // Import your HomeScreen
+import RegisterPage from './LoginPages/RegisterPage';
+import WelcomeBackScreen from './LoginPages/WelcomeBackScreen'; // Import your WelcomeBackScreen
 import MainHomeScreen from './MainHomeScreen';
 import CalendarScreen from './CalendarScreen'; // Your calendar screen
 import Community from './Community';
+import StudyBuddiesScreen from './StudyBuddiesScreen'
+import ACMMeetingScreen from './ACMMeetingScreen'
+import Poll from './Poll';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 
@@ -43,8 +46,8 @@ function MainScreens(){
         }} 
       />
       <Tab.Screen 
-        name = "Community" 
-        component={Community}
+        name = "groups" 
+        component={CommunityScreens}
         options={{title: 'Groups',
           tabBarIcon:({size, color})=>(
             <Ionicons name='people'
@@ -54,6 +57,16 @@ function MainScreens(){
         }}
         />
     </Tab.Navigator>
+  )
+}
+function CommunityScreens() {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="Community" component={Community} options={{ headerShown: false }} />
+      <Stack.Screen name="Study Buddies" component={StudyBuddiesScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ACM Meeting Screen" component={ACMMeetingScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Poll" component={Poll} options={{ headerShown: false}} />
+    </Stack.Navigator>
   )
 }
 

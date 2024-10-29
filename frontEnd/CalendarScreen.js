@@ -75,7 +75,7 @@ const CalendarScreen = ({ navigation }) => {
               textDisabledColor: '#d9d9d9',
               dotColor: '#000',
               selectedDotColor: '#ffffff',
-              arrowColor: 'transparent',
+              arrowColor: 'black',
               monthTextColor: '#000',
               textDayFontSize: 16,
               textMonthFontSize: 20,
@@ -123,22 +123,6 @@ const CalendarScreen = ({ navigation }) => {
           )}
         </View>
       </ScrollView>
-
-      {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity onPress={() => navigation.navigate('MainHomeScreen')}>
-          <Icon name="home" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="calendar" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="message-square" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="server" size={24} color="#835e45" />
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };

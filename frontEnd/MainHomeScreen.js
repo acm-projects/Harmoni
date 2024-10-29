@@ -158,23 +158,6 @@ export default function MainHomeScreen({navigation}) {
           </TouchableOpacity>
         ))}
       </View> */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('MainHomeScreen')}>
-          <Icon name="home" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CalendarScreen')}>
-          <Icon name="calendar" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('CommunityScreen')}>
-          <Icon name="message-square" size={24} color="#835e45" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Icon name="server" size={24} color="#835e45" />
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }

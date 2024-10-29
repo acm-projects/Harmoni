@@ -36,7 +36,7 @@ export default function WelcomeBackScreen({ navigation }) {
         style={[styles.logInButton, logInHover && styles.invertButton]} // Apply hover styles conditionally
         onPressIn={() => setLogInHover(true)}
         onPressOut={() => setLogInHover(false)}
-        onPress={() => navigation.navigate('MainHomeScreen') }
+        onPress={() => navigation.navigate('MainScreens') }
         >
         <Text style={[styles.buttonText, logInHover && styles.invertButtonText]}>Log In</Text>
       </TouchableOpacity>
