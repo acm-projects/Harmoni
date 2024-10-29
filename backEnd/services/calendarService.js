@@ -277,7 +277,18 @@ const calculateFreeTime = async (email, ignoreCalendars, days, assignmentBuffer,
   );
 
   console.log('Free time calculated and stored:', formattedFreeTime);
-  return formattedFreeTime;
+
+  // Format free time for display in CDT
+  const formattedFreeTimeForDisplay = formattedFreeTime.map(day => ({
+    date: day.date,
+    intervals: day.intervals.map(interval => ({
+      start: moment(interval.start).tz('America/Chicago').format('YYYY-MM-DD hh:mm A z'),
+      end: moment(interval.end).tz('America/Chicago').format('YYYY-MM-DD hh:mm A z')
+    }))
+  }));
+
+  console.log('Free time formatted for display:', formattedFreeTimeForDisplay);
+  return formattedFreeTimeForDisplay;
 };
 
 module.exports = {
