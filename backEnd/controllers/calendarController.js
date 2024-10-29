@@ -1,4 +1,5 @@
 const calendarService = require('../services/calendarService');
+const freeTimeService = require('../services/freeTimeService');
 
 const initiateOAuth = (req, res) => {
   const url = calendarService.generateAuthUrl();
@@ -55,10 +56,23 @@ const getCalendars = async (req, res) => {
   }
 };
 
+const calculateFreeTimeForMultipleUsers = async (req, res) => {
+  const { users, days } = req.body;
+
+  try {
+    const freeTime = await freeTimeService.calculateFreeTimeForMultipleUsers(users, days);
+    res.json(freeTime);
+  } catch (error) {
+    console.error('Error calculating free time for multiple users:', error);
+    res.status(500).send('Error calculating free time for multiple users');
+  }
+};
+
 module.exports = {
   initiateOAuth,
   handleOAuthCallback,
   fetchEvents,
   calculateFreeTime,
-  getCalendars // Export the new controller function
+  getCalendars,
+  calculateFreeTimeForMultipleUsers // Export the new controller function
 };
