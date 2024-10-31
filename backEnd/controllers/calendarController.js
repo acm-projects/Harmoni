@@ -60,7 +60,7 @@ const calculateFreeTimeForMultipleUsers = async (req, res) => {
   const { users, days } = req.body;
 
   try {
-    const freeTime = await freeTimeService.calculateFreeTimeForMultipleUsersAndFormat(users, days);
+    const freeTime = await freeTimeService.calculateFreeTimeForMultipleUsers(users, days);
     res.json(freeTime);
   } catch (error) {
     console.error('Error calculating free time for multiple users:', error);
