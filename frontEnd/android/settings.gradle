@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'acmtesting'
+rootProject.name = 'Harmoni'
 
 dependencyResolutionManagement {
   versionCatalogs {

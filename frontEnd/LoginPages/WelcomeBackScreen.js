@@ -8,6 +8,7 @@ import Harmoni from '../img/harmoni.png';
 import { CurrentRenderContext } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import signIn from './googleLogin';
 
 export default function WelcomeBackScreen({ navigation }) {
   const [logInHover, setLogInHover] = useState(false);
@@ -78,6 +79,7 @@ export default function WelcomeBackScreen({ navigation }) {
       {/* Continue with Google Button */}
       <TouchableOpacity
         style={styles.googleButton}
+        onPress={signIn}
         onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
         onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
         <Image source={GoogleIcon} style={styles.googleIcon} />

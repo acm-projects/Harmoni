@@ -1,6 +1,3 @@
-2024-10-18 18:22:53.781 xcodebuild[59869:19635120] Writing error result bundle to /var/folders/qm/1jb1gz8d5zz5zpvqy1wfyq_40000gn/T/ResultBundle_2024-18-10_18-22-0053.xcresult
-xcodebuild: error: Unable to find a destination matching the provided destination specifier:
-		{ id:E6C80443-F25E-48EB-920F-0A12C56FE9BC }
-
-	Ineligible destinations for the "acmtesting" scheme:
-		{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device, error:iOS 18.0 is not installed. To use with Xcode, first download and install the platform }
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:iOS Simulator, id:E6C80443-F25E-48EB-920F-0A12C56FE9BC, OS:17.2, name:iPhone 15 Pro Max }
+{ platform:iOS Simulator, id:E6C80443-F25E-48EB-920F-0A12C56FE9BC, OS:17.2, name:iPhone 15 Pro Max }
