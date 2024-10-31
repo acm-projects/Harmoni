@@ -1,13 +1,41 @@
 {
   "expo": {
-    "name": "acmtesting",
-    "slug": "acmtesting",
+    "name": "Harmoni",
+    "slug": "Harmoni",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
-      "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "We need access to your photo library to update your profile picture.",
-        "NSCameraUsageDescription": "We need access to your camera to take profile pictures.",
-        "NSPhotoLibraryAddUsageDescription": "We need permission to save photos to your library."
+      "supportsTablet": true,
+      "bundleIdentifier": "com.acm.harmoni"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.acm.harmoni"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.262889882503-b3nktm5fmtm3aath24c9h342gejhi1lf"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "244031f8-62e0-4d77-9162-005fff963823"
       }
     }
   }

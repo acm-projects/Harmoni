@@ -1,4 +1,4 @@
-package com.acmtesting
+package com.acm.harmoni
 
 import android.os.Build
 import android.os.Bundle

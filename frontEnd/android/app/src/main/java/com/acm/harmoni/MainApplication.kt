@@ -1,4 +1,4 @@
-package com.acmtesting
+package com.acm.harmoni
 
 import android.app.Application
 import android.content.res.Configuration
