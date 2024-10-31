@@ -1,5 +1,4 @@
 const calendarService = require('../services/calendarService');
-const freeTimeService = require('../services/freeTimeService');
 
 const initiateOAuth = (req, res) => {
   const url = calendarService.generateAuthUrl();
@@ -73,6 +72,5 @@ module.exports = {
   handleOAuthCallback,
   fetchEvents,
   calculateFreeTime,
-  getCalendars,
-  calculateFreeTimeForMultipleUsers // Export the new controller function
+  getCalendars // Export the new controller function
 };
