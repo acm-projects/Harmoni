@@ -8,6 +8,7 @@ import GoogleIcon from '../img/google.png'; // Import Google icon
 import BackButton from '../img/back.png'; // Import the back button image
 import HoneyBear from '../img/honeybear.png'; // Import honeybear image
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterPage({ navigation }) {
   const [createAccountHover, setCreateAccountHover] = useState(false);
@@ -42,6 +43,10 @@ export default function RegisterPage({ navigation }) {
 
     try{
       const obj = {name,phone,email,password};
+      if (Object.values(obj).includes("")){
+        alert("Fill in all fields");
+        return;
+      }
 
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const phoneRegex = /^\d{10}$/;
@@ -51,15 +56,15 @@ export default function RegisterPage({ navigation }) {
         return;
       }
       const response = await axios.post('http://localhost:8000/signUp', obj)
+      await AsyncStorage.clear();
+      await AsyncStorage.setItem('userData', JSON.stringify(obj));
+      navigation.navigate('MainHomeScreen');
       alert('Account created successfully');
-      navigation.navigate('WelcomeBack');
     }
     catch(error){
-      if(error.message.includes('500'))
-        alert("Fill in all fields");
-      else
-        alert('Duplicate email. Try loggin in instead');
       console.log(error.message);
+      if(error.message.includes('400'))
+        alert('Duplicate email. Try logging in instead');
     }
 
   }

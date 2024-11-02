@@ -8,7 +8,7 @@ import Harmoni from '../img/harmoni.png';
 import { CurrentRenderContext } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import signIn from './googleLogin';
+import useGoogleSignIn from './googleLogin';
 
 export default function WelcomeBackScreen({ navigation }) {
   const [logInHover, setLogInHover] = useState(false);
@@ -16,9 +16,9 @@ export default function WelcomeBackScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { signIn } = useGoogleSignIn();
+
   const login = async () => {
-
-
     try {
       const obj = { email, password };
       const response = await axios.post('http://localhost:8000/login', obj);
@@ -29,6 +29,7 @@ export default function WelcomeBackScreen({ navigation }) {
         password: response.data[0].password,
       };
       // JSON.stringify(userData)
+      await AsyncStorage.clear();
       await AsyncStorage.setItem('userData', JSON.stringify(userData));
       navigation.navigate('MainHomeScreen');
     } catch (error) {
