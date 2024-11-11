@@ -6,6 +6,7 @@ const groupRouter = express.Router();
 
 // Create the Group model
 const Group = require('../models/group');
+const User = require('../models/user');
 
 // POST route to create a new group
 groupRouter.post('/createGroup', async (req, res) => {
@@ -14,9 +15,14 @@ groupRouter.post('/createGroup', async (req, res) => {
     console.log(name)
 
     const existingGroup = await Group.findOne({ groupName: name });
+    const nonExistingMembers = await User.find({ name: { $nin: members } });
     if (existingGroup) {
         console.log("Group name already exists")
         return res.status(500).json({ error: 'Group name already exists' });
+    }
+    else if(nonExistingMembers.length > 0){
+        console.log("Some members don't exist")
+        return res.status(500).json({ error: 'Member/members don\'t exist' });
     }
     console.log(req.body)
     try {

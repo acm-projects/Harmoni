@@ -1,7 +1,8 @@
 require('./models/dataBase')
 
 const authRouter = require('./authentication/auth');
-const groupRouter = require('./groups/createGroup');
+const groupRouter = require('./groups/group');
+const googleAuthRouter = require('./authentication/googleAuth');
 require('./authentication/passportAuth');
 const express = require('express');
 // const axios = require('axios');
@@ -31,7 +32,7 @@ app.use(session({
 
 //authRouter is a express.Router() object that contains all the routes for authentication and is connected to from app.js by the app.use() method
 app.use('/', authRouter);
-
+app.use('/', googleAuthRouter);
 app.use('/', groupRouter);
 
 

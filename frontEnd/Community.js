@@ -14,9 +14,9 @@ const CommunityScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [searchBarWidth] = useState(new Animated.Value(0));
+  const [newGroupMembers, setNewGroupMembers] = useState(['']);
 
   const [userData, setUserData] = useState('');
-  const [groupData, setGroups] = useState([]);
 
   const gradients = [
     ['#FF9A8B', '#FF6B8B'],    // Pink Gradient
@@ -95,26 +95,50 @@ const CommunityScreen = ({ navigation }) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
-  const addTask = () => {
+  const addGroupMemberInput = () => {
+    setNewGroupMembers([...newGroupMembers, '']);
+  };
+  const removeGroupMemberInput = () => {
+    if(newGroupMembers.length === 1) return;
+    setNewGroupMembers(newGroupMembers.slice(0, -1));
+  };
+
+  const handleGroupMemberChange = (text, index) => {
+    const updatedMembers = [...newGroupMembers];
+    updatedMembers[index] = text;
+    setNewGroupMembers(updatedMembers);
+  };
+
+  const addTask = async() => {
     console.log(tasks)
     if (newTaskName.trim() === '' || tasks.includes(newTaskName.trim())) {
       alert('Error', 'Please enter a valid group name.');
       return;
     }
 
-    
+    try {
+      await axios.post('http://localhost:8000/createGroup', {
+      groupName: newTaskName,
+      members: [userData.name, ...newGroupMembers.filter(member => member.trim() !== '')]
+      });
+    } catch (error) {
+      console.error('Error creating group:', error);
+      alert(error.response.data.error)
+      return;
+    }
     
 
     const newTask = {
       id: tasks.length + 1,
       name: newTaskName,
-      members: 1,
+      members: newGroupMembers.length,
       color: gradients[Math.floor(Math.random() * gradients.length)]
     };
     setTasks([...tasks, newTask]);
     setFilteredTasks([...filteredTasks, newTask]);
     setModalVisible(false);
     setNewTaskName('');
+    setNewGroupMembers(['']);
   };
 
   const CategoryItem = ({ item }) => (
@@ -216,7 +240,7 @@ const CommunityScreen = ({ navigation }) => {
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Create New Group</Text>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <TouchableOpacity onPress={() => {setModalVisible(false); setNewGroupMembers([''])}}>
                 <Icon name="x" size={24} color="#333" />
               </TouchableOpacity>
             </View>
@@ -229,10 +253,30 @@ const CommunityScreen = ({ navigation }) => {
               placeholderTextColor="#666"
             />
             
+            {newGroupMembers.map((member, index) => (
+              <TextInput
+                key={index}
+                style={styles.textInput}
+                placeholder={`Enter member ${index + 1} name`}
+                value={member}
+                onChangeText={(text) => handleGroupMemberChange(text, index)}
+                placeholderTextColor="#666"
+              />
+            ))}
+            
+            <TouchableOpacity onPress={addGroupMemberInput}>
+              <Icon name="plus" size={24} color="#333" />
+              
+            </TouchableOpacity>
+            <TouchableOpacity onPress={removeGroupMemberInput}>
+              <Icon name="minus" size={24} color="#333" />
+              
+            </TouchableOpacity>
+            
             <View style={styles.modalButtons}>
               <TouchableOpacity 
                 style={[styles.modalButton, styles.cancelButton]} 
-                onPress={() => setModalVisible(false)}
+                onPress={() => {setModalVisible(false); setNewGroupMembers([''])}}
               >
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>

@@ -40,7 +40,7 @@ export default function MainHomeScreen({navigation}) {
             <Text style={styles.greetingText}>Hello, {userData.name}</Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
-            <Image source={JohnDoe} style={styles.profileImage} />
+            <Image source={{uri: userData.profilePicture}} style={styles.profileImage} />
           </TouchableOpacity>
         </View>
 

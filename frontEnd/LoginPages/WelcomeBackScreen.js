@@ -8,7 +8,7 @@ import Harmoni from '../img/harmoni.png';
 import { CurrentRenderContext } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import useGoogleSignIn from './googleLogin';
+import googleSignInComponent from './googleLogin';
 
 export default function WelcomeBackScreen({ navigation }) {
   const [logInHover, setLogInHover] = useState(false);
@@ -16,7 +16,30 @@ export default function WelcomeBackScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn } = useGoogleSignIn();
+  const { signIn } = googleSignInComponent();
+
+  const googleLogin = async () => {
+    try {
+      const data = await signIn();
+      const userData = {
+        email: data.email,
+        name: data.name,
+        phone: "",
+        password: data.id,
+        profilePicture: data.photo
+      };
+      console.log('User Data:', userData);
+
+      
+      const response = await axios.post('http://localhost:8000/googleLogin', userData);
+      console.log('Response:', response.data);
+      await AsyncStorage.clear();
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      navigation.navigate('MainHomeScreen');
+    } catch (error) {
+      console.error('Google login failed:', error.response ? error.response.data : error.message);
+    }
+  };
 
   const login = async () => {
     try {
@@ -27,6 +50,7 @@ export default function WelcomeBackScreen({ navigation }) {
         name: response.data[0].name,
         phone: response.data[0].phone,
         password: response.data[0].password,
+        profilePicture: response.data[0].profilePicture
       };
       // JSON.stringify(userData)
       await AsyncStorage.clear();
@@ -80,7 +104,7 @@ export default function WelcomeBackScreen({ navigation }) {
       {/* Continue with Google Button */}
       <TouchableOpacity
         style={styles.googleButton}
-        onPress={signIn}
+        onPress={googleLogin}
         onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
         onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
         <Image source={GoogleIcon} style={styles.googleIcon} />

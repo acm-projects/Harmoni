@@ -369,7 +369,7 @@ const ProfilePage = ({ navigation }) => {
 
       <View style={styles.profileSection}>
         <View style={styles.avatarContainer}>
-          <Image source={user.image} style={styles.avatar} />
+          <Image source={{uri: userData.profilePicture}} style={styles.avatar} />
           <TouchableOpacity style={styles.editButton} onPress={handleEditPhoto}>
             <Ionicons name="camera" size={14} color="#fff" />
           </TouchableOpacity>

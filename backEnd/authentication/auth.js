@@ -49,16 +49,16 @@ authRouter.post('/login', async (req,res) => {
     console.log("req.body.email " + email)
     try {
         const emailLogin = await User.findOne({email: email});
-        console.log(emailLogin);
         if (!emailLogin) {
             return res.status(400).json({ message: 'Invalid email' });
-          }
+        }
         
         const passwordLogin = await User.findOne({password: password});
         if (!passwordLogin) {
             return res.status(400).json({ message: 'Invalid password' });
-          }
-
+        }
+        
+        console.log(emailLogin);
         const user = await User.find(emailLogin);  
         res.json(user);
     }
