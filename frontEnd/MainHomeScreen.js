@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Home from './img/home.png';
@@ -8,15 +8,15 @@ import Server from './img/server.png';
 import JohnDoe from './img/johndoe.png';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState ,useEffect} from 'react';
-
+import StarIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import { Star } from 'lucide-react';
 
 export default function MainHomeScreen({navigation}) {
   const today = new Date();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-
   const [userData, setUserData] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -28,6 +28,7 @@ export default function MainHomeScreen({navigation}) {
 
     fetchUserData();
   }, []); // Empty dependency array ensures this runs once on mount
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -149,30 +150,33 @@ export default function MainHomeScreen({navigation}) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      {/* <View style={styles.bottomNav}>
-        {[
-          { icon: Home, label: 'Home', active: true },
-          { icon: Calendar, label: 'Calendar' },
-          { icon: Messages, label: 'Community' },
-          { icon: Server, label: 'Menu' }
-        ].map((item, index) => (
-          <TouchableOpacity 
-            key={index} 
-            style={styles.navItem}
-            onPress={() => item.label !== 'Home' && navigation.navigate(`${item.label}Screen`)}
-          >
-            <View style={[styles.navButton, item.active && styles.activeNavButton]}>
-              <Image 
-                source={item.icon} 
-                style={[styles.navIcon, item.active && styles.activeNavIcon]} 
-              />
-            </View>
-            <Text style={[styles.navLabel, item.active && styles.activeNavLabel]}>
-              {item.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View> */}
+
+      {/* Modal */}
+      {modalVisible && (
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>This is the modal content</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text style={styles.closeButton}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* Floating Action Button */}
+      <LinearGradient
+        colors={['#1880fe', '#8690fe']}
+        style={styles.floatingButton}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <TouchableOpacity 
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          onPress={() => setModalVisible(true)}
+        >
+          <StarIcon name="star-four-points-outline" size={24} color="#fff" />
+        </TouchableOpacity>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -352,51 +356,6 @@ const styles = StyleSheet.create({
   exploreEmoji: {
     fontSize: 24,
   },
-  // bottomNav: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-around',
-  //   paddingVertical: 12,
-  //   paddingHorizontal: 20,
-  //   backgroundColor: '#fff3e0',
-  //   borderTopLeftRadius: 0,
-  //   borderTopRightRadius: 0,
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: -4 },
-  //   shadowOpacity: 0.08,
-  //   shadowRadius: 8,
-  //   elevation: 8,
-  //   marginBottom: -60
-  // },
-  // navItem: {
-  //   alignItems: 'center',
-  // },
-  // navButton: {
-  //   width: 50,
-  //   height: 50,
-  //   borderRadius: 25,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // activeNavButton: {
-  //   backgroundColor: '#F0F0F0',
-  // },
-  // navIcon: {
-  //   width: 24,
-  //   height: 24,
-  //   opacity: 0.5,
-  // },
-  // activeNavIcon: {
-  //   opacity: 1,
-  // },
-  // navLabel: {
-  //   fontSize: 12,
-  //   color: '#666',
-  //   marginTop: 4,
-  // },
-  // activeNavLabel: {
-  //   color: '#1A1A1A',
-  //   fontWeight: '500',
-  // },
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -406,5 +365,48 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#fff3e0',
     marginBottom: -20
+  },
+  floatingButton: {
+    position: 'absolute',
+    bottom: 30,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#FF6347',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 8,
+  },
+  modalOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '90%',
+    height: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  closeButton: {
+    fontSize: 16,
+    color: '#1880fe',
   },
 });
