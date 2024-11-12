@@ -98,6 +98,9 @@ const CommunityScreen = ({ navigation }) => {
     const memberName = userData.name
     console.log(name);
     axios.post('http://localhost:8000/leaveGroup',{groupName,memberName})
+    alert("Group " + name + " has been left")
+    setTimeout(() => {}, 3000);
+    
   };
 
   const addGroupMemberInput = () => {
@@ -136,7 +139,7 @@ const CommunityScreen = ({ navigation }) => {
     const newTask = {
       id: tasks.length + 1,
       name: newTaskName,
-      members: newGroupMembers.length,
+      members: newGroupMembers.length+1,
       color: gradients[Math.floor(Math.random() * gradients.length)]
     };
     setTasks([...tasks, newTask]);
@@ -144,6 +147,7 @@ const CommunityScreen = ({ navigation }) => {
     setModalVisible(false);
     setNewTaskName('');
     setNewGroupMembers(['']);
+    navigation.navigate('Community');
   };
 
   const CategoryItem = ({ item }) => (
