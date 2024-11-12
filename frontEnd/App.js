@@ -12,6 +12,7 @@ import Community from './Community';
 import StudyBuddiesScreen from './StudyBuddiesScreen'
 import ACMMeetingScreen from './ACMMeetingScreen'
 import Poll from './Poll';
+import ProfilePage from './ProfilePage';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 
