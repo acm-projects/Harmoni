@@ -309,7 +309,7 @@ const ModernPollScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity onPress={() => navigation.navigate('CommunityScreen')}>{/*navigation.openDrawer()*/}
           <Ionicons name="menu" size={28} color="#333" />
         </TouchableOpacity>
         <Text style={styles.title}>Active Polls</Text>

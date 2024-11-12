@@ -82,7 +82,7 @@
 // });
 
 import React, { useRef, useEffect } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text, Animated, Easing } from 'react-native'; 
+import { StyleSheet, View, Image, TouchableOpacity, Text, Animated, Easing, AsyncStorage } from 'react-native'; 
 import HarmoniLogo from '../img/harmoni.png'; // Your Harmoni logo
 import BearImage from '../img/bear.png'; // Your bear image
 
@@ -127,6 +127,9 @@ export default function HomeScreen({ navigation }) {
       ])
     ).start();
   }, [bounceAnim, rotateAnim]);
+
+  
+
 
   // Interpolating the rotation value to degrees
   const rotateInterpolate = rotateAnim.interpolate({

@@ -1,0 +1,6 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -workspace /Users/aymanhaque/Git/Harmoni/frontEnd/ios/Harmoni.xcworkspace -configuration Debug -scheme Harmoni -destination id=E6C80443-F25E-48EB-920F-0A12C56FE9BC
+
+User defaults from command line:
+    IDEPackageSupportUseBuiltinSCM = YES
+

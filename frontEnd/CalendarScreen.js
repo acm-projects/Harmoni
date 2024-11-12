@@ -3,11 +3,29 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert } from 'rea
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CalendarScreen = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTasks, setSelectedTasks] = useState(null); // State to track tasks for the selected day
   const today = new Date().toISOString().split('T')[0];
+
+  const [userData, setUserData] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('userData');
+      if (storedUserData) {
+        setUserData(JSON.parse(storedUserData));
+        console.log(JSON.parse(storedUserData).email + "HELLO")
+        console.log("Worked")
+      }
+      console.log(userData + "AAAAAA")
+    };
+
+    fetchUserData();
+  }, []); 
+
 
   // Function to generate marked dates
   const generateMarkedDates = () => {
@@ -49,7 +67,7 @@ const CalendarScreen = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Kartik</Text>
+          <Text style={styles.headerTitle}>{userData.name}</Text>
           <View style={styles.headerButtons}>
             <TouchableOpacity>
               <Icon name="chevron-left" size={24} color="#000" />

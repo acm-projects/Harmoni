@@ -7,12 +7,27 @@ import Messages from './img/messages.png';
 import Server from './img/server.png';
 import JohnDoe from './img/johndoe.png';
 import Icon from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState ,useEffect} from 'react';
 
 
 export default function MainHomeScreen({navigation}) {
   const today = new Date();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  
+
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('userData');
+      if (storedUserData) {
+        setUserData(JSON.parse(storedUserData));
+      }
+    };
+
+    fetchUserData();
+  }, []); // Empty dependency array ensures this runs once on mount
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -22,10 +37,10 @@ export default function MainHomeScreen({navigation}) {
             <Text style={styles.dateText}>
               {today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
             </Text>
-            <Text style={styles.greetingText}>Hello, Kartik</Text>
+            <Text style={styles.greetingText}>Hello, {userData.name}</Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate('ProfilePage')}>
-            <Image source={JohnDoe} style={styles.profileImage} />
+            <Image source={{uri: userData.profilePicture}} style={styles.profileImage} />
           </TouchableOpacity>
         </View>
 

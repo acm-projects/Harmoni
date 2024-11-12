@@ -3,20 +3,63 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, ScrollView,
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { User } from 'lucide-react';
 
 const CommunityScreen = ({ navigation }) => {
-  const [tasks, setTasks] = useState([
-    { id: 1, name: 'Study Buddies', members: 8, color: ['#FF9A8B', '#FF6B8B'] },
-    { id: 2, name: 'Fam Bam', members: 5, color: ['#4FACFE', '#00F2FE'] },
-    { id: 3, name: 'Chem 1301', members: 12, color: ['#43E97B', '#38F9D7'] },
-    { id: 4, name: 'Boulder Bros', members: 6, color: ['#FA709A', '#FEE140'] },
-  ]);
+  const [tasks, setTasks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newTaskName, setNewTaskName] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredTasks, setFilteredTasks] = useState(tasks);
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [searchBarWidth] = useState(new Animated.Value(0));
+  const [newGroupMembers, setNewGroupMembers] = useState(['']);
+
+  const [userData, setUserData] = useState('');
+
+  const gradients = [
+    ['#FF9A8B', '#FF6B8B'],    // Pink Gradient
+    ['#4FACFE', '#00F2FE'],    // Blue Gradient
+    ['#43E97B', '#38F9D7'],    // Green Gradient
+    ['#FA709A', '#FEE140'],    // Pink-Orange Gradient
+    ['#F7971E', '#FFD200'],    // Orange Gradient
+    ['#00C6FF', '#0072FF'],    // Sky Blue Gradient
+    ['#F54EA2', '#FF7676'],    // Red-Pink Gradient
+    ['#36D1DC', '#5B86E5'],    // Aqua-Blue Gradient
+    ['#A1C4FD', '#C2E9FB'],    // Light Blue Gradient
+    ['#FF9A9E', '#FAD0C4'],    // Soft Pink Gradient
+    ['#B06AB3', '#4568DC'],    // Purple-Blue Gradient
+    ['#3E5151', '#DECBA4'],    // Brown-Grey Gradient
+    ['#FFDEE9', '#B5FFFC'],    // Pink-Cyan Gradient
+    ['#FF6A88', '#FF9472'],    // Red-Orange Gradient
+    ['#667EEA', '#764BA2'],    // Violet Gradient
+    ['#8A2387', '#E94057', '#F27121'], // Purple to Orange Gradient
+    ['#13547A', '#80D0C7'],    // Deep Blue-Green Gradient
+    ['#FDC830', '#F37335'],    // Yellow-Orange Gradient
+  ];
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('userData');
+      if (storedUserData) {
+        const user = JSON.parse(storedUserData);
+        setUserData(user);
+        const response = await axios.get(`http://localhost:8000/getGroups/?name=${user.name}`);
+        const groups = response.data.map((group, index) => ({
+          id: index + 1,             // Assign a unique ID
+          name: group.groupName,      // Use the group name from backend
+          members: group.memberNames.length,  // Set members count dynamically
+          color: gradients[Math.floor(Math.random() * gradients.length)]  // Example color (you could randomize this)
+        }));
+        setTasks(groups);
+        setFilteredTasks(groups);  // Initialize filteredTasks with retrieved data
+      }
+    };
+
+    fetchUserData();
+  }, []); 
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -31,7 +74,6 @@ const CommunityScreen = ({ navigation }) => {
 
   const toggleSearch = () => {
     if (isSearching) {
-      // Close search
       Animated.timing(searchBarWidth, {
         toValue: 0,
         duration: 300,
@@ -41,7 +83,6 @@ const CommunityScreen = ({ navigation }) => {
         setSearchQuery('');
       });
     } else {
-      // Open search
       setIsSearching(true);
       Animated.timing(searchBarWidth, {
         toValue: 1,
@@ -51,40 +92,65 @@ const CommunityScreen = ({ navigation }) => {
     }
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = (id,name) => {
     setTasks(tasks.filter(task => task.id !== id));
+    const groupName = name
+    const memberName = userData.name
+    console.log(name);
+    axios.post('http://localhost:8000/leaveGroup',{groupName,memberName})
   };
 
-  const addTask = () => {
-    if (newTaskName.trim() === '') {
-      Alert.alert('Error', 'Please enter a valid group name.');
+  const addGroupMemberInput = () => {
+    setNewGroupMembers([...newGroupMembers, '']);
+  };
+  const removeGroupMemberInput = () => {
+    if(newGroupMembers.length === 1) return;
+    setNewGroupMembers(newGroupMembers.slice(0, -1));
+  };
+
+  const handleGroupMemberChange = (text, index) => {
+    const updatedMembers = [...newGroupMembers];
+    updatedMembers[index] = text;
+    setNewGroupMembers(updatedMembers);
+  };
+
+  const addTask = async() => {
+    console.log(tasks)
+    if (newTaskName.trim() === '' || tasks.includes(newTaskName.trim())) {
+      alert('Error', 'Please enter a valid group name.');
       return;
     }
 
-    const gradients = [
-      ['#FF9A8B', '#FF6B8B'],
-      ['#4FACFE', '#00F2FE'],
-      ['#43E97B', '#38F9D7'],
-      ['#FA709A', '#FEE140'],
-    ];
+    try {
+      await axios.post('http://localhost:8000/createGroup', {
+      groupName: newTaskName,
+      members: [userData.name, ...newGroupMembers.filter(member => member.trim() !== '')]
+      });
+    } catch (error) {
+      console.error('Error creating group:', error);
+      alert(error.response.data.error)
+      return;
+    }
+    
 
     const newTask = {
       id: tasks.length + 1,
       name: newTaskName,
-      members: 1,
+      members: newGroupMembers.length,
       color: gradients[Math.floor(Math.random() * gradients.length)]
     };
     setTasks([...tasks, newTask]);
+    setFilteredTasks([...filteredTasks, newTask]);
     setModalVisible(false);
     setNewTaskName('');
+    setNewGroupMembers(['']);
   };
 
   const CategoryItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        if (item.name === 'Study Buddies') {
-          navigation.navigate('Poll');
-        }
+        AsyncStorage.setItem('groupName', item.name);
+        navigation.navigate('Poll');
       }}
     >
       <LinearGradient
@@ -102,7 +168,7 @@ const CommunityScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => deleteTask(item.id)}
+          onPress={() => deleteTask(item.id,item.name)}
         >
           <Ionicons name="close" size={16} color="white" />
         </TouchableOpacity>
@@ -178,7 +244,7 @@ const CommunityScreen = ({ navigation }) => {
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Create New Group</Text>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <TouchableOpacity onPress={() => {setModalVisible(false); setNewGroupMembers([''])}}>
                 <Icon name="x" size={24} color="#333" />
               </TouchableOpacity>
             </View>
@@ -191,10 +257,30 @@ const CommunityScreen = ({ navigation }) => {
               placeholderTextColor="#666"
             />
             
+            {newGroupMembers.map((member, index) => (
+              <TextInput
+                key={index}
+                style={styles.textInput}
+                placeholder={`Enter member ${index + 1} name`}
+                value={member}
+                onChangeText={(text) => handleGroupMemberChange(text, index)}
+                placeholderTextColor="#666"
+              />
+            ))}
+            
+            <TouchableOpacity onPress={addGroupMemberInput}>
+              <Icon name="plus" size={24} color="#333" />
+              
+            </TouchableOpacity>
+            <TouchableOpacity onPress={removeGroupMemberInput}>
+              <Icon name="minus" size={24} color="#333" />
+              
+            </TouchableOpacity>
+            
             <View style={styles.modalButtons}>
               <TouchableOpacity 
                 style={[styles.modalButton, styles.cancelButton]} 
-                onPress={() => setModalVisible(false)}
+                onPress={() => {setModalVisible(false); setNewGroupMembers([''])}}
               >
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>

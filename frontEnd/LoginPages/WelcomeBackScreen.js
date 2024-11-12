@@ -6,9 +6,63 @@ import GoogleIcon from '../img/google.png'; // Import Google icon
 import BackButton from '../img/back.png'; // Import the back button image
 import Harmoni from '../img/harmoni.png';
 import { CurrentRenderContext } from '@react-navigation/native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import googleSignInComponent from './googleLogin';
 
 export default function WelcomeBackScreen({ navigation }) {
   const [logInHover, setLogInHover] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { signIn } = googleSignInComponent();
+
+  const googleLogin = async () => {
+    try {
+      const data = await signIn();
+      const userData = {
+        email: data.userData.email,
+        name: data.userData.name,
+        phone: "",
+        password: data.userData.id,
+        profilePicture: data.userData.photo,
+        accessToken: data.tokens.accessToken,
+      };
+      console.log('User Data:', userData);
+      console.log("Tokens", data.tokens);
+
+      
+      const response = await axios.post('http://localhost:8000/googleLogin', userData);
+      console.log('Response:', response.data);
+      await AsyncStorage.clear();
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      navigation.navigate('MainHomeScreen');
+    } catch (error) {
+      console.error('Google login failed:', error.response ? error.response.data : error.message);
+    }
+  };
+
+  const login = async () => {
+    try {
+      const obj = { email, password };
+      const response = await axios.post('http://localhost:8000/login', obj);
+      const userData = {
+        email: response.data[0].email,
+        name: response.data[0].name,
+        phone: response.data[0].phone,
+        password: response.data[0].password,
+        profilePicture: response.data[0].profilePicture
+      };
+      // JSON.stringify(userData)
+      await AsyncStorage.clear();
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      navigation.navigate('MainHomeScreen');
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('Login failed. Please check your credentials and try again.');
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -23,12 +77,18 @@ export default function WelcomeBackScreen({ navigation }) {
 
       <View style={styles.inputContainer}>
         <Image source={EmailIcon} style={styles.emailicon} />
-        <TextInput style={styles.input} placeholder="Enter your email" />
+        <TextInput style={styles.input} placeholder="Enter your email" 
+        value = {email}
+        onChangeText = {text => setEmail(text.toLowerCase())}
+        />
       </View>
 
       <View style={styles.inputContainer}>
         <Image source={PasswordIcon} style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Enter your password" secureTextEntry={true} />
+        <TextInput style={styles.input} placeholder="Enter your password" secureTextEntry={true} 
+        value= {password}
+        onChangeText = {text => setPassword(text)}
+        />
       </View>
 
       {/* Log In Button */}
@@ -36,7 +96,7 @@ export default function WelcomeBackScreen({ navigation }) {
         style={[styles.logInButton, logInHover && styles.invertButton]} // Apply hover styles conditionally
         onPressIn={() => setLogInHover(true)}
         onPressOut={() => setLogInHover(false)}
-        onPress={() => navigation.navigate('MainScreens') }
+        onPress={() =>  login()}
         >
         <Text style={[styles.buttonText, logInHover && styles.invertButtonText]}>Log In</Text>
       </TouchableOpacity>
@@ -46,6 +106,7 @@ export default function WelcomeBackScreen({ navigation }) {
       {/* Continue with Google Button */}
       <TouchableOpacity
         style={styles.googleButton}
+        onPress={googleLogin}
         onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
         onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
         <Image source={GoogleIcon} style={styles.googleIcon} />

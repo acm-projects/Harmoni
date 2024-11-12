@@ -7,6 +7,8 @@ import Phone from '../img/phone.png'; // Import phone icon
 import GoogleIcon from '../img/google.png'; // Import Google icon
 import BackButton from '../img/back.png'; // Import the back button image
 import HoneyBear from '../img/honeybear.png'; // Import honeybear image
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterPage({ navigation }) {
   const [createAccountHover, setCreateAccountHover] = useState(false);
@@ -32,6 +34,43 @@ export default function RegisterPage({ navigation }) {
     ).start();
   }, [bounceAnim]);
 
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const signUp = async () => {
+
+    try{
+      const obj = {name,phone,email,password};
+      if (Object.values(obj).includes("")){
+        alert("Fill in all fields");
+        return;
+      }
+
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const phoneRegex = /^\d{10}$/;
+      console.log(!phone.match(phoneRegex))
+      if(!emailRegex.test(email)){
+        alert("Enter a valid email and/or phone number");
+        return;
+      }
+      const response = await axios.post('http://localhost:8000/signUp', obj)
+      await AsyncStorage.clear();
+      await AsyncStorage.setItem('userData', JSON.stringify(obj));
+      navigation.navigate('MainHomeScreen');
+      alert('Account created successfully');
+    }
+    catch(error){
+      console.log(error.message);
+      if(error.message.includes('400'))
+        alert('Duplicate email. Try logging in instead');
+    }
+
+  }
+
+
+
   return (
     <View style={styles.registerContainer}>
       {/* Back button at the top */}
@@ -51,26 +90,39 @@ export default function RegisterPage({ navigation }) {
 
       <View style={styles.inputContainer}>
         <Image source={UsernameIcon} style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Enter your full name" />
+        <TextInput style={styles.input} 
+        placeholder="Enter your full name"
+        value={name}
+        onChangeText={text => setName(text)} />
       </View>
 
       <View style={styles.inputContainer}>
         <Image source={Phone} style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Enter your phone number" />
+        <TextInput style={styles.input} placeholder="Enter your phone number" 
+        value = {phone}
+        onChangeText = {text => setPhone(text)}/>
+        
       </View>
 
       <View style={styles.inputContainer}>
         <Image source={EmailIcon} style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Enter your email" />
+        <TextInput style={styles.input} placeholder="Enter your email" 
+        value = {email}
+        onChangeText = {text => setEmail(text.toLowerCase())}
+        />
       </View>
 
       <View style={styles.inputContainer}>
         <Image source={PasswordIcon} style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Enter your password" secureTextEntry={true} />
+        <TextInput style={styles.input} placeholder="Enter your password" secureTextEntry={true} 
+        value = {password}
+        onChangeText = {text => setPassword(text)}
+        />
       </View>
 
       <TouchableOpacity 
         style={[styles.createAccountButton, createAccountHover && styles.invertButton]} // Apply styles conditionally
+        onPress={() => signUp()}
         onPressIn={() => setCreateAccountHover(true)}
         onPressOut={() => setCreateAccountHover(false)}>
         <Text style={[styles.buttonText, createAccountHover && styles.invertButtonText]}>Create Account</Text>
@@ -80,6 +132,7 @@ export default function RegisterPage({ navigation }) {
       {/* Continue with Google Button */}
       <TouchableOpacity 
         style={styles.googleButton}
+        
         onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
         onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
         <Image source={GoogleIcon} style={styles.googleIcon} />

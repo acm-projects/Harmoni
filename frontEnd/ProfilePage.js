@@ -285,18 +285,39 @@
 // export default ProfilePage;
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 const ProfilePage = ({ navigation }) => {
+
+  const [userData, setUserData] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('userData');
+      if (storedUserData) {
+        setUserData(JSON.parse(storedUserData));
+        console.log(JSON.parse(storedUserData).email + "HELLO")
+        console.log("Worked")
+      }
+      console.log(userData + "AAAAAA")
+    };
+
+    fetchUserData();
+  }, []); 
+
   const [user, setUser] = useState({
-    name: 'Kartik Joshi',
+    name: userData.name,
     role: 'College Student',
-    email: 'kartik.joshi.ron@gmail.com',
-    username: 'Kartik Joshi',
-    password: '********',
+    email: userData.email,
+    username: userData.name,
+    password: userData.password,
     birthDate: '2 May 2006',
     joinedDate: '22 Oct 2024',
     image: require('./img/johndoe.png'),
@@ -334,6 +355,8 @@ const ProfilePage = ({ navigation }) => {
     navigation.navigate('WelcomeBack');
   };
 
+  
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -346,7 +369,7 @@ const ProfilePage = ({ navigation }) => {
 
       <View style={styles.profileSection}>
         <View style={styles.avatarContainer}>
-          <Image source={user.image} style={styles.avatar} />
+          <Image source={{uri: userData.profilePicture}} style={styles.avatar} />
           <TouchableOpacity style={styles.editButton} onPress={handleEditPhoto}>
             <Ionicons name="camera" size={14} color="#fff" />
           </TouchableOpacity>
@@ -384,7 +407,7 @@ const ProfilePage = ({ navigation }) => {
           <Text style={styles.label}>Email Address</Text>
           <TextInput
             style={styles.input}
-            value={user.email}
+            value={userData.email}
             editable={false}
           />
         </View>
@@ -393,7 +416,7 @@ const ProfilePage = ({ navigation }) => {
           <Text style={styles.label}>Username</Text>
           <TextInput
             style={styles.input}
-            value={`@${user.username}`}
+            value={`@${userData.name}`}
             editable={false}
           />
           <View style={styles.checkmark}>
@@ -405,7 +428,7 @@ const ProfilePage = ({ navigation }) => {
           <Text style={styles.label}>Password</Text>
           <TextInput
             style={styles.input}
-            value={user.password}
+            value={userData.password}
             secureTextEntry
             editable={false}
           />
