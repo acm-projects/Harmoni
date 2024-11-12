@@ -151,32 +151,7 @@ export default function MainHomeScreen({navigation}) {
         </View>
       </ScrollView>
 
-      {/* Modal */}
-      {modalVisible && (
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>This is the modal content</Text>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text style={styles.closeButton}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-
-      {/* Floating Action Button */}
-      <LinearGradient
-        colors={['#1880fe', '#8690fe']}
-        style={styles.floatingButton}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <TouchableOpacity 
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-          onPress={() => setModalVisible(true)}
-        >
-          <StarIcon name="star-four-points-outline" size={24} color="#fff" />
-        </TouchableOpacity>
-      </LinearGradient>
+      
     </SafeAreaView>
   );
 }
@@ -365,48 +340,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#fff3e0',
     marginBottom: -20
-  },
-  floatingButton: {
-    position: 'absolute',
-    bottom: 30,
-    right: 20,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#FF6347',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 8,
-  },
-  modalOverlay: {
-    position: 'absolute',
-    top: 15,
-    left: -5,
-    right: -5,
-    bottom: -15,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
-    width: '90%',
-    height: '90%', // Adjusted height to cover the gap
-    backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  closeButton: {
-    fontSize: 16,
-    color: '#1880fe',
   },
 });
