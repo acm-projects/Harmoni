@@ -10,12 +10,17 @@ googleAuthRouter.post('/googleLogin', async (req,res) => {
     const phone = "none";
     const password = "googleAuth";
     const profilePicture = req.body.profilePicture;
+    const accessToken = req.body.accessToken;
     const user = await User({
         name: name,
         phone: phone,
         email: email,
         password: password,
-        profilePicture: profilePicture
+        profilePicture: profilePicture,
+        googleAuth: {
+            accessToken: accessToken,
+            refreshToken: ""
+        }
     });
 
     const emailCheck = await User.findOne({email: email})
@@ -28,6 +33,12 @@ googleAuthRouter.post('/googleLogin', async (req,res) => {
             console.log(error);
         }
     }
+    const result = User.updateOne(
+        {email:email},
+        {$set: {googleAuth: {accessToken: accessToken, refreshToken: ""}}},
+    )
+
+    console.log(result)
     res.json(user);
 })
 

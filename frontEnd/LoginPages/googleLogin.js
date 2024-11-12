@@ -3,11 +3,13 @@ import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-si
 
 const googleSignInComponent = () => {
   const [userData, setUserData] = useState(null);
+  const [tokens, setTokens] = useState(null);
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: '262889882503-0hel7inn2dspiufc8iagqibbhb2o3vo3.apps.googleusercontent.com',
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
       offlineAccess: true,
+      forceCodeForRefreshToken: true,
       iosClientId: '262889882503-b3nktm5fmtm3aath24c9h342gejhi1lf.apps.googleusercontent.com',
       profileImageSize: 120,
     });
@@ -30,6 +32,7 @@ const googleSignInComponent = () => {
       // console.log(response)
       if (isSuccessResponse(response)) {
         setUserData(response.data.user);
+        setTokens(tokens);
       } else {
         alert("Google Sign In failed");
       }
@@ -45,7 +48,7 @@ const googleSignInComponent = () => {
         }
       }
     }
-    return userData;
+    return {userData,tokens};
   };
   return {signIn};
 

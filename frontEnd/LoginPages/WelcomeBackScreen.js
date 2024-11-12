@@ -22,13 +22,15 @@ export default function WelcomeBackScreen({ navigation }) {
     try {
       const data = await signIn();
       const userData = {
-        email: data.email,
-        name: data.name,
+        email: data.userData.email,
+        name: data.userData.name,
         phone: "",
-        password: data.id,
-        profilePicture: data.photo
+        password: data.userData.id,
+        profilePicture: data.userData.photo,
+        accessToken: data.tokens.accessToken,
       };
       console.log('User Data:', userData);
+      console.log("Tokens", data.tokens);
 
       
       const response = await axios.post('http://localhost:8000/googleLogin', userData);

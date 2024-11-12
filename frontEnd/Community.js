@@ -149,9 +149,8 @@ const CommunityScreen = ({ navigation }) => {
   const CategoryItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
-        if (item.name === 'Study Buddies') {
-          navigation.navigate('StudyBuddies');
-        }
+        AsyncStorage.setItem('groupName', item.name);
+        navigation.navigate('StudyBuddies');
       }}
     >
       <LinearGradient
