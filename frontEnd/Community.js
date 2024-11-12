@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { User } from 'lucide-react';
 
 const CommunityScreen = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
@@ -91,8 +92,12 @@ const CommunityScreen = ({ navigation }) => {
     }
   };
 
-  const deleteTask = (id) => {
+  const deleteTask = (id,name) => {
     setTasks(tasks.filter(task => task.id !== id));
+    const groupName = name
+    const memberName = userData.name
+    console.log(name);
+    axios.post('http://localhost:8000/leaveGroup',{groupName,memberName})
   };
 
   const addGroupMemberInput = () => {
@@ -164,7 +169,7 @@ const CommunityScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => deleteTask(item.id)}
+          onPress={() => deleteTask(item.id,item.name)}
         >
           <Ionicons name="close" size={16} color="white" />
         </TouchableOpacity>
