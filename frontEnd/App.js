@@ -64,9 +64,10 @@ function CommunityScreens() {
   return(
     <Stack.Navigator>
       <Stack.Screen name="Community" component={Community} options={{ headerShown: false }} />
-      <Stack.Screen name="Study Buddies" component={StudyBuddiesScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="StudyBuddies" component={StudyBuddiesScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ACM Meeting Screen" component={ACMMeetingScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Poll" component={Poll} options={{ headerShown: false}} />
+      
     </Stack.Navigator>
   )
 }
@@ -78,7 +79,8 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="WelcomeBack" component={WelcomeBackScreen} options={{ headerShown: false }} /> 
         <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false}} />
-        <Stack.Screen name="MainScreens" component={MainScreens} options={{ headerShown: false}}/>
+        <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false}} />
+        <Stack.Screen name="MainHomeScreen" component={MainScreens} options={{ headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
