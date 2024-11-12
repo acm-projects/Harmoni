@@ -384,17 +384,17 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    top: 15,
+    left: -5,
+    right: -5,
+    bottom: -15,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
     width: '90%',
-    height: '80%',
+    height: '90%', // Adjusted height to cover the gap
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 20,
