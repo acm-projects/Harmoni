@@ -5,6 +5,11 @@ dotenv.config();
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
+
+/* 
+
+I'll just use my connection string for now 
+- mathew
 (async () => {
     try {
         await mongoose.connect(process.env.USER_URI);
@@ -13,7 +18,7 @@ const mongoose = require('mongoose');
         console.error('Failed to connect to MongoDB:', error);
     }
 })();
-
+*/
 
 
 
