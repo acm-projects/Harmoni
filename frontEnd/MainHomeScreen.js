@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Home from './img/home.png';
-import Calendar from './img/calendar.png';
-import Messages from './img/messages.png';
-import Server from './img/server.png';
-import JohnDoe from './img/johndoe.png';
-import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import StarIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ChatBot from './chatBot';
+// import Home from './img/home.png';
+// import Calendar from './img/calendar.png';
+// import Messages from './img/messages.png';
+// import Server from './img/server.png';
+// import JohnDoe from './img/johndoe.png';
+// import Icon from 'react-native-vector-icons/Feather';
 // import { Star } from 'lucide-react';
 
 export default function MainHomeScreen({navigation}) {
@@ -47,6 +48,7 @@ export default function MainHomeScreen({navigation}) {
 
         {/* Mini Calendar */}
         <View style={styles.miniCalendarContainer}>
+
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {days.map((day, index) => {
               const isToday = index === today.getDay();
@@ -164,7 +166,7 @@ export default function MainHomeScreen({navigation}) {
       )}
 
       {/* Floating Action Button */}
-      <LinearGradient
+      {/* <LinearGradient
         colors={['#1880fe', '#8690fe']}
         style={styles.floatingButton}
         start={{ x: 0, y: 0 }}
@@ -176,7 +178,8 @@ export default function MainHomeScreen({navigation}) {
         >
           <StarIcon name="star-four-points-outline" size={24} color="#fff" />
         </TouchableOpacity>
-      </LinearGradient>
+      </LinearGradient> */}
+      <ChatBot/>
     </SafeAreaView>
   );
 }

@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import ChatBot from './chatBot';
 import { User } from 'lucide-react';
 
 const CommunityScreen = ({ navigation }) => {

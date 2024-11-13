@@ -15,7 +15,11 @@ const session = require('express-session');
 //These two lines are middleware
 //cors(): allows cross-origin requests, giving frontend access to backend localhost server
 //express.json(): allows express to parse json data
-app.use(cors()); 
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+})); 
 app.use(express.json()); 
 app.use(session({
     secret: 'your_secret_key',

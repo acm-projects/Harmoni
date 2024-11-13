@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ChatBot from './chatBot';
 
 const CalendarScreen = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState('');
@@ -141,6 +142,7 @@ const CalendarScreen = ({ navigation }) => {
           )}
         </View>
       </ScrollView>
+      <ChatBot/>
     </SafeAreaView>
   );
 };
