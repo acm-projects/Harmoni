@@ -115,6 +115,36 @@ const CalendarScreen = ({ navigation }) => {
 ],
 '2024-12-20': [
   {name: 'ML and AI Research Meeting', data: "extracurricular events"}
+],
+'2024-11-18': [
+  {name: 'Assignment 1 Due', data: "class"}
+],
+'2024-11-20': [
+  {name: 'Group Assignment Meeting', data: "class"}
+],
+'2024-11-22': [
+  {name: 'Assignment 2 Released', data: "class"}
+],
+'2024-11-25': [
+  {name: 'Assignment Workshop', data: "class"}
+],
+'2024-11-28': [
+  {name: 'Final Assignment Briefing', data: "class"}
+],
+'2024-12-01': [
+  {name: 'Assignment 2 Due', data: "class"}
+],
+'2024-12-03': [
+  {name: 'Assignment Feedback Session', data: "class"}
+],
+'2024-12-05': [
+  {name: 'Assignment 3 Released', data: "class"}
+],
+'2024-12-08': [
+  {name: 'Assignment Q&A Session', data: "class"}
+],
+'2024-12-10': [
+  {name: 'Assignment 3 Due', data: "class"}
 ]
         }}
         renderItem={(item, isFirst) => (
