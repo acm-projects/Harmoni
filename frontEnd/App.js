@@ -14,6 +14,7 @@ import ACMMeetingScreen from './ACMMeetingScreen'
 import Poll from './Poll';
 import ProfilePage from './ProfilePage';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import GroupCalendarScreen from './groupCalendarScreen';
 
 
 const Stack = createStackNavigator();
@@ -81,6 +82,7 @@ export default function App() {
         <Stack.Screen name="RegisterPage" component={RegisterPage} options={{ headerShown: false}} />
         <Stack.Screen name="ProfilePage" component={ProfilePage} options={{ headerShown: false}} />
         <Stack.Screen name="MainHomeScreen" component={MainScreens} options={{ headerShown: false}}/>
+        <Stack.Screen name="GroupCalendarScreen" component={GroupCalendarScreen} options={{ headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

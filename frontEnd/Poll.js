@@ -1,13 +1,29 @@
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, ScrollView, Dimensions, Animated } from 'react-native';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import RNPoll, { IChoice } from 'react-native-poll'
 import { Navigation } from 'lucide-react'
 import { MaterialCommunityIcons} from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Poll( {navigation} ){
+  const [groupName, setGroupName] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('groupName');
+      if (storedUserData) {
+        const user = JSON.parse(storedUserData);
+        setGroupName(user);
+      }
+    };
+
+    fetchUserData();
+  }, []); 
+
+
   const choices = [
     { id: 1, choice: '1PM', votes: 0},
     { id: 2, choice: '2PM', votes: 0},
@@ -68,7 +84,7 @@ export default function Poll( {navigation} ){
               fontSize: 40,
               fontWeight: 'bold'
             }}>
-            Polls
+            {groupName}
           </Text>
       <View>
       {polls.map(polls => (
