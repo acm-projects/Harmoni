@@ -8,6 +8,7 @@ import Server from './img/server.png';
 import JohnDoe from './img/johndoe.png';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import StarIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Star } from 'lucide-react';
 
@@ -16,7 +17,7 @@ export default function MainHomeScreen({navigation}) {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   const [userData, setUserData] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
+  const [userCalendar, setUserCalendar] = useState({});
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -24,8 +25,19 @@ export default function MainHomeScreen({navigation}) {
       if (storedUserData) {
         setUserData(JSON.parse(storedUserData));
       }
-    };
 
+      console.log(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`)
+      await fetch(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`),
+      await fetch(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`);
+      const response = await axios.get(`http://localhost:8000/api/calendar/calendars/${userData.email}`);
+      await AsyncStorage.setItem('userCalendar', JSON.stringify(response));
+      const storedCalendar = await AsyncStorage.getItem('userCalendar');
+      if (storedCalendar) {
+        setUserCalendar(JSON.parse(storedCalendar));
+      }
+      console.log("USERCALENDAR" , userCalendar)
+    };
+    
     fetchUserData();
   }, []); // Empty dependency array ensures this runs once on mount
 

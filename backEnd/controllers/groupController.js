@@ -17,7 +17,7 @@ const getGroup = async (req, res) => {
   const { groupId } = req.params;
 
   try {
-    const group = await Group.findById(groupId);
+    const group = await Group.fine({name: groupId});
     if (!group) {
       return res.status(404).send('Group not found');
     }

@@ -1,10 +1,26 @@
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
 import React from 'react';
 import { Agenda, Calendar } from 'react-native-calendars';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const CalendarScreen = ({ navigation }) => {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('userData');
+      console.log(storedUserData)
+      if (storedUserData) {
+        setUserData(JSON.parse(storedUserData));
+      }
+    };
+
+    fetchUserData();
+  }, []); // Empty dependency array ensures this runs once on mount
+
+
   const dataCalendar = [
     {
       "summary": "ML and AI Research Meeting",
@@ -61,34 +77,37 @@ const CalendarScreen = ({ navigation }) => {
       <Agenda
         items={{
          
-          '2024-11-13': [
+          '2024-11-18': [
   {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
   {name: 'Veer Waje - Brother Interview', data: "AKPSI events"}
 ],
-'2024-11-13': [
+'2024-11-19': [
   {name: 'CS 2340.006 - Alice Wang', data: "classes"},
   {name: 'CS 3345.002 - Omar Hamdy', data: "classes"}
 ],
-'2024-11-14': [
+'2024-11-20': [
+  {name: 'CS 3345 Homework 5 - Sruthi Chappidi', data: "Assignment"},
   {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
   {name: 'LAB PHYS 2126.119', data: "classes"},
-  {name: 'CS 3345.503 - Sruthi Chappidi', data: "classes"}
 ],
-'2024-11-15': [
-  {name: 'CS 2340.006 - Alice Wang', data: "classes"},
+'2024-11-18': [
+  {name: 'CS 2340 Exam - Alice Wang', data: "Exam"},
   {name: 'CS 3345.002 - Omar Hamdy', data: "classes"},
 ],
-'2024-11-16': [
+'2024-11-21': [
   {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
   {name: 'CS 3345.503 - Sruthi Chappidi', data: "classes"},
   {name: 'PHYS 2326 Exam 3', data: "exams"}
 ]
         }}
         renderItem={(item, isFirst) => (
-          <TouchableOpacity style = {styles.item}>
-            
-            <Text style = {styles.container}>{item.name}</Text>
-            <Text style = {styles.container}>{item.data}</Text>
+          <TouchableOpacity style={[styles.item, item.name.includes('Exam')? styles.examItem : item.data === 'Assignment' ? styles.assignmentItem : null]}>
+            <Text style={[styles.container, item.data === 'Exam' ? styles.examItem : item.data === 'Assignment' ? styles.assignmentItem : null]}>
+              {item.name}
+            </Text>
+            <Text style={[styles.container, item.data === 'Exam' ? styles.examItem : item.data === 'Assignment' ? styles.assignmentItem : null]}>
+              {item.data}
+            </Text>
           </TouchableOpacity>
         )}
         theme={{
@@ -102,7 +121,7 @@ const CalendarScreen = ({ navigation }) => {
           textDisabledColor: '#d9e1e8', // Change the text disabled color
           dotColor: '#835e45', // Change the dot color
           selectedDotColor: '#ffffff', // Change the selected dot color
-          arrowColor: '835e45', // Change the arrow color
+          arrowColor: 'black', // Change the arrow color
           monthTextColor: 'ffcc00', // Change the month text color
           indicatorColor: 'ffcc00', // Change the indicator color
           agendaDayTextColor: 'black', // Change the agenda day text color
@@ -120,9 +139,6 @@ const CalendarScreen = ({ navigation }) => {
 export default CalendarScreen;
 
 const styles = StyleSheet.create({
-  agendaBackground: {
-    backgroundColor: '#fff3e0',
-  },
   container:{
     flex: 1,
     backgroundColor: '#fff3e0',
@@ -138,4 +154,17 @@ const styles = StyleSheet.create({
   itemText: {
     color: '#000',
   },
-}) 
+  examText: {
+    color: 'darkred',
+  },
+  examItem: {
+    backgroundColor: 'red',
+    borderWidth: .01, // Reduce border thickness
+    borderColor: 'darkred',
+  },
+  assignmentItem:{
+    backgroundColor: 'orange',
+    borderWidth: .01, // Reduce border thickness
+    borderColor: 'blue',
+  }
+})

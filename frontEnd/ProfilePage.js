@@ -306,7 +306,7 @@ const ProfilePage = ({ navigation }) => {
         console.log(JSON.parse(storedUserData).email + "HELLO")
         console.log("Worked")
       }
-      console.log(userData + "AAAAAA")
+      // console.log(userData + "AAAAAA")
     };
 
     fetchUserData();

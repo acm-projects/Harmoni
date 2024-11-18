@@ -30,7 +30,7 @@ export default function Poll( {navigation} ){
   ]
   const [polls, setPolls] = useState([
     { id: 1, name: 'What time for ACM Meeting?', members: 8},
-    {id: 2, name: 'What time for pancakes?', members: 10}
+    {id: 2, name: 'Presentation Practice Time?', members: 10}
   ]);
 
   const [modalVisible, setModalVisible] = useState(false);

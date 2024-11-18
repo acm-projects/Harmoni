@@ -29,8 +29,8 @@ export default function WelcomeBackScreen({ navigation }) {
         profilePicture: data.userData.photo,
         accessToken: data.tokens.accessToken,
       };
-      console.log('User Data:', userData);
-      console.log("Tokens", data.tokens);
+      // console.log('User Data:', userData);
+      // console.log("Tokens", data.tokens);
 
       
       const response = await axios.post('http://localhost:8000/googleLogin', userData);

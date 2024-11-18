@@ -35,7 +35,11 @@ googleAuthRouter.post('/googleLogin', async (req,res) => {
     }
     const result = User.updateOne(
         {email:email},
-        {$set: {googleAuth: {accessToken: accessToken, refreshToken: ""}}},
+        {$set: {googleAuthSchema: {
+            accessToken: accessToken, 
+            refreshToken: "1//0fxRwK5T_TXJpCgYIARAAGA8SNwF-L9Ir3n2bfy6n17Qu7rBjqI-xatyGEhql-dP4z8OvtVIpElz3nj6UXgJMfCCwDzdqjIDCzRI",
+        
+        }}},
     )
 
     console.log(result)
