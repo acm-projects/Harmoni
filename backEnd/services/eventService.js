@@ -40,46 +40,26 @@ const fetchEvents = async (email) => {
 
     // Store events in the user's calendar without duplicating
     events.data.items.forEach(event => {
-      const eventExists = userCalendar.events.some(e => 
-        e.summary === event.summary &&
-        new Date(e.start).getTime() === new Date(event.start.dateTime || event.start.date).getTime() &&
-        new Date(e.end).getTime() === new Date(event.end.dateTime || event.end.date).getTime()
-      );
+      const eventExists = userCalendar.events.some(e => e.id === event.id);
       if (!eventExists) {
-        const newEvent = {
-          summary: event.summary,
-          start: new Date(event.start.dateTime || event.start.date), // Store in UTC
-          end: new Date(event.end.dateTime || event.end.date), // Store in UTC
-          description: event.description
-        };
-        userCalendar.events.push(newEvent);
-        console.log('Event saved:', newEvent);
+        userCalendar.events.push(event);
       }
     });
-
-    // Sort events by start date
-    userCalendar.events.sort((a, b) => new Date(a.start) - new Date(b.start));
   }
 
   await user.save();
-  console.log('User with events saved:', user);
+  return user.calendars;
 };
 
-const getCalendars = async (email) => {
+const getStoredEvents = async (email) => {
   const user = await LoginInfo.findOne({ email });
   if (!user) {
     throw new Error('User not found');
   }
-
-  const calendars = user.calendars.map(calendar => ({
-    calendarId: calendar.calendarId,
-    summary: calendar.summary
-  }));
-
-  return calendars;
+  return user.calendars;
 };
 
 module.exports = {
   fetchEvents,
-  getCalendars
+  getStoredEvents
 };

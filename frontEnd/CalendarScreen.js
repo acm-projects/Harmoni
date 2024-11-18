@@ -92,23 +92,23 @@ const CalendarScreen = ({ navigation }) => {
           </TouchableOpacity>
         )}
         theme={{
-          backgroundColor: '#fff3e0', // Change the background color
-          calendarBackground: '#ffffff', // Change the calendar background color
-          textSectionTitleColor: '#835e45', // Change the text section title color
-          selectedDayBackgroundColor: '#ffcc00', // Change the selected day background color
-          selectedDayTextColor: '#ffffff', // Change the selected day text color
-          todayTextColor: '#835e45', // Change the today text color
-          dayTextColor: '#2d4150', // Change the day text color
-          textDisabledColor: '#d9e1e8', // Change the text disabled color
-          dotColor: '#835e45', // Change the dot color
-          selectedDotColor: '#ffffff', // Change the selected dot color
-          arrowColor: '835e45', // Change the arrow color
-          monthTextColor: 'ffcc00', // Change the month text color
-          indicatorColor: 'ffcc00', // Change the indicator color
-          agendaDayTextColor: 'black', // Change the agenda day text color
-          agendaDayNumColor: 'gray', // Change the agenda day number color
-          agendaTodayColor: '835e45', // Change the agenda today color
-          agendaKnobColor: 'ffcc00' // Change the agenda knob color
+          backgroundColor: '#fff3e0', // Main background color
+          calendarBackground: '#fff3e0', // Main background color
+          textSectionTitleColor: '#835e45', // Brown for section titles
+          selectedDayBackgroundColor: '#ebbf44', // Yellow for selected day background
+          selectedDayTextColor: '#ffffff', // White for selected day text
+          todayTextColor: '#835e45', // Brown for today's text
+          dayTextColor: '#000000', // Black for day text
+          textDisabledColor: '#d9e1e8', // Disabled text color
+          dotColor: '#835e45', // Brown for dots
+          selectedDotColor: '#ffffff', // White for selected dots
+          arrowColor: '#835e45', // Brown for arrows
+          monthTextColor: '#ebbf44', // Yellow for month text
+          indicatorColor: '#ebbf44', // Yellow for indicator
+          agendaDayTextColor: '#000000', // Black for agenda day text
+          agendaDayNumColor: '#000000', // Black for agenda day number
+          agendaTodayColor: '#835e45', // Brown for agenda today
+          agendaKnobColor: '#ebbf44' // Yellow for agenda knob
         }}
       />
     </SafeAreaView>
@@ -128,14 +128,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff3e0',
   },
   item:{
-    backgroundColor: '#fff3e0',
-    flex: 1,
+    backgroundColor: '#fff3e0', // Main background color
+    borderColor: '#ebbf44', // Yellow for border color
+    borderWidth: 1, // Define the border width
     borderRadius: 5,
-    padding: 10,
-    marginRight: 10,
-    marginTop: 25,
+    padding: 10, // Adjust padding to make the border smaller
+    marginRight: 10, // Adjust margin to make the border smaller
+    marginTop: 17, // Adjust margin to make the border smaller
   },
   itemText: {
-    color: '#000',
+    color: '#000000',
   },
 }) 
