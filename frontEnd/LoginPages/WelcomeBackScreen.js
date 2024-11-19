@@ -1,20 +1,74 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
-import EmailIcon from '../img/email.png'; // Import email icon
-import PasswordIcon from '../img/password.png'; // Import password icon
-import GoogleIcon from '../img/google.png'; // Import Google icon
-import BackButton from '../img/back.png'; // Import the back button image
+import { StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import EmailIcon from '../img/email.png';
+import PasswordIcon from '../img/password.png';
+import GoogleIcon from '../img/google.png';
+import BackButton from '../img/back.png';
 import Harmoni from '../img/harmoni.png';
-import { CurrentRenderContext } from '@react-navigation/native';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from './firebase';
+import Icon from 'react-native-vector-icons/Feather';
 
 export default function WelcomeBackScreen({ navigation }) {
   const [logInHover, setLogInHover] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields.");
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        Alert.alert("Success", `Logged in as ${user.email}`);
+        navigation.navigate("MainHomeScreen");
+      })
+      .catch((error) => {
+        Alert.alert("Error", error.message);
+      });
+  };
+
+  const handleForgotPassword = () => {
+    if (!email) {
+      Alert.alert("Error", "Please enter your email first.");
+      return;
+    }
+
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        Alert.alert("Success", "Password reset email sent! Check your inbox.");
+      })
+      .catch((error) => {
+        Alert.alert("Error", error.message);
+      });
+  };
+
+  const handleUpdatePasswordInFirestore = async () => {
+    if (!newPassword) {
+      Alert.alert("Error", "Please enter the new password to update in Firestore.");
+      return;
+    }
+
+    try {
+      const userId = auth.currentUser.uid;
+      const userDoc = doc(firestore, "users", userId);
+      await updateDoc(userDoc, { password: newPassword });
+      Alert.alert("Success", "Password updated in Firestore!");
+      setNewPassword(''); // Clear the field
+    } catch (error) {
+      Alert.alert("Error", "Failed to update password in Firestore.");
+      console.error("Firestore update error:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      {/* Back button at the top */}
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Image source={BackButton} style={styles.backButtonImage} />
+        <Icon name="chevron-left" size={40} color="#835e45" />
       </TouchableOpacity>
       <Image source={Harmoni} style={styles.logo} />
 
@@ -22,32 +76,59 @@ export default function WelcomeBackScreen({ navigation }) {
       <Text style={styles.loginText}>Log in to your account to continue</Text>
 
       <View style={styles.inputContainer}>
-        <Image source={EmailIcon} style={styles.emailicon} />
-        <TextInput style={styles.input} placeholder="Enter your email" />
+        <Icon name='user' size={24} style={styles.icon} color='#333'/>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
       </View>
 
       <View style={styles.inputContainer}>
-        <Image source={PasswordIcon} style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Enter your password" secureTextEntry={true} />
+        <Icon name='lock' size={24} style={styles.icon} color='#333'/>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity
+          style={styles.eyeIconContainer}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          <Icon 
+            name={showPassword ? 'eye' : 'eye-off'}
+            size={20}
+            color="#333"
+          />
+        </TouchableOpacity>
       </View>
 
-      {/* Log In Button */}
+      {/* Forgot Password Link */}
+      <TouchableOpacity onPress={handleForgotPassword}>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
-        style={[styles.logInButton, logInHover && styles.invertButton]} // Apply hover styles conditionally
+        style={[styles.logInButton, logInHover && styles.invertButton]}
         onPressIn={() => setLogInHover(true)}
         onPressOut={() => setLogInHover(false)}
-        onPress={() => navigation.navigate('MainHomeScreen') }
-        >
+        onPress={handleLogin}
+      >
         <Text style={[styles.buttonText, logInHover && styles.invertButtonText]}>Log In</Text>
       </TouchableOpacity>
 
       <Text style={styles.orText}>Or</Text>
 
-      {/* Continue with Google Button */}
       <TouchableOpacity
         style={styles.googleButton}
-        onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
-        onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
+        onPressIn={() => (styles.googleButton.backgroundColor = '#835e45')}
+        onPressOut={() => (styles.googleButton.backgroundColor = '#fff')}
+      >
         <Image source={GoogleIcon} style={styles.googleIcon} />
         <Text style={styles.googleButtonText}>Continue with Google</Text>
       </TouchableOpacity>
@@ -62,27 +143,27 @@ export default function WelcomeBackScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff3e0', // Background color
+    backgroundColor: '#fff3e0',
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
   logo: {
-    width: 450, // Adjusted logo size
+    width: 450,
     height: 150,
     resizeMode: 'contain',
-    marginBottom: -30, // Space below logo
+    marginBottom: -30,
     alignItems: 'center',
     marginLeft: -35,
     marginTop: -50,
   },
   backButton: {
     position: 'absolute',
-    top: 80, // Move the arrow down
-    left: 20, // Adjust spacing from the left
-    zIndex: 10, // Ensure the back button is on top
+    top: 80,
+    left: 20,
+    zIndex: 10,
   },
   backButtonImage: {
-    width: 40, // Adjust size of the back button image
+    width: 40,
     height: 40,
     resizeMode: 'contain',
   },
@@ -92,7 +173,7 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 10,
     marginLeft: 15,
-    marginTop: 40, // Move the "Welcome back" text up
+    marginTop: 40,
   },
   loginText: {
     fontSize: 16,
@@ -104,10 +185,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff3e0',
-    borderRadius: 25, // Rounded rectangle for input boxes
+    borderRadius: 25,
     paddingHorizontal: 15,
     paddingVertical: 12,
-    marginBottom: 20, // Spacing between input boxes
+    marginBottom: 20,
     borderWidth: 1,
     borderColor: '#414a4c',
   },
@@ -165,11 +246,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   invertButton: {
-    backgroundColor: '#fff', // Inverted background color
-    borderColor: '#835e45', // Keep border color
+    backgroundColor: '#fff',
+    borderColor: '#835e45',
   },
   invertButtonText: {
-    color: '#835e45', // Inverted text color
+    color: '#835e45',
   },
   createAccountText: {
     textAlign: 'center',
@@ -179,5 +260,16 @@ const styles = StyleSheet.create({
   link: {
     color: '#835e45',
     fontWeight: 'bold',
+  },
+  eyeIconContainer: {
+    position: 'absolute',
+    right: 15,
+  },
+  forgotPasswordText: {
+    color: '#835e45',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 15,
   },
 });

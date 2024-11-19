@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
+    "@react-native-async-storage/root": "github:react-native-async-storage/async-storage",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-google-signin/google-signin": "^13.1.0",
@@ -20,6 +21,7 @@
     "expo-image-picker": "~15.0.7",
     "expo-linear-gradient": "~13.0.2",
     "expo-status-bar": "~1.12.1",
+    "firebase": "^11.0.1",
     "lucide-react": "^0.453.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
