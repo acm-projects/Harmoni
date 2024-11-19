@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const calendarRoutes = require('./routes/calendarRoutes');
 const pollRoutes = require('./routes/pollRoutes');
 const groupRoutes = require('./routes/groupRoutes'); // Import group routes
+const eventRoutes = require('./routes/eventRoutes'); // Import event routes
 dotenv.config();
 
 require('./models/dataBase')
@@ -37,6 +38,7 @@ app.use(session({
 app.use('/', authRouter);
 app.use('/', googleAuthRouter);
 app.use('/', groupRouter);
+app.use('/', eventRoutes);
 
 //Test route to check if server is running
 app.get('/', (req,res) => {

@@ -13,7 +13,7 @@ import StudyBuddiesScreen from './StudyBuddiesScreen'
 import ACMMeetingScreen from './ACMMeetingScreen'
 import Poll from './Poll';
 import ProfilePage from './ProfilePage';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome6 } from '@expo/vector-icons';
 import GroupCalendarScreen from './groupCalendarScreen';
 
 
@@ -24,38 +24,42 @@ function MainScreens(){
   return(
     <Tab.Navigator
     initialRouteName='MainScreens'
-    screenOptions={{ headerShown: false }}>
+    screenOptions={{ 
+      headerShown: false, 
+      tabBarStyle: { backgroundColor: '#fff3e0', borderTopWidth: 0 }, // Remove outline
+      tabBarIconStyle: { marginBottom: -20 } // Adjust icon position
+    }}>
       <Tab.Screen 
-        name="MainHomeScreen" 
+        name="Home" 
         component={MainHomeScreen}
-        options={{title: 'Home',
+        options={{title: '',
           tabBarIcon:({size, color})=>(
-            <MaterialCommunityIcons name='home'
-            size={size} color={color}/>
+            <FontAwesome6 name='house-chimney'
+            size={size + 0} color={color}/> // Increase size by 5
           ),
-          tabBarActiveTintColor: '#FEDE69'
+          tabBarActiveTintColor: '#3a372d'
         }}
       />
       <Tab.Screen 
         name = "CalendarScreen" 
         component={CalendarScreen}
-        options={{title: 'Calendar',
+        options={{title: '',
           tabBarIcon:({size, color})=>(
             <MaterialCommunityIcons name='calendar'
-            size={size} color={color}/>
+            size={size + 5} color={color}/> // Increase size by 5
           ),
-          tabBarActiveTintColor: '#FEDE69'
+          tabBarActiveTintColor: '#ffc800'
         }} 
       />
       <Tab.Screen 
         name = "groups" 
         component={CommunityScreens}
-        options={{title: 'Groups',
+        options={{title: '',
           tabBarIcon:({size, color})=>(
-            <Ionicons name='people'
-            size={size} color={color}/>
+            <MaterialCommunityIcons name='account-group'
+            size={size + 5} color={color}/> // Increase size by 5
           ),
-          tabBarActiveTintColor: '#FEDE69'
+          tabBarActiveTintColor: '#fec700'
         }}
         />
     </Tab.Navigator>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const googleSignInComponent = () => {
   const [userData, setUserData] = useState(null);
@@ -16,9 +17,6 @@ const googleSignInComponent = () => {
   }, []);
   
 
-  const isSuccessResponse = (response) => {
-    return response.data;
-  };
 
   const signIn = async () => {
     try {
@@ -29,12 +27,13 @@ const googleSignInComponent = () => {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
       const tokens = await GoogleSignin.getTokens();
-      // console.log(response)
-      if (isSuccessResponse(response)) {
+      if (response.data.user != null) {
+        console.log(response.data.user);
         setUserData(response.data.user);
         setTokens(tokens);
       } else {
         alert("Google Sign In failed");
+        return;
       }
     } catch (error) {
       if (error) {

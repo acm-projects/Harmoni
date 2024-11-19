@@ -1,10 +1,16 @@
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Agenda, Calendar } from 'react-native-calendars';
-import { useState } from 'react';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GroupCalendarScreen = ({ navigation }) => {
+  const [calendarItems, setCalendarItems] = useState({});
+
+  useEffect(() => {
+    const parsedItems = parseDataCalendar(dataCalendar);
+    setCalendarItems(parsedItems);
+  }, []);
+
   const dataCalendar = [
     {
       "summary": "ML and AI Research Meeting",
@@ -43,112 +49,34 @@ const GroupCalendarScreen = ({ navigation }) => {
       "calendar": "classes"
   },
   ]
-  const print = () =>{
-    console.log(parseDataCalendar(dataCalendar))
-  }
 
   const parseDataCalendar = (data) => {
-    return data.map(event => ({
-      time: event.start.slice(11, 16), // Extract time from start
-      name: event.summary,
-      endTime: event.end.slice(11, 16), // Extract time from end
-      data: event.calendar
-    }));
+    const items = {};
+    data.forEach(event => {
+      const date = event.start.slice(0, 10);
+      if (!items[date]) {
+        items[date] = [];
+      }
+      items[date].push({
+        name: event.summary,
+        data: event.calendar
+      });
+    });
+    return items;
   };
-  const day = '2024-11-14';
+
   return(
     <SafeAreaView style={styles.container}>
       <Agenda
-        items={{
-         
-          '2024-11-13': [
-  {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
-  {name: 'CS 3377.0W1 - SMD', data: "classes"},
-  {name: 'CS 3345.503 - Sruthi Chappidi', data: "classes"},
-  {name: 'Veer Waje - Brother Interview', data: "AKPSI events"}
-],
-'2024-11-14': [
-  {name: 'CS 2340.006 - Alice Wang', data: "classes"},
-  {name: 'CS 3345.002 - Omar Hamdy', data: "classes"}
-],
-'2024-10-31': [
-  {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
-  {name: 'CS 3377.0W1 - SMD', data: "classes"},
-  {name: 'LAB PHYS 2126.119', data: "classes"},
-  {name: 'CS 3345.503 - Sruthi Chappidi', data: "classes"}
-],
-'2024-11-04': [
-  {name: 'CS 2340.006 - Alice Wang', data: "classes"},
-  {name: 'CS 3345.002 - Omar Hamdy', data: "classes"},
-],
-
-'2024-11-08': [
-    {name: 'ML and AI Research Meeting', data: "extracurricular events"},
-    {name: 'akpsi/fintech hackathon', data: "AKPSI events"}
-  ],
-  '2024-11-09': [
-    {name: 'akpsi/fintech hackathon', data: "AKPSI events"}
-  ],
-  '2024-11-13': [
-    {name: 'Babatise Awobokun - Brother Interview', data: "AKPSI events"},
-    {name: 'Ilan Perez - Brother Interview', data: "AKPSI events"},
-    {name: 'CS 3345 Exam 2', data: "exams"}
-  ],
-  '2024-11-14': [
-    {name: 'CS 3345 Exam 2', data: "exams"},
-    {name: 'Brotherhood Event - Fam Line Game Night', data: "exams"}
-  ],
-  '2024-11-16': [
-    {name: 'COURT OF HONOR', data: "exams"}
-  ],
-  '2024-11-22': [
-    {name: 'ML and AI Research Meeting', data: "extracurricular events"}
-  ],
-  '2024-12-11': [
-    {name: 'CS 2340 Exam 3 (Final)', data: "exams"}
-  ],
-  '2024-12-20': [
-    {name: 'ML and AI Research Meeting', data: "extracurricular events"}
-  ],
-  '2024-11-18': [
-    {name: 'Assignment 1 Due', data: "class"}
-  ],
-  '2024-11-20': [
-    {name: 'Group Assignment Meeting', data: "class"}
-  ],
-  '2024-11-22': [
-    {name: 'Assignment 2 Released', data: "class"}
-  ],
-  '2024-11-25': [
-    {name: 'Assignment Workshop', data: "class"}
-  ],
-  '2024-11-28': [
-    {name: 'Final Assignment Briefing', data: "class"}
-  ],
-  '2024-12-01': [
-    {name: 'Assignment 2 Due', data: "class"}
-  ],
-  '2024-12-03': [
-    {name: 'Assignment Feedback Session', data: "class"}
-  ],
-  '2024-12-05': [
-    {name: 'Assignment 3 Released', data: "class"}
-  ],
-  '2024-12-08': [
-    {name: 'Assignment Q&A Session', data: "class"}
-  ],
-  '2024-12-10': [
-    {name: 'Assignment 3 Due', data: "class"}
-  ]
-        }}
+        items={calendarItems}
         renderItem={(item, isFirst) => (
-          <TouchableOpacity style = {styles.item}>
-            <Text style = {styles.container}>{item.name}</Text>
-            <Text style = {styles.container}>{item.data}</Text>
+          <TouchableOpacity style={styles.item}>
+            <Text style={styles.container}>{item.name}</Text>
+            <Text style={styles.container}>{item.data}</Text>
           </TouchableOpacity>
         )}
         theme={{
-            backgroundColor: '#fff3e0', // Change the background color
+            backgroundColor: '#ff3e0', // Change the background color
             calendarBackground: '#ffffff', // Change the calendar background color
             textSectionTitleColor: '#835e45', // Change the text section title color
             selectedDayBackgroundColor: '#ffcc00', // Change the selected day background color
@@ -158,20 +86,18 @@ const GroupCalendarScreen = ({ navigation }) => {
             textDisabledColor: '#d9e1e8', // Change the text disabled color
             dotColor: '#835e45', // Change the dot color
             selectedDotColor: '#ffffff', // Change the selected dot color
-            arrowColor: '835e45', // Change the arrow color
-            monthTextColor: 'ffcc00', // Change the month text color
-            indicatorColor: 'ffcc00', // Change the indicator color
+            arrowColor: '#835e45', // Change the arrow color
+            monthTextColor: '#ffcc00', // Change the month text color
+            indicatorColor: '#ffcc00', // Change the indicator color
             agendaDayTextColor: 'black', // Change the agenda day text color
             agendaDayNumColor: 'gray', // Change the agenda day number color
-            agendaTodayColor: '835e45', // Change the agenda today color
-            agendaKnobColor: 'ffcc00' // Change the agenda knob color
+            agendaTodayColor: '#835e45', // Change the agenda today color
+            agendaKnobColor: '#ffcc00' // Change the agenda knob color
           }}
       />
     </SafeAreaView>
   )
 };
-
-
 
 export default GroupCalendarScreen;
 

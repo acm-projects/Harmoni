@@ -21,6 +21,7 @@ export default function WelcomeBackScreen({ navigation }) {
   const googleLogin = async () => {
     try {
       const data = await signIn();
+      console.log(data)
       const userData = {
         email: data.userData.email,
         name: data.userData.name,
@@ -32,7 +33,6 @@ export default function WelcomeBackScreen({ navigation }) {
       // console.log('User Data:', userData);
       // console.log("Tokens", data.tokens);
 
-      
       const response = await axios.post('http://localhost:8000/googleLogin', userData);
       console.log('Response:', response.data);
       await AsyncStorage.clear();

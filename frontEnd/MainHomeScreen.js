@@ -26,16 +26,16 @@ export default function MainHomeScreen({navigation}) {
         setUserData(JSON.parse(storedUserData));
       }
 
-      console.log(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`)
-      await fetch(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`),
-      await fetch(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`);
-      const response = await axios.get(`http://localhost:8000/api/calendar/calendars/${userData.email}`);
-      await AsyncStorage.setItem('userCalendar', JSON.stringify(response));
-      const storedCalendar = await AsyncStorage.getItem('userCalendar');
-      if (storedCalendar) {
-        setUserCalendar(JSON.parse(storedCalendar));
-      }
-      console.log("USERCALENDAR" , userCalendar)
+      // console.log(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`)
+      // await fetch(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`),
+      // await fetch(`http://localhost:8000/api/calendar/fetch-events/${userData.email}`);
+      // const response = await axios.get(`http://localhost:8000/api/calendar/calendars/${userData.email}`);
+      // await AsyncStorage.setItem('userCalendar', JSON.stringify(response));
+      // const storedCalendar = await AsyncStorage.getItem('userCalendar');
+      // if (storedCalendar) {
+      //   setUserCalendar(JSON.parse(storedCalendar));
+      // }
+      // console.log("USERCALENDAR" , userCalendar)
     };
     
     fetchUserData();
