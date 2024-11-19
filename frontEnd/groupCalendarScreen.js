@@ -14,7 +14,7 @@ const GroupCalendarScreen = ({ navigation }) => {
   const dataCalendar = [
     {
       "summary": "ML and AI Research Meeting",
-      "start": "2024-11-08T11:00:00-06:00",
+      "start": "2024-11-19T11:00:00-06:00",
       "end": "2024-11-08T12:00:00-06:00",
       "calendar": "extracurricular events"
   },

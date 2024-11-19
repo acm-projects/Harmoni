@@ -101,7 +101,7 @@ const CalendarScreen = ({ navigation }) => {
           </TouchableOpacity>
         )}
         theme={{
-          backgroundColor: '#ff3e0', // Change the background color
+          backgroundColor: '#fff3e0', // Change the background color
           calendarBackground: '#ffffff', // Change the calendar background color
           textSectionTitleColor: '#835e45', // Change the text section title color
           selectedDayBackgroundColor: '#ffcc00', // Change the selected day background color
@@ -111,13 +111,14 @@ const CalendarScreen = ({ navigation }) => {
           textDisabledColor: '#d9e1e8', // Change the text disabled color
           dotColor: '#835e45', // Change the dot color
           selectedDotColor: '#ffffff', // Change the selected dot color
-          arrowColor: '#835e45', // Change the arrow color
-          monthTextColor: '#ffcc00', // Change the month text color
-          indicatorColor: '#ffcc00', // Change the indicator color
+          arrowColor: 'black', // Change the arrow color
+          monthTextColor: 'ffcc00', // Change the month text color
+          indicatorColor: 'ffcc00', // Change the indicator color
           agendaDayTextColor: 'black', // Change the agenda day text color
           agendaDayNumColor: 'gray', // Change the agenda day number color
-          agendaTodayColor: '#835e45', // Change the agenda today color
-          agendaKnobColor: '#ffcc00' // Change the agenda knob color
+          agendaTodayColor: '835e45', // Change the agenda today color
+          agendaKnobColor: 'ffcc00', // Change the agenda knob color
+          navBarBackgroundColor: '#fff3e0' // Change the navbar background color
         }}
       />
     </SafeAreaView>
