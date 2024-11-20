@@ -176,11 +176,19 @@ const pushPopularVoteToCalendars = async (pollId) => {
 
     const now = new Date();
     const popularSlot = timeSlotPercentages
-      .filter(slot => new Date(slot.start) > now)
+      .filter(slot => new Date(slot.start) > now) // Filter for future time slots
       .sort((a, b) => {
-        const timeDiffA = new Date(a.start) - now;
-        const timeDiffB = new Date(b.start) - now;
-        return timeDiffA - timeDiffB || b.percentage - a.percentage;
+        // Sort by:
+        // 1. Vote count (higher is better)
+        // 2. Percentage (higher as a tiebreaker)
+        // 3. Nearest time to now
+        if (b.voteCount !== a.voteCount) {
+          return b.voteCount - a.voteCount; // Higher vote count first
+        }
+        if (b.percentage !== a.percentage) {
+          return b.percentage - a.percentage; // Higher percentage second
+        }
+        return new Date(a.start) - new Date(b.start); // Nearest time last
       })[0];
 
     if (!popularSlot) {
