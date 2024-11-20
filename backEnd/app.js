@@ -12,6 +12,8 @@ dotenv.config();
 
 require('./models/dataBase');
 require('./models/group'); // Ensure Group model is registered
+require('./models/dataBase');
+require('./models/group'); // Ensure Group model is registered
 
 const authRouter = require('./authentication/auth');
 const groupRouter = require('./groups/group');
@@ -20,7 +22,7 @@ const googleAuthRouter = require('./authentication/googleAuth');
 const port = 8000;
 const session = require('express-session');
 
-const app = express()
+const app = express();
 
 app.use(cors()); //Ayman's Changes
 app.use(express.json()); //Ayman's Changes
@@ -61,16 +63,11 @@ app.use('/api/user-preferences', userPreferencesRoutes); // Register user prefer
 
 
 
-//Starts up the server and checks if it is listening on the port
-app.listen(port, () => {//http://localhost:8000
-    try {
-        console.log("Port " + port +" is listening :)");
-    } catch(e) {
-        console.log("Port is not listening :(")
-    }
-})
-
-
-
-
-//mongoPassword: JIOglWWCF4QRT3y4
+// Starts up the server and checks if it is listening on the port
+app.listen(port, () => {
+  try {
+    console.log('Port ' + port + ' is listening :)');
+  } catch (e) {
+    console.log('Port is not listening :(');
+  }
+});
