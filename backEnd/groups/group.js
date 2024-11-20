@@ -51,8 +51,8 @@ groupRouter.get('/getGroups', async (req, res) => {
 });
 
 groupRouter.get('/getEmails', async (req, res) => {
-    console.log("CALLING GETEMAILS")
     const groupName = req.query.groupName;
+    console.log("CALLING GETEMAILS " + groupName);
 
     try {
         const group = await Group.findOne({ groupName: groupName });
@@ -63,6 +63,7 @@ groupRouter.get('/getEmails', async (req, res) => {
         // res.json(memberEmails);
         res.status(200).json({ memberEmails: memberEmails });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Failed to fetch member emails' });
     }
 });

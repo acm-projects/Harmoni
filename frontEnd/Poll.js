@@ -78,6 +78,7 @@ export default function Poll( {navigation} ){
   const [open, setOpen] = useState(false)
   return (
    //poll grid
+    <View>
     <ScrollView style={styles.container}>
       <TouchableOpacity 
         style={styles.calendarButton}
@@ -103,14 +104,8 @@ export default function Poll( {navigation} ){
       {polls.map(polls => (
             <CategoryItem key={polls.id} item={polls} />
           ))}
-      <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.addButton}>
-        <MaterialCommunityIcons 
-          name="plus" 
-          size={32} 
-          color="#666"
-        />
-        <Text style={styles.addButtonText}>Create New Poll</Text>
-      </TouchableOpacity>
+      </View>
+      
 
       <Modal
        visible={modalVisible}
@@ -179,8 +174,15 @@ export default function Poll( {navigation} ){
         </View>
 
       </Modal>
-      </View>
     </ScrollView>
+    <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.floatingButton}>
+        <MaterialCommunityIcons 
+          name="plus" 
+          size={32} 
+          color="#fff"
+        />
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -273,6 +275,18 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       borderRadius: 50,
       elevation: 3,
-    }
+    },
+    floatingButton: {
+      position: 'absolute',
+      bottom: 20,
+      right: 20,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      backgroundColor: '#007AFF',
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 5,
+    },
 })
 

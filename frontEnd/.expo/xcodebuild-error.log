@@ -1,4 +1,4 @@
-2024-11-01 23:28:07.608 xcodebuild[10576:25023911] Writing error result bundle to /var/folders/qm/1jb1gz8d5zz5zpvqy1wfyq_40000gn/T/ResultBundle_2024-01-11_23-28-0007.xcresult
+2024-11-20 16:18:01.834 xcodebuild[76993:38191819] Writing error result bundle to /var/folders/qm/1jb1gz8d5zz5zpvqy1wfyq_40000gn/T/ResultBundle_2024-20-11_16-18-0001.xcresult
 xcodebuild: error: Unable to find a destination matching the provided destination specifier:
 		{ id:E6C80443-F25E-48EB-920F-0A12C56FE9BC }
 

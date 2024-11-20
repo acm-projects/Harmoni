@@ -8,6 +8,7 @@ import { FloatingAction } from "react-native-floating-action";
 const GroupCalendarScreen = ({ navigation }) => {
   const [userData, setUserData] = useState({});
   const [calendarItems, setCalendarItems] = useState({});
+  const [groupEmails, setGroupEmails] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -18,31 +19,37 @@ const GroupCalendarScreen = ({ navigation }) => {
       }
     };
 
+    const getEmails = async () => {
+      const group = await AsyncStorage.getItem('groupName');
+      console.log("NAMES " + group);
+      const response = await axios.get(`http://localhost:8000/getEmails?groupName=${group}`);
+      console.log(response.data);
+      setGroupEmails(response.data.memberEmails);
+    }
+
     fetchUserData();
+    getEmails();
   }, []);
 
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/event/stored-events/${userData.email}`);
-        const parsedItems = parseDataCalendar(response.data);
-        setCalendarItems(parsedItems);
+        let combinedItems = {};
+        for (const email of groupEmails) {
+          const response = await axios.get(`http://localhost:8000/api/event/stored-events/${email}`);
+          const parsedItems = parseDataCalendar(response.data);
+          combinedItems = { ...combinedItems, ...parsedItems };
+        }
+        setCalendarItems(combinedItems);
       } catch (error) {
         console.error("Error fetching calendar data:", error);
       }
     };
   
-    if (userData.email) {
+    if (groupEmails.length > 0) {
       fetchCalendarData();
     }
-  }, [userData]);
-
-  // useEffect(async () => {
-  //   const group = await AsyncStorage.getItem('groupName');
-  //   console.log("NAMES")
-  //   const response = await axios.get(`http://localhost:8000/getGroups?name=${group}`);
-  //   console.log(response.data);
-  // },[])
+  }, [groupEmails]);
 
   const parseDataCalendar = (data) => {
     const items = {};
