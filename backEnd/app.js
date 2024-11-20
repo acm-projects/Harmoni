@@ -9,7 +9,7 @@ const groupRoutes = require('./routes/groupRoutes'); // Import group routes
 const eventRoutes = require('./routes/eventRoutes'); // Import event routes
 dotenv.config();
 
-require('./models/dataBase')
+require('./models/dataBase');
 
 const authRouter = require('./authentication/auth');
 const groupRouter = require('./groups/group');
@@ -18,7 +18,7 @@ const googleAuthRouter = require('./authentication/googleAuth');
 const port = 8000;
 const session = require('express-session');
 
-const app = express()
+const app = express();
 
 app.use(cors()); //Ayman's Changes
 app.use(express.json()); //Ayman's Changes
@@ -55,6 +55,7 @@ connectDB();
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/poll', pollRoutes);
 app.use('/api/group', groupRoutes); // Register group routes
+app.use('/api/event', eventRoutes); // Register event routes
 
 
 

@@ -176,12 +176,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff3e0',
   },
   item:{
-    backgroundColor: '#fff3e0',
-    flex: 1,
+    backgroundColor: '#fff3e0', // Main background color
+    borderColor: '#ebbf44', // Yellow for border color
+    borderWidth: 1, // Define the border width
     borderRadius: 5,
-    padding: 10,
-    marginRight: 10,
-    marginTop: 25,
+    padding: 10, // Adjust padding to make the border smaller
+    marginRight: 10, // Adjust margin to make the border smaller
+    marginTop: 17, // Adjust margin to make the border smaller
   },
   itemText: {
     color: '#000',
