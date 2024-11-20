@@ -1,9 +1,9 @@
 const Group = require('../models/group');
 
-const createGroup = async (name, members) => {
+const createGroup = async (groupName, memberNames) => {
   const group = new Group({
-    name,
-    members
+    groupName,
+    memberNames
   });
 
   await group.save();

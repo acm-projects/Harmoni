@@ -10,6 +10,7 @@ const eventRoutes = require('./routes/eventRoutes'); // Import event routes
 dotenv.config();
 
 require('./models/dataBase');
+require('./models/group'); // Ensure Group model is registered
 
 const authRouter = require('./authentication/auth');
 const groupRouter = require('./groups/group');
