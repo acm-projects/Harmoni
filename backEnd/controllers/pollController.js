@@ -1,10 +1,10 @@
 const pollService = require('../services/pollService');
 
 const createPoll = async (req, res) => {
-  const { eventName, groupId, findPotentialTimesUntil, minimumDuration, excludeMembers, allowMultipleVotes, createdBy } = req.body;
+  const { eventName, groupId, findPotentialTimesUntil, timeRange, excludeMembers, allowMultipleVotes, createdBy } = req.body;
 
   try {
-    const poll = await pollService.createPoll(eventName, groupId, findPotentialTimesUntil, minimumDuration, excludeMembers, allowMultipleVotes, createdBy);
+    const poll = await pollService.createPoll(eventName, groupId, findPotentialTimesUntil, timeRange, excludeMembers, allowMultipleVotes, createdBy);
     res.json(poll);
   } catch (error) {
     console.error('Error creating poll:', error);
@@ -37,8 +37,26 @@ const voteOnPoll = async (req, res) => {
   }
 };
 
+const getTotalVoters = async (req, res) => {
+  const { pollId } = req.params;
+
+  try {
+    const { totalVoters, groupSize } = await pollService.getTotalVoters(pollId);
+
+    res.json({
+      totalVoters,
+      groupSize,
+      message: `Out of ${groupSize} group members, ${totalVoters} have voted.`
+    });
+  } catch (error) {
+    console.error('Error fetching total voters:', error);
+    res.status(500).send('Error fetching total voters');
+  }
+};
+
 module.exports = {
   createPoll,
   getPoll,
-  voteOnPoll
+  voteOnPoll,
+  getTotalVoters
 };

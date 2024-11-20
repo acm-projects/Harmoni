@@ -3,6 +3,7 @@ import React from 'react';
 import { Agenda, Calendar } from 'react-native-calendars';
 import { useState ,useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 
 const CalendarScreen = ({ navigation }) => {
@@ -22,9 +23,20 @@ const CalendarScreen = ({ navigation }) => {
   }, []); // Empty dependency array ensures this runs once on mount
 
   useEffect(() => {
-    const parsedItems = parseDataCalendar(dataCalendar);
-    setCalendarItems(parsedItems);
-  }, []);
+    const fetchCalendarData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/event/stored-events/${userData.email}`);
+        const parsedItems = parseDataCalendar(response.data);
+        setCalendarItems(parsedItems);
+      } catch (error) {
+        console.error("Error fetching calendar data:", error);
+      }
+    };
+
+    if (userData.email) {
+      fetchCalendarData();
+    }
+  }, [userData]); // Dependency array includes userData
 
   const newCalendarItems = [
     {
@@ -33,9 +45,10 @@ const CalendarScreen = ({ navigation }) => {
       "_id": "6720604c639d3a1a1e72fa2e",
       "events":[
         {
-          "calendarId": "7e11452251f9c27cf69f74f13a9b05b9d7146cff5e6016ea7813a84d7a897826@group.calendar.google.com",
-          "summary": "ML and AI Research Meeting Exam",
-          "_id": "6720604c639d3a1a1e72fa2e"
+          "summary": "Church Basketball IMs",
+          "start": "2025-01-07T03:00:00.000Z",
+          "end": "2025-01-07T04:00:00.000Z",
+          "_id": "673c208f07ccfcc3da603d11"
         },
         {
           "summary": "Lizzymamma Madrumvepp",
@@ -108,14 +121,20 @@ const CalendarScreen = ({ navigation }) => {
 
   const parseDataCalendar = (data) => {
     const items = {};
-    data.forEach(event => {
-      const date = event.start.slice(0, 10);
-      if (!items[date]) {
-        items[date] = [];
-      }
-      items[date].push({
-        name: event.summary,
-        data: event.calendar
+    data.forEach(calendar => {
+      calendar.events.forEach(event => {
+        const date = event.start.slice(0, 10);
+        const startTime = new Date(event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const endTime = new Date(event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (!items[date]) {
+          items[date] = [];
+        }
+        items[date].push({
+          name: event.summary,
+          data: calendar.summary,
+          startTime: startTime,
+          endTime: endTime
+        });
       });
     });
     return items;
@@ -137,7 +156,7 @@ const CalendarScreen = ({ navigation }) => {
               {item.name}
             </Text>
             <Text style={[styles.container, item.data === 'Exam' ? styles.examItem : item.data === 'Assignment' ? styles.assignmentItem : null]}>
-              {item.data}
+              {item.data} ({item.startTime} - {item.endTime})
             </Text>
           </TouchableOpacity>
         )}
@@ -176,12 +195,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff3e0',
   },
   item:{
-    backgroundColor: '#fff3e0',
-    flex: 1,
+    backgroundColor: '#fff3e0', // Main background color
+    borderColor: '#ebbf44', // Yellow for border color
+    borderWidth: 1, // Define the border width
     borderRadius: 5,
-    padding: 10,
-    marginRight: 10,
-    marginTop: 25,
+    padding: 10, // Adjust padding to make the border smaller
+    marginRight: 10, // Adjust margin to make the border smaller
+    marginTop: 17, // Adjust margin to make the border smaller
   },
   itemText: {
     color: '#000',
