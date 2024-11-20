@@ -30,6 +30,10 @@ const voteOnPoll = async (req, res) => {
 
   try {
     const poll = await pollService.voteOnPoll(pollId, participant, votes);
+    const { totalVoters, groupSize } = await pollService.getTotalVoters(pollId);
+    if (totalVoters === groupSize) {
+      await pollService.pushPopularVoteToCalendars(pollId);
+    }
     res.json(poll);
   } catch (error) {
     console.error('Error voting on poll:', error);
@@ -42,7 +46,6 @@ const getTotalVoters = async (req, res) => {
 
   try {
     const { totalVoters, groupSize } = await pollService.getTotalVoters(pollId);
-
     res.json({
       totalVoters,
       groupSize,
@@ -54,9 +57,26 @@ const getTotalVoters = async (req, res) => {
   }
 };
 
+const getVotingPercentage = async (req, res) => {
+  const { pollId } = req.params;
+
+  try {
+    const percentages = await pollService.getVotingPercentage(pollId);
+    res.json({
+      pollId,
+      percentages,
+      message: 'Voting percentages calculated successfully.'
+    });
+  } catch (error) {
+    console.error('Error fetching voting percentages:', error);
+    res.status(500).send('Error fetching voting percentages');
+  }
+};
+
 module.exports = {
   createPoll,
   getPoll,
   voteOnPoll,
-  getTotalVoters
+  getTotalVoters,
+  getVotingPercentage
 };

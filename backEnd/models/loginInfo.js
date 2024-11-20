@@ -19,7 +19,10 @@ const loginInfoSchema = new mongoose.Schema({
   lastName: String,
   email: String,
   googleAuth: googleAuthSchema,
-  calendars: [calendarSchema]
+  calendars: [calendarSchema],
+  ignoreCalendars: [String], // Add field for calendars to ignore
+  assignmentBuffer: { type: Number, default: 0 }, // Add field for assignment buffer time
+  examBuffer: { type: Number, default: 0 } // Add field for exam buffer time
 });
 
 module.exports = mongoose.model('LoginInfo', loginInfoSchema);

@@ -9,13 +9,15 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.REDIRECT
 );
 
+// Updated Scopes
 const generateAuthUrl = () => {
   return oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: [
-      'https://www.googleapis.com/auth/calendar.readonly',
-      'https://www.googleapis.com/auth/userinfo.email',
-      'profile'
+      'https://www.googleapis.com/auth/calendar', // Full calendar access
+      'https://www.googleapis.com/auth/calendar.events', // Manage events
+      'https://www.googleapis.com/auth/userinfo.email', // Access user email
+      'profile' // Access user profile
     ]
   });
 };
