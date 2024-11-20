@@ -158,16 +158,23 @@ const pushEventToGoogleCalendar = async (user, event) => {
 
 const pushPopularVoteToCalendars = async (pollId) => {
   try {
+    console.log('Pushing popular vote for poll:', pollId);
+
     const poll = await Poll.findById(pollId).populate('group');
     if (!poll) throw new Error('Poll not found');
 
     const { group } = poll;
     const totalVoters = new Set(poll.votes.map(vote => vote.participant)).size;
-    if (totalVoters < group.memberNames.length) return;
+
+    if (totalVoters < group.memberNames.length) {
+      console.log('Not all group members have voted yet.');
+      return;
+    }
 
     const timeSlotPercentages = await getVotingPercentage(pollId);
-    const now = new Date();
+    console.log('Voting percentages:', timeSlotPercentages);
 
+    const now = new Date();
     const popularSlot = timeSlotPercentages
       .filter(slot => new Date(slot.start) > now)
       .sort((a, b) => {
@@ -176,7 +183,12 @@ const pushPopularVoteToCalendars = async (pollId) => {
         return timeDiffA - timeDiffB || b.percentage - a.percentage;
       })[0];
 
-    if (!popularSlot) return;
+    if (!popularSlot) {
+      console.log('No valid popular slot found.');
+      return;
+    }
+
+    console.log('Popular slot determined:', popularSlot);
 
     const event = {
       summary: poll.eventName,
@@ -186,13 +198,23 @@ const pushPopularVoteToCalendars = async (pollId) => {
     };
 
     const users = await LoginInfo.find({ email: { $in: group.memberNames } });
+    console.log('Users to push event:', users.map(user => user.email));
+
     for (const user of users) {
-      await pushEventToGoogleCalendar(user, event);
+      if (user.calendars && user.calendars.length > 0) {
+        console.log(`Pushing event to ${user.email}`);
+        await pushEventToGoogleCalendar(user, event);
+      } else {
+        console.error(`User ${user.email} does not have a primary calendar.`);
+      }
     }
+
+    console.log('Event successfully pushed to all users.');
   } catch (error) {
     console.error('Error pushing popular vote:', error);
   }
 };
+
 
 module.exports = {
   createPoll,
