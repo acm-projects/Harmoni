@@ -165,7 +165,7 @@ const CommunityScreen = ({ navigation }) => {
     <TouchableOpacity
       onPress={() => {
         AsyncStorage.setItem('groupName', item.name);
-        // AsyncStorage.setItem('groupMembers', item.members);
+        AsyncStorage.setItem('groupMembers', item.members);
         navigation.navigate('Poll');
       }}
     >

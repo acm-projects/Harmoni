@@ -144,18 +144,18 @@ const CalendarScreen = ({ navigation }) => {
 
 
 
-  const exam = ["Exam, exam, exams, Exams"];
-  const assignment = ["Assignment, assignment, assignments, Assignments"];
+  const exam = ["Exam", "exam", "exams", "Exams"];
+  const assignment = ["Assignment", "assignment", "assignments", "Assignments", "HW", "hw", "Homework", "homework"];
   return(
     <SafeAreaView style={styles.container}>
       <Agenda
         items={calendarItems}
         renderItem={(item, isFirst) => (
-          <TouchableOpacity style={[styles.item, exam.some(exam => item.name.includes(exam))? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
-            <Text style={[styles.container, item.data === 'Exam' ? styles.examItem : item.data === 'Assignment' ? styles.assignmentItem : null]}>
+          <TouchableOpacity style={[styles.item, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
+            <Text style={[styles.container, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
               {item.name}
             </Text>
-            <Text style={[styles.container, item.data === 'Exam' ? styles.examItem : item.data === 'Assignment' ? styles.assignmentItem : null]}>
+            <Text style={[styles.container, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
               {item.data} ({item.startTime} - {item.endTime})
             </Text>
           </TouchableOpacity>
@@ -172,12 +172,12 @@ const CalendarScreen = ({ navigation }) => {
           dotColor: '#835e45', // Change the dot color
           selectedDotColor: '#ffffff', // Change the selected dot color
           arrowColor: 'black', // Change the arrow color
-          monthTextColor: 'ffcc00', // Change the month text color
-          indicatorColor: 'ffcc00', // Change the indicator color
+          monthTextColor: '#ffcc00', // Change the month text color
+          indicatorColor: '#ffcc00', // Change the indicator color
           agendaDayTextColor: 'black', // Change the agenda day text color
           agendaDayNumColor: 'gray', // Change the agenda day number color
-          agendaTodayColor: '835e45', // Change the agenda today color
-          agendaKnobColor: 'ffcc00', // Change the agenda knob color
+          agendaTodayColor: '#835e45', // Change the agenda today color
+          agendaKnobColor: '#ffcc00', // Change the agenda knob color
           navBarBackgroundColor: '#fff3e0' // Change the navbar background color
         }}
       />
