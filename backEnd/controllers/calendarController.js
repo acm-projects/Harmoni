@@ -1,5 +1,7 @@
 const calendarService = require('../services/calendarService');
 const freeTimeService = require('../services/freeTimeService');
+console.log('freeTimeService:', freeTimeService);
+const userPreferencesService = require('../services/userPreferencesService'); // Import user preferences service
 
 const initiateOAuth = (req, res) => {
   const url = calendarService.generateAuthUrl();
@@ -33,10 +35,13 @@ const fetchEvents = async (req, res) => {
 
 const calculateFreeTime = async (req, res) => {
   const email = req.params.email;
-  const { ignoreCalendars, days, assignmentBuffer, examBuffer } = req.body;
 
   try {
-    const freeTime = await calendarService.calculateFreeTime(email, ignoreCalendars, days, assignmentBuffer, examBuffer);
+    const preferences = await userPreferencesService.getUserPreferences(email);
+    const { ignoreCalendars, assignmentBuffer, examBuffer } = preferences;
+    const { days } = req.body;
+
+    const freeTime = await freeTimeService.calculateFreeTime(email, ignoreCalendars, days, assignmentBuffer, examBuffer);
     res.json(freeTime);
   } catch (error) {
     console.error('Error calculating free time:', error);
@@ -57,10 +62,20 @@ const getCalendars = async (req, res) => {
 };
 
 const calculateFreeTimeForMultipleUsers = async (req, res) => {
-  const { users, days } = req.body;
+  const { users, findPotentialTimesUntil } = req.body;
 
   try {
-    const freeTime = await freeTimeService.calculateFreeTimeForMultipleUsers(users, days);
+    const userPreferences = await Promise.all(users.map(async user => {
+      const preferences = await userPreferencesService.getUserPreferences(user.email);
+      return {
+        email: user.email,
+        ignoreCalendars: preferences.ignoreCalendars,
+        assignmentBuffer: preferences.assignmentBuffer,
+        examBuffer: preferences.examBuffer
+      };
+    }));
+
+    const freeTime = await freeTimeService.calculateFreeTimeForMultipleUsers(userPreferences, findPotentialTimesUntil);
     res.json(freeTime);
   } catch (error) {
     console.error('Error calculating free time for multiple users:', error);
@@ -74,5 +89,5 @@ module.exports = {
   fetchEvents,
   calculateFreeTime,
   getCalendars,
-  calculateFreeTimeForMultipleUsers // Export the new controller function
+  calculateFreeTimeForMultipleUsers
 };
