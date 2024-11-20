@@ -31,11 +31,18 @@ const GroupCalendarScreen = ({ navigation }) => {
         console.error("Error fetching calendar data:", error);
       }
     };
-
+  
     if (userData.email) {
       fetchCalendarData();
     }
   }, [userData]);
+
+  // useEffect(async () => {
+  //   const group = await AsyncStorage.getItem('groupName');
+  //   console.log("NAMES")
+  //   const response = await axios.get(`http://localhost:8000/getGroups?name=${group}`);
+  //   console.log(response.data);
+  // },[])
 
   const parseDataCalendar = (data) => {
     const items = {};
@@ -67,6 +74,12 @@ const GroupCalendarScreen = ({ navigation }) => {
       icon: "", // Ensure you have an icon for the button
       name: "bt_poll",
       position: 1
+    },
+    {
+      text: "Back",
+      icon: "", // Ensure you have an icon for the button
+      name: "bt_community",
+      position: 2
     }
   ];
 
@@ -110,6 +123,8 @@ const GroupCalendarScreen = ({ navigation }) => {
         onPressItem={name => {
           if (name === "bt_poll") {
             navigation.navigate("Poll");
+          } else if (name === "bt_community") {
+            navigation.navigate("Community");
           }
         }}
       />

@@ -11,28 +11,24 @@ const group = require('../models/group');
 
 // POST route to create a new group
 groupRouter.post('/createGroup', async (req, res) => {
-    const name = await req.body.groupName;
-    const members = await req.body.members;
-    console.log(name)
+    const name = req.body.groupName;
+    const memberNames = req.body.members;
 
     const existingGroup = await Group.findOne({ groupName: name });
-    const nonExistingMembers = await User.find({ name: { $in: members } });
-    console.log(nonExistingMembers)
+    const members = await User.find({ name: { $in: memberNames } });
+
     if (existingGroup) {
-        console.log("Group name already exists")
         return res.status(500).json({ error: 'Group name already exists' });
+    } else if (members.length !== memberNames.length) {
+        return res.status(500).json({ error: 'Some members don\'t exist' });
     }
-    else if(nonExistingMembers.length != members.length){
-        console.log("Some members don't exist")
-        return res.status(500).json({ error: 'Member/members don\'t exist' });
-    }
-    console.log(req.body)
+
     try {
-        const newGroup = new Group({ groupName: name, memberNames: members });
+        const memberEmails = members.map(member => member.email);
+        const newGroup = new Group({ groupName: name, memberEmails: memberEmails });
         await newGroup.save();
         res.status(201).json({ message: 'Group created successfully', group: newGroup });
     } catch (error) {
-        console.error("Got an error" + error);
         res.status(500).json({ error: 'Failed to create group' });
     }
 });
@@ -40,13 +36,34 @@ groupRouter.post('/createGroup', async (req, res) => {
 // GET route to fetch groups containing a specific member
 groupRouter.get('/getGroups', async (req, res) => {
     const memberName = req.query.name;
-
     try {
-        const groups = await Group.find({ memberNames: memberName });
+        const user = await User.findOne({ name: memberName });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        const memberEmail = user.email;
+        const groups = await Group.find({ memberEmails: memberEmail });
+        console.log(groups)
         res.json(groups);
     } catch (error) {
-        console.error("Got an error" + error);
         res.status(500).json({ error: 'Failed to fetch groups' });
+    }
+});
+
+groupRouter.get('/getEmails', async (req, res) => {
+    console.log("CALLING GETEMAILS")
+    const groupName = req.query.groupName;
+
+    try {
+        const group = await Group.findOne({ groupName: groupName });
+        if (!group) {
+            return res.status(404).json({ error: 'Group not found' });
+        }
+        const memberEmails = group.memberEmails;
+        // res.json(memberEmails);
+        res.status(200).json({ memberEmails: memberEmails });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch member emails' });
     }
 });
 
@@ -55,28 +72,31 @@ groupRouter.post('/leaveGroup', async (req, res) => {
     const memberName = req.body.memberName;
 
     try {
-        await Group.updateOne({ groupName: groupName }, { $pull: { memberNames: memberName } });
-        console.log("Group left successfully")
+        const user = await User.findOne({ name: memberName });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        const memberEmail = user.email;
+
+        await Group.updateOne({ groupName: groupName }, { $pull: { memberEmails: memberEmail } });
 
         const result = await Group.aggregate([
             {
               $project: {
                 groupName: groupName,
-                memberSize: { $size: "$memberNames" }  // Use $size to count elements in memberNames array
+                memberSize: { $size: "$memberEmails" }
               }
             }
-          ]);
-          
-          if(result[0].memberSize == 0){
+        ]);
+
+        if (result[0].memberSize == 0) {
             await Group.deleteOne({ groupName: groupName });
-          }
-    }
-    catch (error) {
-        console.error("Got an error" + error);
+        }
+
+        res.status(200).json({ message: 'Group left successfully' });
+    } catch (error) {
         res.status(500).json({ error: 'Failed to leave group' });
     }
-
 });
-    
 
 module.exports = groupRouter;

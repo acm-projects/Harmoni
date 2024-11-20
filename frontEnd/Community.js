@@ -61,7 +61,7 @@ const CommunityScreen = ({ navigation }) => {
         const groups = response.data.map((group, index) => ({
           id: index + 1,             // Assign a unique ID
           name: group.groupName,      // Use the group name from backend
-          members: group.memberNames.length,  // Set members count dynamically
+          members: group.memberEmails.length,  // Set members count dynamically
           color: gradients[Math.floor(Math.random() * gradients.length)]  // Example color (you could randomize this)
         }));
         setTasks(groups);
@@ -165,7 +165,7 @@ const CommunityScreen = ({ navigation }) => {
     <TouchableOpacity
       onPress={async () => {
         await AsyncStorage.setItem('groupName', item.name);
-        // await AsyncStorage.setItem('groupMembers', item.members);
+        await AsyncStorage.setItem('groupMembers', JSON.stringify(item.members));
         navigation.navigate('GroupCalendarScreen');
       }}
     >
