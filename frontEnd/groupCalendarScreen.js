@@ -2,98 +2,116 @@ import {View, StyleSheet, Text, TouchableOpacity, ScrollView, SafeAreaView} from
 import React, { useState, useEffect } from 'react';
 import { Agenda, Calendar } from 'react-native-calendars';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { FloatingAction } from "react-native-floating-action";
 
 const GroupCalendarScreen = ({ navigation }) => {
+  const [userData, setUserData] = useState({});
   const [calendarItems, setCalendarItems] = useState({});
 
   useEffect(() => {
-    const parsedItems = parseDataCalendar(dataCalendar);
-    setCalendarItems(parsedItems);
+    const fetchUserData = async () => {
+      const storedUserData = await AsyncStorage.getItem('userData');
+      console.log(storedUserData)
+      if (storedUserData) {
+        setUserData(JSON.parse(storedUserData));
+      }
+    };
+
+    fetchUserData();
   }, []);
 
-  const dataCalendar = [
-    {
-      "summary": "ML and AI Research Meeting",
-      "start": "2024-11-19T11:00:00-06:00",
-      "end": "2024-11-08T12:00:00-06:00",
-      "calendar": "extracurricular events"
-  },
-  {
-      "summary": "ML and AI Research Meeting",
-      "start": "2024-11-22T11:00:00-06:00",
-      "end": "2024-11-22T12:00:00-06:00",
-      "calendar": "extracurricular events"
-  },
-  {
-      "summary": "PHYS 2326.001 - Lamya Saleh",
-      "start": "2024-10-29T09:00:00-06:00",
-      "end": "2024-10-29T10:15:00-06:00",
-      "calendar": "classes"
-  },
-  {
-      "summary": "CS 3377.0W1 - SMD",
-      "start": "2024-10-29T10:30:00-06:00",
-      "end": "2024-10-29T11:45:00-06:00",
-      "calendar": "classes"
-  },
-  {
-      "summary": "CS 3345.503 - Sruthi Chappidi",
-      "start": "2024-10-29T18:00:00-06:00",
-      "end": "2024-10-29T19:15:00-06:00",
-      "calendar": "classes"
-  },
-  {
-      "summary": "CS 2340.006 - Alice Wang",
-      "start": "2024-10-30T12:00:00-06:00",
-      "end": "2024-10-30T13:15:00-06:00",
-      "calendar": "classes"
-  },
-  ]
+  useEffect(() => {
+    const fetchCalendarData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/event/stored-events/${userData.email}`);
+        const parsedItems = parseDataCalendar(response.data);
+        setCalendarItems(parsedItems);
+      } catch (error) {
+        console.error("Error fetching calendar data:", error);
+      }
+    };
+
+    if (userData.email) {
+      fetchCalendarData();
+    }
+  }, [userData]);
 
   const parseDataCalendar = (data) => {
     const items = {};
-    data.forEach(event => {
-      const date = event.start.slice(0, 10);
-      if (!items[date]) {
-        items[date] = [];
-      }
-      items[date].push({
-        name: event.summary,
-        data: event.calendar
+    data.forEach(calendar => {
+      calendar.events.forEach(event => {
+        const date = event.start.slice(0, 10);
+        const startTime = new Date(event.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const endTime = new Date(event.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (!items[date]) {
+          items[date] = [];
+        }
+        items[date].push({
+          name: event.summary,
+          data: calendar.summary,
+          startTime: startTime,
+          endTime: endTime
+        });
       });
     });
     return items;
   };
+
+  const exam = ["Exam", "exam", "exams", "Exams"];
+  const assignment = ["Assignment", "assignment", "assignments", "Assignments", "HW", "hw", "Homework", "homework"];
+
+  const actions = [
+    {
+      text: "Poll",
+      icon: "", // Ensure you have an icon for the button
+      name: "bt_poll",
+      position: 1
+    }
+  ];
 
   return(
     <SafeAreaView style={styles.container}>
       <Agenda
         items={calendarItems}
         renderItem={(item, isFirst) => (
-          <TouchableOpacity style={styles.item}>
-            <Text style={styles.container}>{item.name}</Text>
-            <Text style={styles.container}>{item.data}</Text>
+          <TouchableOpacity style={[styles.item, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
+            <Text style={[styles.container, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
+              {item.name}
+            </Text>
+            <Text style={[styles.container, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
+              {item.data} ({item.startTime} - {item.endTime})
+            </Text>
           </TouchableOpacity>
         )}
         theme={{
-            backgroundColor: '#ff3e0', // Change the background color
-            calendarBackground: '#ffffff', // Change the calendar background color
-            textSectionTitleColor: '#835e45', // Change the text section title color
-            selectedDayBackgroundColor: '#ffcc00', // Change the selected day background color
-            selectedDayTextColor: '#ffffff', // Change the selected day text color
-            todayTextColor: '#835e45', // Change the today text color
-            dayTextColor: '#2d4150', // Change the day text color
-            textDisabledColor: '#d9e1e8', // Change the text disabled color
-            dotColor: '#835e45', // Change the dot color
-            selectedDotColor: '#ffffff', // Change the selected dot color
-            arrowColor: '#835e45', // Change the arrow color
-            monthTextColor: '#ffcc00', // Change the month text color
-            indicatorColor: '#ffcc00', // Change the indicator color
-            agendaDayTextColor: 'black', // Change the agenda day text color
-            agendaDayNumColor: 'gray', // Change the agenda day number color
-            agendaTodayColor: '#835e45', // Change the agenda today color
-            agendaKnobColor: '#ffcc00' // Change the agenda knob color
-          }}
+          backgroundColor: '#fff3e0',
+          calendarBackground: '#ffffff',
+          textSectionTitleColor: '#835e45',
+          selectedDayBackgroundColor: '#ffcc00',
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: '#835e45',
+          dayTextColor: '#2d4150',
+          textDisabledColor: '#d9e1e8',
+          dotColor: '#835e45',
+          selectedDotColor: '#ffffff',
+          arrowColor: 'black',
+          monthTextColor: '#ffcc00',
+          indicatorColor: '#ffcc00',
+          agendaDayTextColor: 'black',
+          agendaDayNumColor: 'gray',
+          agendaTodayColor: '#835e45',
+          agendaKnobColor: '#ffcc00',
+          navBarBackgroundColor: '#fff3e0'
+        }}
+      />
+      <FloatingAction
+        actions={actions}
+        onPressItem={name => {
+          if (name === "bt_poll") {
+            navigation.navigate("Poll");
+          }
+        }}
       />
     </SafeAreaView>
   )
@@ -102,22 +120,42 @@ const GroupCalendarScreen = ({ navigation }) => {
 export default GroupCalendarScreen;
 
 const styles = StyleSheet.create({
-    agendaBackground: {
-      backgroundColor: '#fff3e0',
-    },
-    container:{
-      flex: 1,
-      backgroundColor: '#fff3e0',
-    },
-    item:{
-      backgroundColor: '#fff3e0',
-      flex: 1,
-      borderRadius: 5,
-      padding: 10,
-      marginRight: 10,
-      marginTop: 25,
-    },
-    itemText: {
-      color: '#000',
-    },
-  })
+  container:{
+    flex: 1,
+    backgroundColor: '#fff3e0',
+  },
+  item:{
+    backgroundColor: '#fff3e0',
+    borderColor: '#ebbf44',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17,
+  },
+  itemText: {
+    color: '#000',
+  },
+  examItem: {
+    backgroundColor: '#ff6868ff',
+    borderWidth: 0,
+    borderColor: '#000000ff',
+  },
+  assignmentItem:{
+    backgroundColor: 'orange',
+    borderWidth: .01,
+    borderColor: 'blue',
+  },
+  floatingButton: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 30,
+    bottom: 30,
+    backgroundColor: '#ffcc00',
+    borderRadius: 30,
+    elevation: 8
+  }
+})

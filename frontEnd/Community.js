@@ -163,10 +163,10 @@ const CommunityScreen = ({ navigation }) => {
 
   const CategoryItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => {
-        AsyncStorage.setItem('groupName', item.name);
-        AsyncStorage.setItem('groupMembers', item.members);
-        navigation.navigate('Poll');
+      onPress={async () => {
+        await AsyncStorage.setItem('groupName', item.name);
+        // await AsyncStorage.setItem('groupMembers', item.members);
+        navigation.navigate('GroupCalendarScreen');
       }}
     >
       <LinearGradient

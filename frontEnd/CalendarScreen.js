@@ -206,13 +206,10 @@ const styles = StyleSheet.create({
   itemText: {
     color: '#000',
   },
-  examText: {
-    color: 'darkred',
-  },
   examItem: {
-    backgroundColor: 'red',
-    borderWidth: .01, // Reduce border thickness
-    borderColor: 'darkred',
+    backgroundColor: '#ff6868ff',
+    borderWidth: 0, // Reduce border thickness
+    borderColor: '#000000ff',
   },
   assignmentItem:{
     backgroundColor: 'orange',
