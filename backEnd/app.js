@@ -7,9 +7,11 @@ const calendarRoutes = require('./routes/calendarRoutes');
 const pollRoutes = require('./routes/pollRoutes');
 const groupRoutes = require('./routes/groupRoutes'); // Import group routes
 const eventRoutes = require('./routes/eventRoutes'); // Import event routes
+const userPreferencesRoutes = require('./routes/userPreferencesRoutes'); // Import user preferences routes
 dotenv.config();
 
-require('./models/dataBase')
+require('./models/dataBase');
+require('./models/group'); // Ensure Group model is registered
 
 const authRouter = require('./authentication/auth');
 const groupRouter = require('./groups/group');
@@ -55,6 +57,7 @@ connectDB();
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/poll', pollRoutes);
 app.use('/api/group', groupRoutes); // Register group routes
+app.use('/api/user-preferences', userPreferencesRoutes); // Register user preferences routes
 
 
 
