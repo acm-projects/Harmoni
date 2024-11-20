@@ -16,8 +16,9 @@ const createPoll = async (eventName, groupId, findPotentialTimesUntil, timeRange
     const participants = group.memberNames.filter(member => !excludeMembers.includes(member));
     const freeTimeSlots = await freeTimeService.calculateFreeTimeForMultipleUsers(
       participants.map(email => ({ email, ignoreCalendars: [], assignmentBuffer: 0, examBuffer: 0 })),
-      Math.ceil((new Date(findPotentialTimesUntil) - new Date()) / (24 * 60 * 60 * 1000))
+      findPotentialTimesUntil // Pass the date string directly
     );
+    
 
     console.log("Participants for free time calculation:", participants);
     console.log("Calculated free time slots:", JSON.stringify(freeTimeSlots, null, 2));
