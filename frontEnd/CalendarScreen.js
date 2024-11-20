@@ -26,6 +26,47 @@ const CalendarScreen = ({ navigation }) => {
     setCalendarItems(parsedItems);
   }, []);
 
+  const newCalendarItems = [
+    {
+      "calendarId": "7e11452251f9c27cf69f74f13a9b05b9d7146cff5e6016ea7813a84d7a897826@group.calendar.google.com",
+      "summary": "Professors' Office Hours",
+      "_id": "6720604c639d3a1a1e72fa2e",
+      "events":[
+        {
+          "calendarId": "7e11452251f9c27cf69f74f13a9b05b9d7146cff5e6016ea7813a84d7a897826@group.calendar.google.com",
+          "summary": "ML and AI Research Meeting Exam",
+          "_id": "6720604c639d3a1a1e72fa2e"
+        },
+        {
+          "summary": "Lizzymamma Madrumvepp",
+          "start": "2024-11-22T00:00:00.000Z",
+          "end": "2024-11-22T02:00:00.000Z",
+          "_id": "673283c29cab7cbf8cb4b30b"
+        }
+      ]
+    },
+    {
+      "calendarId": "3921e5125ada4e469c0a34bde64c875853c1fe2614ff6031749f4e945be162d1@group.calendar.google.com",
+      "summary": "AKPSI events",
+      "_id": "6720604d639d3a1a1e72fa31",
+      "events":[
+        {
+          "summary": "Veer Waje - Brother Interview",
+          "start": "2024-10-29T19:30:00.000Z",
+          "end": "2024-10-29T20:30:00.000Z",
+          "_id": "67206058639d3a1a1e72fa4c"
+        },
+        {
+          "summary": "Ilan Perez - Brother Interview",
+          "start": "2024-11-14T00:00:00.000Z",
+          "end": "2024-11-14T00:45:00.000Z",
+          "_id": "67352f5e4e58dd2477569978"
+        }
+      ]
+    }
+
+  ]
+
   const dataCalendar = [
     {
       "summary": "ML and AI Research Meeting Exam",
@@ -52,7 +93,7 @@ const CalendarScreen = ({ navigation }) => {
       "calendar": "classes"
     },
     {
-      "summary": "CS 3345.503 - Sruthi Chappidi",
+      "summary": "CS 3345.503 - Exam",
       "start": "2024-11-19T18:00:00-06:00",
       "end": "2024-11-19T19:15:00-06:00",
       "calendar": "classes"

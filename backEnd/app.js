@@ -39,21 +39,14 @@ app.use('/', authRouter);
 app.use('/', googleAuthRouter);
 app.use('/', groupRouter);
 app.use('/', eventRoutes);
+app.use('/api/event', eventRoutes); // Register event routes
 
 //Test route to check if server is running
 app.get('/', (req,res) => {
     res.send("<a href = http://localhost:8000/auth/google>click here<a/>"); 
 })
 
-app.get('/home',(req,res) => {
-    console.log(req.user);
-    res.redirect('http://localhost:5173/TestHome');
-})
 
-app.get('/home',(req,res) => {
-    console.log(req.user);
-    res.redirect('http://localhost:5173/TestHome');
-})
 
 // Connect to MongoDB
 connectDB();
@@ -62,6 +55,7 @@ connectDB();
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/poll', pollRoutes);
 app.use('/api/group', groupRoutes); // Register group routes
+
 
 
 //Starts up the server and checks if it is listening on the port

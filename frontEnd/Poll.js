@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, ScrollView, Dimensions, Animated } from 'react-native';
+import { Button, View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, ScrollView, Dimensions, Animated } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import RNPoll, { IChoice } from 'react-native-poll'
 import { Navigation } from 'lucide-react'
@@ -6,6 +6,7 @@ import { MaterialCommunityIcons} from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DatePicker from 'react-native-date-picker';
 
 
 export default function Poll( {navigation} ){
@@ -37,6 +38,7 @@ export default function Poll( {navigation} ){
   const [newPollName, setNewPollName] = useState('');
   const [numVotes, setNumVotes] = useState('');
   const [filteredPolls, setFilteredPolls] = useState(polls);
+  
 
   //add poll function
   const addPoll = () => {
@@ -72,7 +74,8 @@ export default function Poll( {navigation} ){
         }/>
     </View>
   );
-
+  const [date, setDate] = useState(new Date())
+  const [open, setOpen] = useState(false)
   return (
    //poll grid
     <ScrollView style={styles.container}>
@@ -133,7 +136,7 @@ export default function Poll( {navigation} ){
 
             <TextInput
               style={styles.textInput}
-              placeholder="Enter number of voters"
+              placeholder="Enter a Location"
               value={numVotes}
               onChangeText={(text) => {
                 const numericValue = text.replace(/[^0-9]/g, '');
@@ -143,6 +146,20 @@ export default function Poll( {navigation} ){
               keyboardType='numeric'
               placeholderTextColor="#666"
             />
+          <Button title="Open" onPress={() => setOpen(true)} />
+      {/* <DatePicker
+        modal
+        open={open}
+        date={date}
+        onConfirm={(date) => {
+          setOpen(false)
+          setDate(date)
+        }}
+        onCancel={() => {
+          setOpen(false)
+        }}
+      /> */}
+
             
             <View style={styles.modalButtons}>
               <TouchableOpacity 
