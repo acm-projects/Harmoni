@@ -1,252 +1,142 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Calendar } from 'react-native-calendars';
-import Icon from 'react-native-vector-icons/Feather';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {View, StyleSheet, Text, TouchableOpacity, ScrollView, SafeAreaView} from 'react-native';
+import React from 'react';
+import { Agenda, Calendar } from 'react-native-calendars';
+import { useState } from 'react';
+
 
 const CalendarScreen = ({ navigation }) => {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTasks, setSelectedTasks] = useState(null); // State to track tasks for the selected day
-  const today = new Date().toISOString().split('T')[0];
+  const dataCalendar = [
+    {
+      "summary": "ML and AI Research Meeting",
+      "start": "2024-11-08T11:00:00-06:00",
+      "end": "2024-11-08T12:00:00-06:00",
+      "calendar": "extracurricular events"
+  },
+  {
+      "summary": "ML and AI Research Meeting",
+      "start": "2024-11-22T11:00:00-06:00",
+      "end": "2024-11-22T12:00:00-06:00",
+      "calendar": "extracurricular events"
+  },
+  {
+      "summary": "PHYS 2326.001 - Lamya Saleh",
+      "start": "2024-10-29T09:00:00-06:00",
+      "end": "2024-10-29T10:15:00-06:00",
+      "calendar": "classes"
+  },
+  {
+      "summary": "CS 3377.0W1 - SMD",
+      "start": "2024-10-29T10:30:00-06:00",
+      "end": "2024-10-29T11:45:00-06:00",
+      "calendar": "classes"
+  },
+  {
+      "summary": "CS 3345.503 - Sruthi Chappidi",
+      "start": "2024-10-29T18:00:00-06:00",
+      "end": "2024-10-29T19:15:00-06:00",
+      "calendar": "classes"
+  },
+  {
+      "summary": "CS 2340.006 - Alice Wang",
+      "start": "2024-10-30T12:00:00-06:00",
+      "end": "2024-10-30T13:15:00-06:00",
+      "calendar": "classes"
+  },
+  ]
+  const print = () =>{
+    console.log(parseDataCalendar(dataCalendar))
+  }
 
-  const [userData, setUserData] = useState('');
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const storedUserData = await AsyncStorage.getItem('userData');
-      if (storedUserData) {
-        setUserData(JSON.parse(storedUserData));
-        console.log(JSON.parse(storedUserData).email + "HELLO")
-        console.log("Worked")
-      }
-      console.log(userData + "AAAAAA")
-    };
-
-    fetchUserData();
-  }, []); 
-
-
-  // Function to generate marked dates
-  const generateMarkedDates = () => {
-    const marked = {};
-    for (let i = 1; i <= 31; i++) {
-      const date = `2024-10-${i < 10 ? '0' : ''}${i}`;
-      marked[date] = {
-        textColor: date < today ? '#d9d9d9' : '#333',
-        color: date === today ? '#FFA07A' : undefined, // Highlight today
-        selected: date === today,
-        selectedColor: '#FFA07A',
-      };
-    }
-    return marked;
+  const parseDataCalendar = (data) => {
+    return data.map(event => ({
+      time: event.start.slice(11, 16), // Extract time from start
+      name: event.summary,
+      endTime: event.end.slice(11, 16), // Extract time from end
+      data: event.calendar
+    }));
   };
-
-  const markedDates = generateMarkedDates();
-
-  const tags = [
-    { id: 1, label: 'Shot Dribbble', color: '#FFD700' },
-    { id: 2, label: 'Meeting', color: '#90EE90' },
-    { id: 3, label: 'Fitness', color: '#FFB6C1' },
-    { id: 4, label: 'Mabar', color: '#87CEFA' },
-    { id: 5, label: 'Course', color: '#FFD700' }
-  ];
-
-  const activityData = [
-    { day: 'Mon', tasks: 3 },
-    { day: 'Tue', tasks: 4 },
-    { day: 'Wed', tasks: 2 },
-    { day: 'Thu', tasks: 5 },
-    { day: 'Fri', tasks: 3 },
-    { day: 'Sat', tasks: 6 },
-    { day: 'Sun', tasks: 7 }
-  ];
-
-  return (
+  const day = '2024-11-14';
+  return(
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>{userData.name}</Text>
-          <View style={styles.headerButtons}>
-            <TouchableOpacity>
-              <Icon name="chevron-left" size={24} color="#000" />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon name="chevron-right" size={24} color="#000" />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Calendar */}
-        <View style={styles.calendarContainer}>
-          <Calendar
-            style={styles.calendar}
-            theme={{
-              backgroundColor: '#fff3e0',
-              calendarBackground: '#fff3e0',
-              textSectionTitleColor: '#666',
-              selectedDayBackgroundColor: '#FFA07A',
-              selectedDayTextColor: '#ffffff',
-              todayTextColor: '#FFA07A',
-              dayTextColor: '#333',
-              textDisabledColor: '#d9d9d9',
-              dotColor: '#000',
-              selectedDotColor: '#ffffff',
-              arrowColor: 'black',
-              monthTextColor: '#000',
-              textDayFontSize: 16,
-              textMonthFontSize: 20,
-              textDayHeaderFontSize: 14
-            }}
-            markedDates={markedDates}
-            onDayPress={day => setSelectedDate(day.dateString)}
-            hideArrows={true}
-          />
-        </View>
-
-        {/* Tags */}
-        <View style={styles.tagsContainer}>
-          {tags.map(tag => (
-            <TouchableOpacity
-              key={tag.id}
-              style={[styles.tag, { backgroundColor: tag.color }]}
-            >
-              <Text style={styles.tagText}>{tag.label}</Text>
-              <Icon name="x" size={16} color="#666" />
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {/* Activity Graph */}
-        <View style={styles.graphContainer}>
-          <View style={styles.graphHeader}>
-          </View>
-          <View style={styles.graph}>
-            {activityData.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.barContainer}
-                onPress={() => setSelectedTasks(item.tasks)} // Update selected tasks
-              >
-                <View style={[styles.bar, { height: (item.tasks / 7) * 120 }]} />
-                <Text style={styles.barLabel}>{item.day}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-          {selectedTasks !== null && (
-            <Text style={styles.selectedTasksText}>
-              {`Tasks for the selected day: ${selectedTasks}`}
-            </Text>
-          )}
-        </View>
-      </ScrollView>
+      <Agenda
+        items={{
+         
+          '2024-11-13': [
+  {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
+  {name: 'Veer Waje - Brother Interview', data: "AKPSI events"}
+],
+'2024-11-13': [
+  {name: 'CS 2340.006 - Alice Wang', data: "classes"},
+  {name: 'CS 3345.002 - Omar Hamdy', data: "classes"}
+],
+'2024-11-14': [
+  {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
+  {name: 'LAB PHYS 2126.119', data: "classes"},
+  {name: 'CS 3345.503 - Sruthi Chappidi', data: "classes"}
+],
+'2024-11-15': [
+  {name: 'CS 2340.006 - Alice Wang', data: "classes"},
+  {name: 'CS 3345.002 - Omar Hamdy', data: "classes"},
+],
+'2024-11-16': [
+  {name: 'PHYS 2326.001 - Lamya Saleh', data: "classes"},
+  {name: 'CS 3345.503 - Sruthi Chappidi', data: "classes"},
+  {name: 'PHYS 2326 Exam 3', data: "exams"}
+]
+        }}
+        renderItem={(item, isFirst) => (
+          <TouchableOpacity style = {styles.item}>
+            
+            <Text style = {styles.container}>{item.name}</Text>
+            <Text style = {styles.container}>{item.data}</Text>
+          </TouchableOpacity>
+        )}
+        theme={{
+          backgroundColor: '#fff3e0', // Main background color
+          calendarBackground: '#fff3e0', // Main background color
+          textSectionTitleColor: '#835e45', // Brown for section titles
+          selectedDayBackgroundColor: '#ebbf44', // Yellow for selected day background
+          selectedDayTextColor: '#ffffff', // White for selected day text
+          todayTextColor: '#835e45', // Brown for today's text
+          dayTextColor: '#000000', // Black for day text
+          textDisabledColor: '#d9e1e8', // Disabled text color
+          dotColor: '#835e45', // Brown for dots
+          selectedDotColor: '#ffffff', // White for selected dots
+          arrowColor: '#835e45', // Brown for arrows
+          monthTextColor: '#ebbf44', // Yellow for month text
+          indicatorColor: '#ebbf44', // Yellow for indicator
+          agendaDayTextColor: '#000000', // Black for agenda day text
+          agendaDayNumColor: '#000000', // Black for agenda day number
+          agendaTodayColor: '#835e45', // Brown for agenda today
+          agendaKnobColor: '#ebbf44' // Yellow for agenda knob
+        }}
+      />
     </SafeAreaView>
-  );
+  )
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff3e0',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-  headerTitle: {
-    fontSize: 30,
-    fontWeight: '600',
-    color: '#000',
-  },
-  headerButtons: {
-    flexDirection: 'row',
-    gap: 16,
-  },
-  calendarContainer: {
-    paddingHorizontal: 20,
-  },
-  calendar: {
-    borderRadius: 16,
-  },
-  tagsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    padding: 20,
-  },
-  tag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 20,
-    gap: 8,
-  },
-  tagText: {
-    fontSize: 14,
-    color: '#333',
-  },
-  graphContainer: {
-    padding: 20,
-    backgroundColor: '#fff3e0',
-    borderRadius: 24,
-    margin: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  graphHeader: {
-    marginBottom: 16,
-  },
-  graphTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000',
-  },
-  graph: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    height: 150,
-    paddingVertical: 16,
-  },
-  barContainer: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  bar: {
-    width: 20,
-    backgroundColor: '#FFA07A',
-    borderRadius: 10,
-    marginBottom: 8,
-  },
-  barLabel: {
-    fontSize: 12,
-    color: '#666',
-    fontFamily: 'Inter',
-  },
-  selectedTasksText: {
-    fontSize: 16,
-    color: '#000',
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 16,
-    backgroundColor: '#fff3e0',
-    borderTopWidth: 1,
-    borderTopColor: '#fff3e0',
-    marginBottom: -20,
-  },
-});
+
 
 export default CalendarScreen;
+
+const styles = StyleSheet.create({
+  agendaBackground: {
+    backgroundColor: '#fff3e0',
+  },
+  container:{
+    flex: 1,
+    backgroundColor: '#fff3e0',
+  },
+  item:{
+    backgroundColor: '#fff3e0', // Main background color
+    borderColor: '#ebbf44', // Yellow for border color
+    borderWidth: 1, // Define the border width
+    borderRadius: 5,
+    padding: 10, // Adjust padding to make the border smaller
+    marginRight: 10, // Adjust margin to make the border smaller
+    marginTop: 17, // Adjust margin to make the border smaller
+  },
+  itemText: {
+    color: '#000000',
+  },
+}) 

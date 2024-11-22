@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const groupSchema = new mongoose.Schema({
     groupName: {
         type: String,
@@ -12,5 +11,4 @@ const groupSchema = new mongoose.Schema({
     }
 });
 
-
-module.exports = mongoose.model('Groups', groupSchema, "Groups");
+module.exports = mongoose.model('Group', groupSchema, "Groups");   //I had to change the model's name. It does not change the collection name or stored data in MongoDB.
