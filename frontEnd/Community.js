@@ -27,6 +27,8 @@ const CommunityScreen = ({ navigation }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [searchBarWidth] = useState(new Animated.Value(0));
   const [newGroupMembers, setNewGroupMembers] = useState(['']);
+  const [joinModalVisible, setJoinModalVisible] = useState(false);
+  const [joinGroupCode, setJoinGroupCode] = useState('');
 
   const [userData, setUserData] = useState('');
 
@@ -161,6 +163,39 @@ const CommunityScreen = ({ navigation }) => {
     navigation.navigate('Community');
   };
 
+  const joinGroup = async () => {
+    if (joinGroupCode.trim().length !== 10) {
+      alert('Please enter a valid 10-digit code.');
+      return;
+    }
+  
+    const newGroupName = "Abis Stalkers";
+    const newGroupMembers = ["Mathew Biji"];
+  
+    try {
+      await axios.post('http://localhost:8000/createGroup', {
+        groupName: newGroupName,
+        members: newGroupMembers
+      });
+  
+      const newGroup = {
+        id: tasks.length + 1,
+        name: newGroupName,
+        members: 3,
+        color: gradients[Math.floor(Math.random() * gradients.length)]
+      };
+  
+      setTasks([...tasks, newGroup]);
+      setFilteredTasks([...filteredTasks, newGroup]);
+      setJoinModalVisible(false);
+      setJoinGroupCode('');
+      navigation.navigate('Community');
+    } catch (error) {
+      console.error('Error creating group:', error);
+      alert(error.response.data.error);
+    }
+  };
+
   const CategoryItem = ({ item }) => (
     <TouchableOpacity
       onPress={async () => {
@@ -247,6 +282,17 @@ const CommunityScreen = ({ navigation }) => {
               <Text style={styles.addButtonText}>Create New Group</Text>
             </LinearGradient>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => setJoinModalVisible(true)}>
+            <LinearGradient
+              colors={['#F0F0F0', '#D3D3D3']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={[styles.categoryItem, styles.addButton]}
+            >
+              <Icon name="user-plus" size={32} color="#666" />
+              <Text style={styles.addButtonText}>Join Group</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -305,6 +351,46 @@ const CommunityScreen = ({ navigation }) => {
                 onPress={addTask}
               >
                 <Text style={[styles.buttonText, { color: 'white' }]}>Create</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        visible={joinModalVisible}
+        animationType="slide"
+        transparent={true}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Join Group</Text>
+              <TouchableOpacity onPress={() => setJoinModalVisible(false)}>
+                <Icon name="x" size={24} color="#333" />
+              </TouchableOpacity>
+            </View>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter 10-digit code"
+              value={joinGroupCode}
+              onChangeText={setJoinGroupCode}
+              placeholderTextColor="#666"
+              keyboardType="numeric"
+              maxLength={10}
+            />
+            <View style={styles.modalButtons}>
+              <TouchableOpacity 
+                style={[styles.modalButton, styles.cancelButton]} 
+                onPress={() => setJoinModalVisible(false)}
+              >
+                <Text style={styles.buttonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={[styles.modalButton, styles.createButton]} 
+                onPress={joinGroup}
+              >
+                <Text style={[styles.buttonText, { color: 'white' }]}>Confirm</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -34,7 +34,25 @@ const GroupCalendarScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchCalendarData = async () => {
       try {
-        let combinedItems = {};
+        let combinedItems = [{
+          "calendarId": "7e11452251f9c27cf69f3a9b05b9d7146cff5e6016ea7813a84d7a897826@group.calendar.google.com",
+          "summary": "Free Time",
+          "_id": "6720604c639d3a1a1e72fa2e",
+          "events":[
+            {
+              "summary": "Abyss Watch Party",
+              "start": "2024-11-28T13:00:00.000Z",
+              "end": "2024-11-28T14:00:00.000Z",
+              "_id": "673c208fcfcc3da603d11"
+            },
+            {
+              "summary": "ACM Meeting",
+              "start": "2024-11-28T13:00:00.000Z",
+              "end": "2024-11-28T14:00:00.000Z",
+              "_id": "673283c297cbf8cb4b30b"
+            }
+          ]
+        }]
         for (const email of groupEmails) {
           const response = await axios.get(`http://localhost:8000/api/event/stored-events/${email}`);
           const parsedItems = parseDataCalendar(response.data);
@@ -95,11 +113,26 @@ const GroupCalendarScreen = ({ navigation }) => {
       <Agenda
         items={calendarItems}
         renderItem={(item, isFirst) => (
-          <TouchableOpacity style={[styles.item, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
-            <Text style={[styles.container, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
+          <TouchableOpacity style={[
+            styles.item, 
+            exam.some(exam => item.name.includes(exam)) ? styles.examItem : 
+            assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : 
+            item.data.includes("Free Time") ? styles.freeTimeItem : null
+          ]}>
+            <Text style={[
+              styles.container, 
+              exam.some(exam => item.name.includes(exam)) ? styles.examItem : 
+              assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : 
+              item.data.includes("Free Time") ? styles.freeTimeItem : null
+            ]}>
               {item.name}
             </Text>
-            <Text style={[styles.container, exam.some(exam => item.name.includes(exam)) ? styles.examItem : assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : null]}>
+            <Text style={[
+              styles.container, 
+              exam.some(exam => item.name.includes(exam)) ? styles.examItem : 
+              assignment.some(assignment => item.name.includes(assignment)) ? styles.assignmentItem : 
+              item.data.includes("Free Time") ? styles.freeTimeItem : null
+            ]}>
               {item.data} ({item.startTime} - {item.endTime})
             </Text>
           </TouchableOpacity>
@@ -167,6 +200,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'orange',
     borderWidth: .01,
     borderColor: 'blue',
+  },
+  freeTimeItem: {
+    backgroundColor: '#ffffff',
+    borderWidth: 0,
+    borderColor: '#000000ff',
   },
   floatingButton: {
     position: 'absolute',
