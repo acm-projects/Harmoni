@@ -8,7 +8,7 @@ import Harmoni from '../img/harmoni.png';
 import { CurrentRenderContext } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import googleSignInComponent from './googleLogin';
+import GoogleSignInComponent from './googleLogin';
 
 export default function WelcomeBackScreen({ navigation }) {
   const [logInHover, setLogInHover] = useState(false);
@@ -16,7 +16,12 @@ export default function WelcomeBackScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn } = googleSignInComponent();
+  const { signIn } = GoogleSignInComponent();
+
+  const googleConfirm = (value) =>{
+    if(value)
+        navigation.navigate('MainHomeScreen');
+  }
 
   const googleLogin = async () => {
     try {
@@ -104,14 +109,15 @@ export default function WelcomeBackScreen({ navigation }) {
       <Text style={styles.orText}>Or</Text>
 
       {/* Continue with Google Button */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.googleButton}
         onPress={googleLogin}
         onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
         onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
         <Image source={GoogleIcon} style={styles.googleIcon} />
         <Text style={styles.googleButtonText}>Continue with Google</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <GoogleSignInComponent/>
 
       <Text style={styles.createAccountText}>
         Don’t have an account? <Text style={styles.link} onPress={() => navigation.navigate('RegisterPage')}>Create Account</Text>

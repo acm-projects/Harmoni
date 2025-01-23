@@ -9,6 +9,7 @@ import BackButton from '../img/back.png'; // Import the back button image
 import HoneyBear from '../img/honeybear.png'; // Import honeybear image
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GoogleSignInComponent from './googleLogin';
 
 export default function RegisterPage({ navigation }) {
   const [createAccountHover, setCreateAccountHover] = useState(false);
@@ -130,14 +131,15 @@ export default function RegisterPage({ navigation }) {
       <Text style={styles.orText}>Or</Text>
 
       {/* Continue with Google Button */}
-      <TouchableOpacity 
+      {/* <TouchableOpacity 
         style={styles.googleButton}
         
         onPressIn={() => styles.googleButton.backgroundColor = '#835e45'}
         onPressOut={() => styles.googleButton.backgroundColor = '#fff'}>
         <Image source={GoogleIcon} style={styles.googleIcon} />
         <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <GoogleSignInComponent/>
 
       <Text style={styles.termsText}>
         By signing up, you agree to our <Text style={styles.link}>Terms of Use</Text> 

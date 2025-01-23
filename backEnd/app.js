@@ -59,7 +59,7 @@ app.use('/api/group', groupRoutes); // Register group routes
 
 
 //Starts up the server and checks if it is listening on the port
-app.listen(port, () => {//http://localhost:8000
+app.listen(port,'0.0.0.0', () => {//http://localhost:8000
     try {
         console.log("Port " + port +" is listening :)");
     } catch(e) {
